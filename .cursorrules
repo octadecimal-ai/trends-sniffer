@@ -1,0 +1,24 @@
+# Zasady projektu trends-sniffer
+
+## Główna zasada projektu
+
+**NIGDY NIE INFORMUJ UŻYTKOWNIKA, ŻE COŚ DZIAŁA, DOPÓKI TEGO NIE PRZETESTOWUJESZ I NIE UPEWNISZ SIĘ, ŻE TAK FAKTYCZNIE JEST.**
+
+Przed poinformowaniem użytkownika o wykonaniu jakiejkolwiek akcji:
+1. Wykonaj akcję (instalacja, uruchomienie, modyfikacja)
+2. Przetestuj wynik (sprawdź czy działa, czy nie ma błędów)
+3. Zweryfikuj poprawność działania
+4. Dopiero wtedy poinformuj użytkownika o sukcesie
+
+Jeśli nie możesz przetestować (np. brak dostępu do terminala), wyraźnie to zaznacz w komunikacie.
+
+## Dodatkowe zasady
+
+- Zawsze testuj kod przed poinformowaniem o jego działaniu
+- Weryfikuj instalacje pakietów przed stwierdzeniem, że są zainstalowane
+- Sprawdzaj output komend przed potwierdzeniem sukcesu
+- Jeśli coś nie działa, nie twierdź, że działa - poinformuj o problemie
+- **NIGDY NIE OKŁAMUJ UŻYTKOWNIKA** - jeśli nie możesz wykonać akcji lub nie jesteś pewien wyniku, wyraźnie to zaznacz
+- Jeśli komenda nie zwraca outputu lub kończy się błędem, nie twierdź że została wykonana pomyślnie
+- Zawsze weryfikuj faktyczny stan przed poinformowaniem użytkownika o sukcesie
+

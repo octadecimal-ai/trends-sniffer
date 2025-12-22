@@ -1,0 +1,2397 @@
+country_code,language_code,phrase,multiplier
+CA,en-CA,"buy bitcoin",0.7
+CA,en-CA,"how to buy btc",0.8
+CA,en-CA,"bitcoin purchase",0.7
+CA,en-CA,"bitcoin investment",0.6
+CA,en-CA,"btc portfolio",0.5
+CA,en-CA,"crypto invest",0.5
+CA,en-CA,"bitcoin bull",0.9
+CA,en-CA,"btc moon",1.0
+CA,en-CA,"bitcoin rally",0.9
+CA,en-CA,"bitcoin ETF",0.8
+CA,en-CA,"institutional bitcoin",0.7
+CA,en-CA,"bitcoin legal",0.6
+CA,en-CA,"bitcoin all time high",1.0
+CA,en-CA,"btc ath",1.0
+CA,en-CA,"bitcoin new high",0.9
+CA,en-CA,"sell bitcoin",-0.5
+CA,en-CA,"bitcoin sell",-0.5
+CA,en-CA,"dump btc",-0.8
+CA,en-CA,"bitcoin crash",-1.0
+CA,en-CA,"btc bear",-0.8
+CA,en-CA,"bitcoin dead",-1.0
+CA,en-CA,"bitcoin ban",-1.0
+CA,en-CA,"crypto regulation",-0.7
+CA,en-CA,"bitcoin illegal",-1.0
+CA,en-CA,"bitcoin hack",-1.0
+CA,en-CA,"crypto scam",-0.8
+CA,en-CA,"bitcoin stolen",-0.9
+CA,en-CA,"bitcoin energy",-0.5
+CA,en-CA,"bitcoin bubble",-0.8
+CA,en-CA,"bitcoin ponzi",-0.9
+CA,en-CA,"bitcoin price",0.0
+CA,en-CA,"btc usd",0.0
+CA,en-CA,"bitcoin rate",0.0
+CA,en-CA,"bitcoin news",0.0
+CA,en-CA,"crypto news",0.0
+CA,en-CA,"btc today",0.0
+CA,en-CA,"bitcoin halving",0.0
+CA,en-CA,"btc mining",0.0
+CA,en-CA,"bitcoin blockchain",0.0
+CA,en-CA,"what is bitcoin",0.0
+CA,en-CA,"bitcoin explained",0.0
+CA,en-CA,"how bitcoin works",0.0
+US,en-US,"buy bitcoin",0.7
+US,en-US,"how to buy btc",0.8
+US,en-US,"bitcoin purchase",0.7
+US,en-US,"bitcoin investment",0.6
+US,en-US,"btc portfolio",0.5
+US,en-US,"crypto invest",0.5
+US,en-US,"bitcoin bull",0.9
+US,en-US,"btc moon",1.0
+US,en-US,"bitcoin rally",0.9
+US,en-US,"bitcoin ETF",0.8
+US,en-US,"institutional bitcoin",0.7
+US,en-US,"bitcoin legal",0.6
+US,en-US,"bitcoin all time high",1.0
+US,en-US,"btc ath",1.0
+US,en-US,"bitcoin new high",0.9
+US,en-US,"sell bitcoin",-0.5
+US,en-US,"bitcoin sell",-0.5
+US,en-US,"dump btc",-0.8
+US,en-US,"bitcoin crash",-1.0
+US,en-US,"btc bear",-0.8
+US,en-US,"bitcoin dead",-1.0
+US,en-US,"bitcoin ban",-1.0
+US,en-US,"crypto regulation",-0.7
+US,en-US,"bitcoin illegal",-1.0
+US,en-US,"bitcoin hack",-1.0
+US,en-US,"crypto scam",-0.8
+US,en-US,"bitcoin stolen",-0.9
+US,en-US,"bitcoin energy",-0.5
+US,en-US,"bitcoin bubble",-0.8
+US,en-US,"bitcoin ponzi",-0.9
+US,en-US,"bitcoin price",0.0
+US,en-US,"btc usd",0.0
+US,en-US,"bitcoin rate",0.0
+US,en-US,"bitcoin news",0.0
+US,en-US,"crypto news",0.0
+US,en-US,"btc today",0.0
+US,en-US,"bitcoin halving",0.0
+US,en-US,"btc mining",0.0
+US,en-US,"bitcoin blockchain",0.0
+US,en-US,"what is bitcoin",0.0
+US,en-US,"bitcoin explained",0.0
+US,en-US,"how bitcoin works",0.0
+AU,en-AU,"buy bitcoin",0.7
+AU,en-AU,"how to buy btc",0.8
+AU,en-AU,"bitcoin purchase",0.7
+AU,en-AU,"bitcoin investment",0.6
+AU,en-AU,"btc portfolio",0.5
+AU,en-AU,"crypto invest",0.5
+AU,en-AU,"bitcoin bull",0.9
+AU,en-AU,"btc moon",1.0
+AU,en-AU,"bitcoin rally",0.9
+AU,en-AU,"bitcoin ETF",0.8
+AU,en-AU,"institutional bitcoin",0.7
+AU,en-AU,"bitcoin legal",0.6
+AU,en-AU,"bitcoin all time high",1.0
+AU,en-AU,"btc ath",1.0
+AU,en-AU,"bitcoin new high",0.9
+AU,en-AU,"sell bitcoin",-0.5
+AU,en-AU,"bitcoin sell",-0.5
+AU,en-AU,"dump btc",-0.8
+AU,en-AU,"bitcoin crash",-1.0
+AU,en-AU,"btc bear",-0.8
+AU,en-AU,"bitcoin dead",-1.0
+AU,en-AU,"bitcoin ban",-1.0
+AU,en-AU,"crypto regulation",-0.7
+AU,en-AU,"bitcoin illegal",-1.0
+AU,en-AU,"bitcoin hack",-1.0
+AU,en-AU,"crypto scam",-0.8
+AU,en-AU,"bitcoin stolen",-0.9
+AU,en-AU,"bitcoin energy",-0.5
+AU,en-AU,"bitcoin bubble",-0.8
+AU,en-AU,"bitcoin ponzi",-0.9
+AU,en-AU,"bitcoin price",0.0
+AU,en-AU,"btc usd",0.0
+AU,en-AU,"bitcoin rate",0.0
+AU,en-AU,"bitcoin news",0.0
+AU,en-AU,"crypto news",0.0
+AU,en-AU,"btc today",0.0
+AU,en-AU,"bitcoin halving",0.0
+AU,en-AU,"btc mining",0.0
+AU,en-AU,"bitcoin blockchain",0.0
+AU,en-AU,"what is bitcoin",0.0
+AU,en-AU,"bitcoin explained",0.0
+AU,en-AU,"how bitcoin works",0.0
+BD,bn-BD,"buy bitcoin",0.7
+BD,bn-BD,"how to buy btc",0.8
+BD,bn-BD,"bitcoin purchase",0.7
+BD,bn-BD,"bitcoin investment",0.6
+BD,bn-BD,"btc portfolio",0.5
+BD,bn-BD,"crypto invest",0.5
+BD,bn-BD,"bitcoin bull",0.9
+BD,bn-BD,"btc moon",1.0
+BD,bn-BD,"bitcoin rally",0.9
+BD,bn-BD,"bitcoin ETF",0.8
+BD,bn-BD,"institutional bitcoin",0.7
+BD,bn-BD,"bitcoin legal",0.6
+BD,bn-BD,"bitcoin all time high",1.0
+BD,bn-BD,"btc ath",1.0
+BD,bn-BD,"bitcoin new high",0.9
+BD,bn-BD,"sell bitcoin",-0.5
+BD,bn-BD,"bitcoin sell",-0.5
+BD,bn-BD,"dump btc",-0.8
+BD,bn-BD,"bitcoin crash",-1.0
+BD,bn-BD,"btc bear",-0.8
+BD,bn-BD,"bitcoin dead",-1.0
+BD,bn-BD,"bitcoin ban",-1.0
+BD,bn-BD,"crypto regulation",-0.7
+BD,bn-BD,"bitcoin illegal",-1.0
+BD,bn-BD,"bitcoin hack",-1.0
+BD,bn-BD,"crypto scam",-0.8
+BD,bn-BD,"bitcoin stolen",-0.9
+BD,bn-BD,"bitcoin energy",-0.5
+BD,bn-BD,"bitcoin bubble",-0.8
+BD,bn-BD,"bitcoin ponzi",-0.9
+BD,bn-BD,"bitcoin price",0.0
+BD,bn-BD,"btc usd",0.0
+BD,bn-BD,"bitcoin rate",0.0
+BD,bn-BD,"bitcoin news",0.0
+BD,bn-BD,"crypto news",0.0
+BD,bn-BD,"btc today",0.0
+BD,bn-BD,"bitcoin halving",0.0
+BD,bn-BD,"btc mining",0.0
+BD,bn-BD,"bitcoin blockchain",0.0
+BD,bn-BD,"what is bitcoin",0.0
+BD,bn-BD,"bitcoin explained",0.0
+BD,bn-BD,"how bitcoin works",0.0
+KH,km,"buy bitcoin",0.7
+KH,km,"how to buy btc",0.8
+KH,km,"bitcoin purchase",0.7
+KH,km,"bitcoin investment",0.6
+KH,km,"btc portfolio",0.5
+KH,km,"crypto invest",0.5
+KH,km,"bitcoin bull",0.9
+KH,km,"btc moon",1.0
+KH,km,"bitcoin rally",0.9
+KH,km,"bitcoin ETF",0.8
+KH,km,"institutional bitcoin",0.7
+KH,km,"bitcoin legal",0.6
+KH,km,"bitcoin all time high",1.0
+KH,km,"btc ath",1.0
+KH,km,"bitcoin new high",0.9
+KH,km,"sell bitcoin",-0.5
+KH,km,"bitcoin sell",-0.5
+KH,km,"dump btc",-0.8
+KH,km,"bitcoin crash",-1.0
+KH,km,"btc bear",-0.8
+KH,km,"bitcoin dead",-1.0
+KH,km,"bitcoin ban",-1.0
+KH,km,"crypto regulation",-0.7
+KH,km,"bitcoin illegal",-1.0
+KH,km,"bitcoin hack",-1.0
+KH,km,"crypto scam",-0.8
+KH,km,"bitcoin stolen",-0.9
+KH,km,"bitcoin energy",-0.5
+KH,km,"bitcoin bubble",-0.8
+KH,km,"bitcoin ponzi",-0.9
+KH,km,"bitcoin price",0.0
+KH,km,"btc usd",0.0
+KH,km,"bitcoin rate",0.0
+KH,km,"bitcoin news",0.0
+KH,km,"crypto news",0.0
+KH,km,"btc today",0.0
+KH,km,"bitcoin halving",0.0
+KH,km,"btc mining",0.0
+KH,km,"bitcoin blockchain",0.0
+KH,km,"what is bitcoin",0.0
+KH,km,"bitcoin explained",0.0
+KH,km,"how bitcoin works",0.0
+HK,zh-HK,"买比特币",0.7
+HK,zh-HK,"卖比特币",-0.5
+HK,zh-HK,"比特币价格",0.0
+HK,zh-HK,"比特币新闻",0.0
+IN,en-IN,"buy bitcoin",0.7
+IN,en-IN,"how to buy btc",0.8
+IN,en-IN,"bitcoin purchase",0.7
+IN,en-IN,"bitcoin investment",0.6
+IN,en-IN,"btc portfolio",0.5
+IN,en-IN,"crypto invest",0.5
+IN,en-IN,"bitcoin bull",0.9
+IN,en-IN,"btc moon",1.0
+IN,en-IN,"bitcoin rally",0.9
+IN,en-IN,"bitcoin ETF",0.8
+IN,en-IN,"institutional bitcoin",0.7
+IN,en-IN,"bitcoin legal",0.6
+IN,en-IN,"bitcoin all time high",1.0
+IN,en-IN,"btc ath",1.0
+IN,en-IN,"bitcoin new high",0.9
+IN,en-IN,"sell bitcoin",-0.5
+IN,en-IN,"bitcoin sell",-0.5
+IN,en-IN,"dump btc",-0.8
+IN,en-IN,"bitcoin crash",-1.0
+IN,en-IN,"btc bear",-0.8
+IN,en-IN,"bitcoin dead",-1.0
+IN,en-IN,"bitcoin ban",-1.0
+IN,en-IN,"crypto regulation",-0.7
+IN,en-IN,"bitcoin illegal",-1.0
+IN,en-IN,"bitcoin hack",-1.0
+IN,en-IN,"crypto scam",-0.8
+IN,en-IN,"bitcoin stolen",-0.9
+IN,en-IN,"bitcoin energy",-0.5
+IN,en-IN,"bitcoin bubble",-0.8
+IN,en-IN,"bitcoin ponzi",-0.9
+IN,en-IN,"bitcoin price",0.0
+IN,en-IN,"btc usd",0.0
+IN,en-IN,"bitcoin rate",0.0
+IN,en-IN,"bitcoin news",0.0
+IN,en-IN,"crypto news",0.0
+IN,en-IN,"btc today",0.0
+IN,en-IN,"bitcoin halving",0.0
+IN,en-IN,"btc mining",0.0
+IN,en-IN,"bitcoin blockchain",0.0
+IN,en-IN,"what is bitcoin",0.0
+IN,en-IN,"bitcoin explained",0.0
+IN,en-IN,"how bitcoin works",0.0
+ID,id,"beli bitcoin",0.7
+ID,id,"jual bitcoin",-0.5
+ID,id,"harga bitcoin",0.0
+ID,id,"berita bitcoin",0.0
+JP,ja,"ビットコイン",0.0
+JP,ja,"仮想通貨",0.0
+LA,lo,"buy bitcoin",0.7
+LA,lo,"how to buy btc",0.8
+LA,lo,"bitcoin purchase",0.7
+LA,lo,"bitcoin investment",0.6
+LA,lo,"btc portfolio",0.5
+LA,lo,"crypto invest",0.5
+LA,lo,"bitcoin bull",0.9
+LA,lo,"btc moon",1.0
+LA,lo,"bitcoin rally",0.9
+LA,lo,"bitcoin ETF",0.8
+LA,lo,"institutional bitcoin",0.7
+LA,lo,"bitcoin legal",0.6
+LA,lo,"bitcoin all time high",1.0
+LA,lo,"btc ath",1.0
+LA,lo,"bitcoin new high",0.9
+LA,lo,"sell bitcoin",-0.5
+LA,lo,"bitcoin sell",-0.5
+LA,lo,"dump btc",-0.8
+LA,lo,"bitcoin crash",-1.0
+LA,lo,"btc bear",-0.8
+LA,lo,"bitcoin dead",-1.0
+LA,lo,"bitcoin ban",-1.0
+LA,lo,"crypto regulation",-0.7
+LA,lo,"bitcoin illegal",-1.0
+LA,lo,"bitcoin hack",-1.0
+LA,lo,"crypto scam",-0.8
+LA,lo,"bitcoin stolen",-0.9
+LA,lo,"bitcoin energy",-0.5
+LA,lo,"bitcoin bubble",-0.8
+LA,lo,"bitcoin ponzi",-0.9
+LA,lo,"bitcoin price",0.0
+LA,lo,"btc usd",0.0
+LA,lo,"bitcoin rate",0.0
+LA,lo,"bitcoin news",0.0
+LA,lo,"crypto news",0.0
+LA,lo,"btc today",0.0
+LA,lo,"bitcoin halving",0.0
+LA,lo,"btc mining",0.0
+LA,lo,"bitcoin blockchain",0.0
+LA,lo,"what is bitcoin",0.0
+LA,lo,"bitcoin explained",0.0
+LA,lo,"how bitcoin works",0.0
+MY,ms-MY,"beli bitcoin",0.7
+MY,ms-MY,"jual bitcoin",-0.5
+MY,ms-MY,"harga bitcoin",0.0
+MY,ms-MY,"berita bitcoin",0.0
+MN,mn,"buy bitcoin",0.7
+MN,mn,"how to buy btc",0.8
+MN,mn,"bitcoin purchase",0.7
+MN,mn,"bitcoin investment",0.6
+MN,mn,"btc portfolio",0.5
+MN,mn,"crypto invest",0.5
+MN,mn,"bitcoin bull",0.9
+MN,mn,"btc moon",1.0
+MN,mn,"bitcoin rally",0.9
+MN,mn,"bitcoin ETF",0.8
+MN,mn,"institutional bitcoin",0.7
+MN,mn,"bitcoin legal",0.6
+MN,mn,"bitcoin all time high",1.0
+MN,mn,"btc ath",1.0
+MN,mn,"bitcoin new high",0.9
+MN,mn,"sell bitcoin",-0.5
+MN,mn,"bitcoin sell",-0.5
+MN,mn,"dump btc",-0.8
+MN,mn,"bitcoin crash",-1.0
+MN,mn,"btc bear",-0.8
+MN,mn,"bitcoin dead",-1.0
+MN,mn,"bitcoin ban",-1.0
+MN,mn,"crypto regulation",-0.7
+MN,mn,"bitcoin illegal",-1.0
+MN,mn,"bitcoin hack",-1.0
+MN,mn,"crypto scam",-0.8
+MN,mn,"bitcoin stolen",-0.9
+MN,mn,"bitcoin energy",-0.5
+MN,mn,"bitcoin bubble",-0.8
+MN,mn,"bitcoin ponzi",-0.9
+MN,mn,"bitcoin price",0.0
+MN,mn,"btc usd",0.0
+MN,mn,"bitcoin rate",0.0
+MN,mn,"bitcoin news",0.0
+MN,mn,"crypto news",0.0
+MN,mn,"btc today",0.0
+MN,mn,"bitcoin halving",0.0
+MN,mn,"btc mining",0.0
+MN,mn,"bitcoin blockchain",0.0
+MN,mn,"what is bitcoin",0.0
+MN,mn,"bitcoin explained",0.0
+MN,mn,"how bitcoin works",0.0
+MM,my,"buy bitcoin",0.7
+MM,my,"how to buy btc",0.8
+MM,my,"bitcoin purchase",0.7
+MM,my,"bitcoin investment",0.6
+MM,my,"btc portfolio",0.5
+MM,my,"crypto invest",0.5
+MM,my,"bitcoin bull",0.9
+MM,my,"btc moon",1.0
+MM,my,"bitcoin rally",0.9
+MM,my,"bitcoin ETF",0.8
+MM,my,"institutional bitcoin",0.7
+MM,my,"bitcoin legal",0.6
+MM,my,"bitcoin all time high",1.0
+MM,my,"btc ath",1.0
+MM,my,"bitcoin new high",0.9
+MM,my,"sell bitcoin",-0.5
+MM,my,"bitcoin sell",-0.5
+MM,my,"dump btc",-0.8
+MM,my,"bitcoin crash",-1.0
+MM,my,"btc bear",-0.8
+MM,my,"bitcoin dead",-1.0
+MM,my,"bitcoin ban",-1.0
+MM,my,"crypto regulation",-0.7
+MM,my,"bitcoin illegal",-1.0
+MM,my,"bitcoin hack",-1.0
+MM,my,"crypto scam",-0.8
+MM,my,"bitcoin stolen",-0.9
+MM,my,"bitcoin energy",-0.5
+MM,my,"bitcoin bubble",-0.8
+MM,my,"bitcoin ponzi",-0.9
+MM,my,"bitcoin price",0.0
+MM,my,"btc usd",0.0
+MM,my,"bitcoin rate",0.0
+MM,my,"bitcoin news",0.0
+MM,my,"crypto news",0.0
+MM,my,"btc today",0.0
+MM,my,"bitcoin halving",0.0
+MM,my,"btc mining",0.0
+MM,my,"bitcoin blockchain",0.0
+MM,my,"what is bitcoin",0.0
+MM,my,"bitcoin explained",0.0
+MM,my,"how bitcoin works",0.0
+NZ,en-NZ,"buy bitcoin",0.7
+NZ,en-NZ,"how to buy btc",0.8
+NZ,en-NZ,"bitcoin purchase",0.7
+NZ,en-NZ,"bitcoin investment",0.6
+NZ,en-NZ,"btc portfolio",0.5
+NZ,en-NZ,"crypto invest",0.5
+NZ,en-NZ,"bitcoin bull",0.9
+NZ,en-NZ,"btc moon",1.0
+NZ,en-NZ,"bitcoin rally",0.9
+NZ,en-NZ,"bitcoin ETF",0.8
+NZ,en-NZ,"institutional bitcoin",0.7
+NZ,en-NZ,"bitcoin legal",0.6
+NZ,en-NZ,"bitcoin all time high",1.0
+NZ,en-NZ,"btc ath",1.0
+NZ,en-NZ,"bitcoin new high",0.9
+NZ,en-NZ,"sell bitcoin",-0.5
+NZ,en-NZ,"bitcoin sell",-0.5
+NZ,en-NZ,"dump btc",-0.8
+NZ,en-NZ,"bitcoin crash",-1.0
+NZ,en-NZ,"btc bear",-0.8
+NZ,en-NZ,"bitcoin dead",-1.0
+NZ,en-NZ,"bitcoin ban",-1.0
+NZ,en-NZ,"crypto regulation",-0.7
+NZ,en-NZ,"bitcoin illegal",-1.0
+NZ,en-NZ,"bitcoin hack",-1.0
+NZ,en-NZ,"crypto scam",-0.8
+NZ,en-NZ,"bitcoin stolen",-0.9
+NZ,en-NZ,"bitcoin energy",-0.5
+NZ,en-NZ,"bitcoin bubble",-0.8
+NZ,en-NZ,"bitcoin ponzi",-0.9
+NZ,en-NZ,"bitcoin price",0.0
+NZ,en-NZ,"btc usd",0.0
+NZ,en-NZ,"bitcoin rate",0.0
+NZ,en-NZ,"bitcoin news",0.0
+NZ,en-NZ,"crypto news",0.0
+NZ,en-NZ,"btc today",0.0
+NZ,en-NZ,"bitcoin halving",0.0
+NZ,en-NZ,"btc mining",0.0
+NZ,en-NZ,"bitcoin blockchain",0.0
+NZ,en-NZ,"what is bitcoin",0.0
+NZ,en-NZ,"bitcoin explained",0.0
+NZ,en-NZ,"how bitcoin works",0.0
+PK,ur-PK,"buy bitcoin",0.7
+PK,ur-PK,"how to buy btc",0.8
+PK,ur-PK,"bitcoin purchase",0.7
+PK,ur-PK,"bitcoin investment",0.6
+PK,ur-PK,"btc portfolio",0.5
+PK,ur-PK,"crypto invest",0.5
+PK,ur-PK,"bitcoin bull",0.9
+PK,ur-PK,"btc moon",1.0
+PK,ur-PK,"bitcoin rally",0.9
+PK,ur-PK,"bitcoin ETF",0.8
+PK,ur-PK,"institutional bitcoin",0.7
+PK,ur-PK,"bitcoin legal",0.6
+PK,ur-PK,"bitcoin all time high",1.0
+PK,ur-PK,"btc ath",1.0
+PK,ur-PK,"bitcoin new high",0.9
+PK,ur-PK,"sell bitcoin",-0.5
+PK,ur-PK,"bitcoin sell",-0.5
+PK,ur-PK,"dump btc",-0.8
+PK,ur-PK,"bitcoin crash",-1.0
+PK,ur-PK,"btc bear",-0.8
+PK,ur-PK,"bitcoin dead",-1.0
+PK,ur-PK,"bitcoin ban",-1.0
+PK,ur-PK,"crypto regulation",-0.7
+PK,ur-PK,"bitcoin illegal",-1.0
+PK,ur-PK,"bitcoin hack",-1.0
+PK,ur-PK,"crypto scam",-0.8
+PK,ur-PK,"bitcoin stolen",-0.9
+PK,ur-PK,"bitcoin energy",-0.5
+PK,ur-PK,"bitcoin bubble",-0.8
+PK,ur-PK,"bitcoin ponzi",-0.9
+PK,ur-PK,"bitcoin price",0.0
+PK,ur-PK,"btc usd",0.0
+PK,ur-PK,"bitcoin rate",0.0
+PK,ur-PK,"bitcoin news",0.0
+PK,ur-PK,"crypto news",0.0
+PK,ur-PK,"btc today",0.0
+PK,ur-PK,"bitcoin halving",0.0
+PK,ur-PK,"btc mining",0.0
+PK,ur-PK,"bitcoin blockchain",0.0
+PK,ur-PK,"what is bitcoin",0.0
+PK,ur-PK,"bitcoin explained",0.0
+PK,ur-PK,"how bitcoin works",0.0
+PH,tl,"beli bitcoin",0.7
+PH,tl,"jual bitcoin",-0.5
+PH,tl,"harga bitcoin",0.0
+PH,tl,"berita bitcoin",0.0
+SG,en-SG,"buy bitcoin",0.7
+SG,en-SG,"how to buy btc",0.8
+SG,en-SG,"bitcoin purchase",0.7
+SG,en-SG,"bitcoin investment",0.6
+SG,en-SG,"btc portfolio",0.5
+SG,en-SG,"crypto invest",0.5
+SG,en-SG,"bitcoin bull",0.9
+SG,en-SG,"btc moon",1.0
+SG,en-SG,"bitcoin rally",0.9
+SG,en-SG,"bitcoin ETF",0.8
+SG,en-SG,"institutional bitcoin",0.7
+SG,en-SG,"bitcoin legal",0.6
+SG,en-SG,"bitcoin all time high",1.0
+SG,en-SG,"btc ath",1.0
+SG,en-SG,"bitcoin new high",0.9
+SG,en-SG,"sell bitcoin",-0.5
+SG,en-SG,"bitcoin sell",-0.5
+SG,en-SG,"dump btc",-0.8
+SG,en-SG,"bitcoin crash",-1.0
+SG,en-SG,"btc bear",-0.8
+SG,en-SG,"bitcoin dead",-1.0
+SG,en-SG,"bitcoin ban",-1.0
+SG,en-SG,"crypto regulation",-0.7
+SG,en-SG,"bitcoin illegal",-1.0
+SG,en-SG,"bitcoin hack",-1.0
+SG,en-SG,"crypto scam",-0.8
+SG,en-SG,"bitcoin stolen",-0.9
+SG,en-SG,"bitcoin energy",-0.5
+SG,en-SG,"bitcoin bubble",-0.8
+SG,en-SG,"bitcoin ponzi",-0.9
+SG,en-SG,"bitcoin price",0.0
+SG,en-SG,"btc usd",0.0
+SG,en-SG,"bitcoin rate",0.0
+SG,en-SG,"bitcoin news",0.0
+SG,en-SG,"crypto news",0.0
+SG,en-SG,"btc today",0.0
+SG,en-SG,"bitcoin halving",0.0
+SG,en-SG,"btc mining",0.0
+SG,en-SG,"bitcoin blockchain",0.0
+SG,en-SG,"what is bitcoin",0.0
+SG,en-SG,"bitcoin explained",0.0
+SG,en-SG,"how bitcoin works",0.0
+KR,ko-KR,"비트코인",0.0
+KR,ko-KR,"암호화폐",0.0
+KR,ko-KR,"김치 프리미엄",0.5
+KR,ko-KR,"비트코인 구매",0.7
+KR,ko-KR,"비트코인 판매",-0.5
+LK,si,"buy bitcoin",0.7
+LK,si,"how to buy btc",0.8
+LK,si,"bitcoin purchase",0.7
+LK,si,"bitcoin investment",0.6
+LK,si,"btc portfolio",0.5
+LK,si,"crypto invest",0.5
+LK,si,"bitcoin bull",0.9
+LK,si,"btc moon",1.0
+LK,si,"bitcoin rally",0.9
+LK,si,"bitcoin ETF",0.8
+LK,si,"institutional bitcoin",0.7
+LK,si,"bitcoin legal",0.6
+LK,si,"bitcoin all time high",1.0
+LK,si,"btc ath",1.0
+LK,si,"bitcoin new high",0.9
+LK,si,"sell bitcoin",-0.5
+LK,si,"bitcoin sell",-0.5
+LK,si,"dump btc",-0.8
+LK,si,"bitcoin crash",-1.0
+LK,si,"btc bear",-0.8
+LK,si,"bitcoin dead",-1.0
+LK,si,"bitcoin ban",-1.0
+LK,si,"crypto regulation",-0.7
+LK,si,"bitcoin illegal",-1.0
+LK,si,"bitcoin hack",-1.0
+LK,si,"crypto scam",-0.8
+LK,si,"bitcoin stolen",-0.9
+LK,si,"bitcoin energy",-0.5
+LK,si,"bitcoin bubble",-0.8
+LK,si,"bitcoin ponzi",-0.9
+LK,si,"bitcoin price",0.0
+LK,si,"btc usd",0.0
+LK,si,"bitcoin rate",0.0
+LK,si,"bitcoin news",0.0
+LK,si,"crypto news",0.0
+LK,si,"btc today",0.0
+LK,si,"bitcoin halving",0.0
+LK,si,"btc mining",0.0
+LK,si,"bitcoin blockchain",0.0
+LK,si,"what is bitcoin",0.0
+LK,si,"bitcoin explained",0.0
+LK,si,"how bitcoin works",0.0
+TH,th,"ซื้อ Bitcoin",0.7
+TH,th,"ขาย Bitcoin",-0.5
+TH,th,"ราคา Bitcoin",0.0
+TH,th,"ข่าว Bitcoin",0.0
+VN,vi,"mua bitcoin",0.7
+VN,vi,"bán bitcoin",-0.5
+VN,vi,"giá bitcoin",0.0
+VN,vi,"tin tức bitcoin",0.0
+AT,de-AT,"Bitcoin kaufen",0.7
+AT,de-AT,"wie Bitcoin kaufen",0.8
+AT,de-AT,"in Bitcoin investieren",0.6
+AT,de-AT,"Bitcoin Portfolio",0.5
+AT,de-AT,"in Krypto investieren",0.5
+AT,de-AT,"Bitcoin steigt",0.9
+AT,de-AT,"Bitcoin Rallye",0.9
+AT,de-AT,"Bitcoin ETF",0.8
+AT,de-AT,"institutionelle Bitcoin",0.7
+AT,de-AT,"Bitcoin legal",0.6
+AT,de-AT,"Bitcoin Rekordhoch",1.0
+AT,de-AT,"Bitcoin ATH",1.0
+AT,de-AT,"neues Bitcoin Hoch",0.9
+AT,de-AT,"Bitcoin verkaufen",-0.5
+AT,de-AT,"Bitcoin Abverkauf",-0.8
+AT,de-AT,"Bitcoin Absturz",-1.0
+AT,de-AT,"Bitcoin Bärenmarkt",-0.8
+AT,de-AT,"Bitcoin tot",-1.0
+AT,de-AT,"Bitcoin Verbot",-1.0
+AT,de-AT,"Krypto Regulierung",-0.7
+AT,de-AT,"Bitcoin illegal",-1.0
+AT,de-AT,"Bitcoin Hack",-1.0
+AT,de-AT,"Krypto Betrug",-0.8
+AT,de-AT,"Bitcoin Diebstahl",-0.9
+AT,de-AT,"Bitcoin Energie",-0.5
+AT,de-AT,"Bitcoin Blase",-0.8
+AT,de-AT,"Bitcoin Schneeballsystem",-0.9
+AT,de-AT,"Bitcoin Preis",0.0
+AT,de-AT,"Bitcoin Kurs",0.0
+AT,de-AT,"Bitcoin Nachrichten",0.0
+AT,de-AT,"Krypto Nachrichten",0.0
+AT,de-AT,"Bitcoin aktuell",0.0
+AT,de-AT,"Bitcoin Halving",0.0
+AT,de-AT,"Bitcoin Mining",0.0
+AT,de-AT,"Bitcoin Blockchain",0.0
+AT,de-AT,"Was ist Bitcoin",0.0
+AT,de-AT,"Bitcoin erklärt",0.0
+AT,de-AT,"Wie funktioniert Bitcoin",0.0
+BE,nl-BE,"buy bitcoin",0.7
+BE,nl-BE,"how to buy btc",0.8
+BE,nl-BE,"bitcoin purchase",0.7
+BE,nl-BE,"bitcoin investment",0.6
+BE,nl-BE,"btc portfolio",0.5
+BE,nl-BE,"crypto invest",0.5
+BE,nl-BE,"bitcoin bull",0.9
+BE,nl-BE,"btc moon",1.0
+BE,nl-BE,"bitcoin rally",0.9
+BE,nl-BE,"bitcoin ETF",0.8
+BE,nl-BE,"institutional bitcoin",0.7
+BE,nl-BE,"bitcoin legal",0.6
+BE,nl-BE,"bitcoin all time high",1.0
+BE,nl-BE,"btc ath",1.0
+BE,nl-BE,"bitcoin new high",0.9
+BE,nl-BE,"sell bitcoin",-0.5
+BE,nl-BE,"bitcoin sell",-0.5
+BE,nl-BE,"dump btc",-0.8
+BE,nl-BE,"bitcoin crash",-1.0
+BE,nl-BE,"btc bear",-0.8
+BE,nl-BE,"bitcoin dead",-1.0
+BE,nl-BE,"bitcoin ban",-1.0
+BE,nl-BE,"crypto regulation",-0.7
+BE,nl-BE,"bitcoin illegal",-1.0
+BE,nl-BE,"bitcoin hack",-1.0
+BE,nl-BE,"crypto scam",-0.8
+BE,nl-BE,"bitcoin stolen",-0.9
+BE,nl-BE,"bitcoin energy",-0.5
+BE,nl-BE,"bitcoin bubble",-0.8
+BE,nl-BE,"bitcoin ponzi",-0.9
+BE,nl-BE,"bitcoin price",0.0
+BE,nl-BE,"btc usd",0.0
+BE,nl-BE,"bitcoin rate",0.0
+BE,nl-BE,"bitcoin news",0.0
+BE,nl-BE,"crypto news",0.0
+BE,nl-BE,"btc today",0.0
+BE,nl-BE,"bitcoin halving",0.0
+BE,nl-BE,"btc mining",0.0
+BE,nl-BE,"bitcoin blockchain",0.0
+BE,nl-BE,"what is bitcoin",0.0
+BE,nl-BE,"bitcoin explained",0.0
+BE,nl-BE,"how bitcoin works",0.0
+BG,bg,"купить биткоин",0.7
+BG,bg,"продать биткоин",-0.5
+BG,bg,"крах биткоина",-1.0
+BG,bg,"запрет биткоина",-1.0
+BG,bg,"пузырь биткоина",-0.8
+BG,bg,"биткоин скам",-0.8
+BG,bg,"биткоин",0.0
+BG,bg,"криптовалута",0.0
+HR,hr-HR,"buy bitcoin",0.7
+HR,hr-HR,"how to buy btc",0.8
+HR,hr-HR,"bitcoin purchase",0.7
+HR,hr-HR,"bitcoin investment",0.6
+HR,hr-HR,"btc portfolio",0.5
+HR,hr-HR,"crypto invest",0.5
+HR,hr-HR,"bitcoin bull",0.9
+HR,hr-HR,"btc moon",1.0
+HR,hr-HR,"bitcoin rally",0.9
+HR,hr-HR,"bitcoin ETF",0.8
+HR,hr-HR,"institutional bitcoin",0.7
+HR,hr-HR,"bitcoin legal",0.6
+HR,hr-HR,"bitcoin all time high",1.0
+HR,hr-HR,"btc ath",1.0
+HR,hr-HR,"bitcoin new high",0.9
+HR,hr-HR,"sell bitcoin",-0.5
+HR,hr-HR,"bitcoin sell",-0.5
+HR,hr-HR,"dump btc",-0.8
+HR,hr-HR,"bitcoin crash",-1.0
+HR,hr-HR,"btc bear",-0.8
+HR,hr-HR,"bitcoin dead",-1.0
+HR,hr-HR,"bitcoin ban",-1.0
+HR,hr-HR,"crypto regulation",-0.7
+HR,hr-HR,"bitcoin illegal",-1.0
+HR,hr-HR,"bitcoin hack",-1.0
+HR,hr-HR,"crypto scam",-0.8
+HR,hr-HR,"bitcoin stolen",-0.9
+HR,hr-HR,"bitcoin energy",-0.5
+HR,hr-HR,"bitcoin bubble",-0.8
+HR,hr-HR,"bitcoin ponzi",-0.9
+HR,hr-HR,"bitcoin price",0.0
+HR,hr-HR,"btc usd",0.0
+HR,hr-HR,"bitcoin rate",0.0
+HR,hr-HR,"bitcoin news",0.0
+HR,hr-HR,"crypto news",0.0
+HR,hr-HR,"btc today",0.0
+HR,hr-HR,"bitcoin halving",0.0
+HR,hr-HR,"btc mining",0.0
+HR,hr-HR,"bitcoin blockchain",0.0
+HR,hr-HR,"what is bitcoin",0.0
+HR,hr-HR,"bitcoin explained",0.0
+HR,hr-HR,"how bitcoin works",0.0
+CY,el-CY,"αγορά bitcoin",0.7
+CY,el-CY,"πώς να αγοράσετε btc",0.8
+CY,el-CY,"επένδυση bitcoin",0.6
+CY,el-CY,"χαρτοφυλάκιο btc",0.5
+CY,el-CY,"επένδυση crypto",0.5
+CY,el-CY,"bitcoin bull",0.9
+CY,el-CY,"btc moon",1.0
+CY,el-CY,"ράλι bitcoin",0.9
+CY,el-CY,"bitcoin ETF",0.8
+CY,el-CY,"θεσμικό bitcoin",0.7
+CY,el-CY,"bitcoin νόμιμο",0.6
+CY,el-CY,"ιστορικό υψηλό bitcoin",1.0
+CY,el-CY,"bitcoin ATH",1.0
+CY,el-CY,"νέο υψηλό bitcoin",0.9
+CY,el-CY,"πούλησε bitcoin",-0.5
+CY,el-CY,"πωλήσεις bitcoin",-0.5
+CY,el-CY,"dump btc",-0.8
+CY,el-CY,"κραχ bitcoin",-1.0
+CY,el-CY,"bitcoin bear",-0.8
+CY,el-CY,"bitcoin νεκρό",-1.0
+CY,el-CY,"απαγόρευση bitcoin",-1.0
+CY,el-CY,"ρύθμιση crypto",-0.7
+CY,el-CY,"bitcoin παράνομο",-1.0
+CY,el-CY,"bitcoin hack",-1.0
+CY,el-CY,"crypto scam",-0.8
+CY,el-CY,"bitcoin κλάπηκε",-0.9
+CY,el-CY,"ενέργεια bitcoin",-0.5
+CY,el-CY,"φούσκα bitcoin",-0.8
+CY,el-CY,"bitcoin ponzi",-0.9
+CY,el-CY,"τιμή bitcoin",0.0
+CY,el-CY,"btc usd",0.0
+CY,el-CY,"τιμή bitcoin",0.0
+CY,el-CY,"ειδήσεις bitcoin",0.0
+CY,el-CY,"ειδήσεις crypto",0.0
+CY,el-CY,"btc σήμερα",0.0
+CY,el-CY,"bitcoin halving",0.0
+CY,el-CY,"btc εξόρυξη",0.0
+CY,el-CY,"bitcoin blockchain",0.0
+CY,el-CY,"τι είναι το bitcoin",0.0
+CY,el-CY,"bitcoin εξήγηση",0.0
+CY,el-CY,"πώς λειτουργεί το bitcoin",0.0
+CZ,cs,"koupit bitcoin",0.7
+CZ,cs,"jak koupit btc",0.8
+CZ,cs,"investice bitcoin",0.6
+CZ,cs,"krypto portfolio",0.5
+CZ,cs,"investice do kryptoměn",0.5
+CZ,cs,"bitcoin bull",0.9
+CZ,cs,"btc moon",1.0
+CZ,cs,"rally bitcoin",0.9
+CZ,cs,"bitcoin ETF",0.8
+CZ,cs,"institucionální bitcoin",0.7
+CZ,cs,"bitcoin legální",0.6
+CZ,cs,"bitcoin rekordní maximum",1.0
+CZ,cs,"bitcoin ATH",1.0
+CZ,cs,"bitcoin nové maximum",0.9
+CZ,cs,"prodat bitcoin",-0.5
+CZ,cs,"prodej bitcoin",-0.5
+CZ,cs,"dump btc",-0.8
+CZ,cs,"bitcoin krach",-1.0
+CZ,cs,"btc medvěd",-0.8
+CZ,cs,"bitcoin mrtvý",-1.0
+CZ,cs,"bitcoin zákaz",-1.0
+CZ,cs,"krypto regulace",-0.7
+CZ,cs,"bitcoin nelegální",-1.0
+CZ,cs,"bitcoin hack",-1.0
+CZ,cs,"krypto podvod",-0.8
+CZ,cs,"bitcoin ukraden",-0.9
+CZ,cs,"bitcoin energie",-0.5
+CZ,cs,"bitcoin bublina",-0.8
+CZ,cs,"bitcoin ponzi",-0.9
+CZ,cs,"cena bitcoin",0.0
+CZ,cs,"btc usd",0.0
+CZ,cs,"kurz bitcoinu",0.0
+CZ,cs,"bitcoin novinky",0.0
+CZ,cs,"krypto novinky",0.0
+CZ,cs,"btc dnes",0.0
+CZ,cs,"bitcoin půlení",0.0
+CZ,cs,"těžba bitcoinu",0.0
+CZ,cs,"bitcoin blockchain",0.0
+CZ,cs,"co je bitcoin",0.0
+CZ,cs,"bitcoin vysvětleno",0.0
+CZ,cs,"jak funguje bitcoin",0.0
+DK,da-DK,"køb bitcoin",0.7
+DK,da-DK,"hvordan køber man btc",0.8
+DK,da-DK,"bitcoin køb",0.7
+DK,da-DK,"bitcoin investering",0.6
+DK,da-DK,"btc portefølje",0.5
+DK,da-DK,"krypto investering",0.5
+DK,da-DK,"bitcoin bull",0.9
+DK,da-DK,"btc moon",1.0
+DK,da-DK,"bitcoin rally",0.9
+DK,da-DK,"bitcoin ETF",0.8
+DK,da-DK,"institutionel bitcoin",0.7
+DK,da-DK,"bitcoin lovlig",0.6
+DK,da-DK,"bitcoin kursrekord",1.0
+DK,da-DK,"bitcoin ATH",1.0
+DK,da-DK,"bitcoin ny rekord",0.9
+DK,da-DK,"sælg bitcoin",-0.5
+DK,da-DK,"bitcoin salg",-0.5
+DK,da-DK,"dump btc",-0.8
+DK,da-DK,"bitcoin krak",-1.0
+DK,da-DK,"btc bear",-0.8
+DK,da-DK,"bitcoin død",-1.0
+DK,da-DK,"bitcoin forbud",-1.0
+DK,da-DK,"krypto regulering",-0.7
+DK,da-DK,"bitcoin ulovlig",-1.0
+DK,da-DK,"bitcoin hack",-1.0
+DK,da-DK,"krypto fidus",-0.8
+DK,da-DK,"bitcoin stjålet",-0.9
+DK,da-DK,"bitcoin energi",-0.5
+DK,da-DK,"bitcoin boble",-0.8
+DK,da-DK,"bitcoin ponzi",-0.9
+DK,da-DK,"bitcoin pris",0.0
+DK,da-DK,"btc usd",0.0
+DK,da-DK,"bitcoin kurs",0.0
+DK,da-DK,"bitcoin nyheder",0.0
+DK,da-DK,"krypto nyheder",0.0
+DK,da-DK,"btc i dag",0.0
+DK,da-DK,"bitcoin halvering",0.0
+DK,da-DK,"btc mining",0.0
+DK,da-DK,"bitcoin blockchain",0.0
+DK,da-DK,"hvad er bitcoin",0.0
+DK,da-DK,"bitcoin forklaret",0.0
+DK,da-DK,"hvordan fungerer bitcoin",0.0
+EE,et,"osta bitcoin",0.7
+EE,et,"kuidas osta btc",0.8
+EE,et,"osta bitcoin",0.7
+EE,et,"bitcoini investeering",0.6
+EE,et,"btc portfell",0.5
+EE,et,"kruptorahandus investeering",0.5
+EE,et,"bitcoin bull",0.9
+EE,et,"btc kuu",1.0
+EE,et,"bitcoini ralli",0.9
+EE,et,"bitcoin ETF",0.8
+EE,et,"institutsionaalne bitcoin",0.7
+EE,et,"bitcoin seaduslik",0.6
+EE,et,"bitcoini tipphind",1.0
+EE,et,"bitcoin ATH",1.0
+EE,et,"bitcoini uus tipp",0.9
+EE,et,"müü bitcoin",-0.5
+EE,et,"müük bitcoin",-0.5
+EE,et,"dump btc",-0.8
+EE,et,"bitcoini krahh",-1.0
+EE,et,"btc karu",-0.8
+EE,et,"bitcoin surnud",-1.0
+EE,et,"bitcoini keeld",-1.0
+EE,et,"kruptoseadus",-0.7
+EE,et,"bitcoin ebaseaduslik",-1.0
+EE,et,"bitcoini häkk",-1.0
+EE,et,"krypto petuskeem",-0.8
+EE,et,"bitcoin varastatud",-0.9
+EE,et,"bitcoini energia",-0.5
+EE,et,"bitcoini mull",-0.8
+EE,et,"bitcoini pettus",-0.9
+EE,et,"bitcoini hind",0.0
+EE,et,"btc usd",0.0
+EE,et,"bitcoini kurss",0.0
+EE,et,"bitcoini uudised",0.0
+EE,et,"kruptouudised",0.0
+EE,et,"btc täna",0.0
+EE,et,"bitcoini pooldumine",0.0
+EE,et,"btc kaevandamine",0.0
+EE,et,"bitcoini plokiahel",0.0
+EE,et,"mis on bitcoin",0.0
+EE,et,"bitcoin selgitatud",0.0
+EE,et,"kuidas bitcoin toimib",0.0
+FI,fi-FI,"osta bitcoin",0.7
+FI,fi-FI,"miten ostaa btc",0.8
+FI,fi-FI,"bitcoin osto",0.7
+FI,fi-FI,"bitcoin-sijoitus",0.6
+FI,fi-FI,"btc salkku",0.5
+FI,fi-FI,"krypto-sijoitus",0.5
+FI,fi-FI,"bitcoin bull",0.9
+FI,fi-FI,"btc moon",1.0
+FI,fi-FI,"bitcoin rally",0.9
+FI,fi-FI,"bitcoin ETF",0.8
+FI,fi-FI,"institutionaalinen bitcoin",0.7
+FI,fi-FI,"bitcoin laillinen",0.6
+FI,fi-FI,"bitcoin ennätyskorkea",1.0
+FI,fi-FI,"bitcoin ATH",1.0
+FI,fi-FI,"bitcoin uusi ennätys",0.9
+FI,fi-FI,"myy bitcoin",-0.5
+FI,fi-FI,"bitcoin myynti",-0.5
+FI,fi-FI,"dump btc",-0.8
+FI,fi-FI,"bitcoin romahdus",-1.0
+FI,fi-FI,"btc karhu",-0.8
+FI,fi-FI,"bitcoin kuollut",-1.0
+FI,fi-FI,"bitcoin kielto",-1.0
+FI,fi-FI,"krypto sääntely",-0.7
+FI,fi-FI,"bitcoin laiton",-1.0
+FI,fi-FI,"bitcoin hakkerointi",-1.0
+FI,fi-FI,"krypto huijaus",-0.8
+FI,fi-FI,"bitcoin varastettu",-0.9
+FI,fi-FI,"bitcoin energia",-0.5
+FI,fi-FI,"bitcoin kupla",-0.8
+FI,fi-FI,"bitcoin ponzi",-0.9
+FI,fi-FI,"bitcoin hinta",0.0
+FI,fi-FI,"btc usd",0.0
+FI,fi-FI,"bitcoin kurssi",0.0
+FI,fi-FI,"bitcoin uutiset",0.0
+FI,fi-FI,"krypto uutiset",0.0
+FI,fi-FI,"btc tänään",0.0
+FI,fi-FI,"bitcoin puoliintuminen",0.0
+FI,fi-FI,"btc louhinta",0.0
+FI,fi-FI,"bitcoin lohkoketju",0.0
+FI,fi-FI,"mikä on bitcoin",0.0
+FI,fi-FI,"bitcoin selitetty",0.0
+FI,fi-FI,"miten bitcoin toimii",0.0
+FR,fr-FR,"acheter bitcoin",0.7
+FR,fr-FR,"comment acheter du bitcoin",0.8
+FR,fr-FR,"investir dans le bitcoin",0.6
+FR,fr-FR,"portefeuille bitcoin",0.5
+FR,fr-FR,"investir crypto",0.5
+FR,fr-FR,"bitcoin haussier",0.9
+FR,fr-FR,"rallye bitcoin",0.9
+FR,fr-FR,"bitcoin ETF",0.8
+FR,fr-FR,"bitcoin institutionnel",0.7
+FR,fr-FR,"bitcoin légal",0.6
+FR,fr-FR,"record bitcoin",1.0
+FR,fr-FR,"bitcoin ATH",1.0
+FR,fr-FR,"nouveau record bitcoin",0.9
+FR,fr-FR,"vendre bitcoin",-0.5
+FR,fr-FR,"ventes massives bitcoin",-0.8
+FR,fr-FR,"krach bitcoin",-1.0
+FR,fr-FR,"bitcoin baissier",-0.8
+FR,fr-FR,"bitcoin mort",-1.0
+FR,fr-FR,"interdiction du bitcoin",-1.0
+FR,fr-FR,"réglementation crypto",-0.7
+FR,fr-FR,"bitcoin illégal",-1.0
+FR,fr-FR,"hack bitcoin",-1.0
+FR,fr-FR,"arnaque crypto",-0.8
+FR,fr-FR,"vol de bitcoin",-0.9
+FR,fr-FR,"énergie bitcoin",-0.5
+FR,fr-FR,"bulle bitcoin",-0.8
+FR,fr-FR,"arnaque ponzi bitcoin",-0.9
+FR,fr-FR,"prix bitcoin",0.0
+FR,fr-FR,"cours bitcoin",0.0
+FR,fr-FR,"actualités bitcoin",0.0
+FR,fr-FR,"actualités crypto",0.0
+FR,fr-FR,"bitcoin aujourd'hui",0.0
+FR,fr-FR,"halving bitcoin",0.0
+FR,fr-FR,"minage bitcoin",0.0
+FR,fr-FR,"blockchain bitcoin",0.0
+FR,fr-FR,"qu'est-ce que le bitcoin",0.0
+FR,fr-FR,"bitcoin expliqué",0.0
+FR,fr-FR,"comment fonctionne le bitcoin",0.0
+DE,de,"Bitcoin kaufen",0.7
+DE,de,"wie Bitcoin kaufen",0.8
+DE,de,"in Bitcoin investieren",0.6
+DE,de,"Bitcoin Portfolio",0.5
+DE,de,"in Krypto investieren",0.5
+DE,de,"Bitcoin steigt",0.9
+DE,de,"Bitcoin Rallye",0.9
+DE,de,"Bitcoin ETF",0.8
+DE,de,"institutionelle Bitcoin",0.7
+DE,de,"Bitcoin legal",0.6
+DE,de,"Bitcoin Rekordhoch",1.0
+DE,de,"Bitcoin ATH",1.0
+DE,de,"neues Bitcoin Hoch",0.9
+DE,de,"Bitcoin verkaufen",-0.5
+DE,de,"Bitcoin Abverkauf",-0.8
+DE,de,"Bitcoin Absturz",-1.0
+DE,de,"Bitcoin Bärenmarkt",-0.8
+DE,de,"Bitcoin tot",-1.0
+DE,de,"Bitcoin Verbot",-1.0
+DE,de,"Krypto Regulierung",-0.7
+DE,de,"Bitcoin illegal",-1.0
+DE,de,"Bitcoin Hack",-1.0
+DE,de,"Krypto Betrug",-0.8
+DE,de,"Bitcoin Diebstahl",-0.9
+DE,de,"Bitcoin Energie",-0.5
+DE,de,"Bitcoin Blase",-0.8
+DE,de,"Bitcoin Schneeballsystem",-0.9
+DE,de,"Bitcoin Preis",0.0
+DE,de,"Bitcoin Kurs",0.0
+DE,de,"Bitcoin Nachrichten",0.0
+DE,de,"Krypto Nachrichten",0.0
+DE,de,"Bitcoin aktuell",0.0
+DE,de,"Bitcoin Halving",0.0
+DE,de,"Bitcoin Mining",0.0
+DE,de,"Bitcoin Blockchain",0.0
+DE,de,"Was ist Bitcoin",0.0
+DE,de,"Bitcoin erklärt",0.0
+DE,de,"Wie funktioniert Bitcoin",0.0
+GR,el-GR,"αγορά bitcoin",0.7
+GR,el-GR,"πώς να αγοράσετε btc",0.8
+GR,el-GR,"επένδυση bitcoin",0.6
+GR,el-GR,"χαρτοφυλάκιο btc",0.5
+GR,el-GR,"επένδυση crypto",0.5
+GR,el-GR,"bitcoin bull",0.9
+GR,el-GR,"btc moon",1.0
+GR,el-GR,"ράλι bitcoin",0.9
+GR,el-GR,"bitcoin ETF",0.8
+GR,el-GR,"θεσμικό bitcoin",0.7
+GR,el-GR,"bitcoin νόμιμο",0.6
+GR,el-GR,"ιστορικό υψηλό bitcoin",1.0
+GR,el-GR,"bitcoin ATH",1.0
+GR,el-GR,"νέο υψηλό bitcoin",0.9
+GR,el-GR,"πούλησε bitcoin",-0.5
+GR,el-GR,"πωλήσεις bitcoin",-0.5
+GR,el-GR,"dump btc",-0.8
+GR,el-GR,"κραχ bitcoin",-1.0
+GR,el-GR,"bitcoin bear",-0.8
+GR,el-GR,"bitcoin νεκρό",-1.0
+GR,el-GR,"απαγόρευση bitcoin",-1.0
+GR,el-GR,"ρύθμιση crypto",-0.7
+GR,el-GR,"bitcoin παράνομο",-1.0
+GR,el-GR,"bitcoin hack",-1.0
+GR,el-GR,"crypto scam",-0.8
+GR,el-GR,"bitcoin κλάπηκε",-0.9
+GR,el-GR,"ενέργεια bitcoin",-0.5
+GR,el-GR,"φούσκα bitcoin",-0.8
+GR,el-GR,"bitcoin ponzi",-0.9
+GR,el-GR,"τιμή bitcoin",0.0
+GR,el-GR,"btc usd",0.0
+GR,el-GR,"τιμή bitcoin",0.0
+GR,el-GR,"ειδήσεις bitcoin",0.0
+GR,el-GR,"ειδήσεις crypto",0.0
+GR,el-GR,"btc σήμερα",0.0
+GR,el-GR,"bitcoin halving",0.0
+GR,el-GR,"btc εξόρυξη",0.0
+GR,el-GR,"bitcoin blockchain",0.0
+GR,el-GR,"τι είναι το bitcoin",0.0
+GR,el-GR,"bitcoin εξήγηση",0.0
+GR,el-GR,"πώς λειτουργεί το bitcoin",0.0
+HU,hu-HU,"bitcoin vásárlás",0.7
+HU,hu-HU,"hogyan vegyünk bitcoint",0.8
+HU,hu-HU,"bitcoin befektetés",0.6
+HU,hu-HU,"btc portfólió",0.5
+HU,hu-HU,"kripto befektetés",0.5
+HU,hu-HU,"bitcoin bull",0.9
+HU,hu-HU,"btc moon",1.0
+HU,hu-HU,"bitcoin rally",0.9
+HU,hu-HU,"bitcoin ETF",0.8
+HU,hu-HU,"intézményi bitcoin",0.7
+HU,hu-HU,"bitcoin legális",0.6
+HU,hu-HU,"bitcoin történelmi csúcs",1.0
+HU,hu-HU,"bitcoin ATH",1.0
+HU,hu-HU,"bitcoin új csúcs",0.9
+HU,hu-HU,"bitcoin eladás",-0.5
+HU,hu-HU,"bitcoin eladni",-0.5
+HU,hu-HU,"dump btc",-0.8
+HU,hu-HU,"bitcoin összeomlás",-1.0
+HU,hu-HU,"btc medve",-0.8
+HU,hu-HU,"bitcoin halott",-1.0
+HU,hu-HU,"bitcoin betiltás",-1.0
+HU,hu-HU,"kripto szabályozás",-0.7
+HU,hu-HU,"bitcoin illegális",-1.0
+HU,hu-HU,"bitcoin hack",-1.0
+HU,hu-HU,"kripto átverés",-0.8
+HU,hu-HU,"ellopott bitcoin",-0.9
+HU,hu-HU,"bitcoin energia",-0.5
+HU,hu-HU,"bitcoin lufi",-0.8
+HU,hu-HU,"bitcoin ponzi",-0.9
+HU,hu-HU,"bitcoin ár",0.0
+HU,hu-HU,"btc usd",0.0
+HU,hu-HU,"bitcoin árfolyam",0.0
+HU,hu-HU,"bitcoin hírek",0.0
+HU,hu-HU,"kripto hírek",0.0
+HU,hu-HU,"btc ma",0.0
+HU,hu-HU,"bitcoin felezés",0.0
+HU,hu-HU,"btc bányászat",0.0
+HU,hu-HU,"bitcoin blokklánc",0.0
+HU,hu-HU,"mi az a bitcoin",0.0
+HU,hu-HU,"bitcoin magyarázat",0.0
+HU,hu-HU,"hogyan működik a bitcoin",0.0
+IE,en-IE,"buy bitcoin",0.7
+IE,en-IE,"how to buy btc",0.8
+IE,en-IE,"bitcoin purchase",0.7
+IE,en-IE,"bitcoin investment",0.6
+IE,en-IE,"btc portfolio",0.5
+IE,en-IE,"crypto invest",0.5
+IE,en-IE,"bitcoin bull",0.9
+IE,en-IE,"btc moon",1.0
+IE,en-IE,"bitcoin rally",0.9
+IE,en-IE,"bitcoin ETF",0.8
+IE,en-IE,"institutional bitcoin",0.7
+IE,en-IE,"bitcoin legal",0.6
+IE,en-IE,"bitcoin all time high",1.0
+IE,en-IE,"btc ath",1.0
+IE,en-IE,"bitcoin new high",0.9
+IE,en-IE,"sell bitcoin",-0.5
+IE,en-IE,"bitcoin sell",-0.5
+IE,en-IE,"dump btc",-0.8
+IE,en-IE,"bitcoin crash",-1.0
+IE,en-IE,"btc bear",-0.8
+IE,en-IE,"bitcoin dead",-1.0
+IE,en-IE,"bitcoin ban",-1.0
+IE,en-IE,"crypto regulation",-0.7
+IE,en-IE,"bitcoin illegal",-1.0
+IE,en-IE,"bitcoin hack",-1.0
+IE,en-IE,"crypto scam",-0.8
+IE,en-IE,"bitcoin stolen",-0.9
+IE,en-IE,"bitcoin energy",-0.5
+IE,en-IE,"bitcoin bubble",-0.8
+IE,en-IE,"bitcoin ponzi",-0.9
+IE,en-IE,"bitcoin price",0.0
+IE,en-IE,"btc usd",0.0
+IE,en-IE,"bitcoin rate",0.0
+IE,en-IE,"bitcoin news",0.0
+IE,en-IE,"crypto news",0.0
+IE,en-IE,"btc today",0.0
+IE,en-IE,"bitcoin halving",0.0
+IE,en-IE,"btc mining",0.0
+IE,en-IE,"bitcoin blockchain",0.0
+IE,en-IE,"what is bitcoin",0.0
+IE,en-IE,"bitcoin explained",0.0
+IE,en-IE,"how bitcoin works",0.0
+IT,it-IT,"comprare bitcoin",0.7
+IT,it-IT,"come comprare bitcoin",0.8
+IT,it-IT,"investire in bitcoin",0.6
+IT,it-IT,"portafoglio bitcoin",0.5
+IT,it-IT,"investimento cripto",0.5
+IT,it-IT,"bitcoin toro",0.9
+IT,it-IT,"bitcoin rally",0.9
+IT,it-IT,"bitcoin ETF",0.8
+IT,it-IT,"bitcoin istituzionale",0.7
+IT,it-IT,"bitcoin legale",0.6
+IT,it-IT,"record bitcoin",1.0
+IT,it-IT,"bitcoin ATH",1.0
+IT,it-IT,"nuovo record bitcoin",0.9
+IT,it-IT,"vendere bitcoin",-0.5
+IT,it-IT,"dump bitcoin",-0.8
+IT,it-IT,"crollo bitcoin",-1.0
+IT,it-IT,"bitcoin orso",-0.8
+IT,it-IT,"bitcoin morto",-1.0
+IT,it-IT,"ban bitcoin",-1.0
+IT,it-IT,"regolamentazione cripto",-0.7
+IT,it-IT,"bitcoin illegale",-1.0
+IT,it-IT,"hack bitcoin",-1.0
+IT,it-IT,"truffa cripto",-0.8
+IT,it-IT,"bitcoin rubati",-0.9
+IT,it-IT,"energia bitcoin",-0.5
+IT,it-IT,"bolla bitcoin",-0.8
+IT,it-IT,"schema ponzi bitcoin",-0.9
+IT,it-IT,"prezzo bitcoin",0.0
+IT,it-IT,"bitcoin usd",0.0
+IT,it-IT,"tasso bitcoin",0.0
+IT,it-IT,"notizie bitcoin",0.0
+IT,it-IT,"notizie cripto",0.0
+IT,it-IT,"bitcoin oggi",0.0
+IT,it-IT,"halving bitcoin",0.0
+IT,it-IT,"mining bitcoin",0.0
+IT,it-IT,"blockchain bitcoin",0.0
+IT,it-IT,"che cos'è bitcoin",0.0
+IT,it-IT,"bitcoin spiegato",0.0
+IT,it-IT,"come funziona bitcoin",0.0
+LV,lv,"pirkt bitcoin",0.7
+LV,lv,"kā nopirkt btc",0.8
+LV,lv,"bitcoin ieguldījums",0.6
+LV,lv,"btc portfelis",0.5
+LV,lv,"kripto ieguldījums",0.5
+LV,lv,"bitcoin bull",0.9
+LV,lv,"btc moon",1.0
+LV,lv,"bitcoin rallijs",0.9
+LV,lv,"bitcoin ETF",0.8
+LV,lv,"institucionālais bitcoin",0.7
+LV,lv,"bitcoin likumīgs",0.6
+LV,lv,"bitcoin visu laiku augstākais",1.0
+LV,lv,"bitcoin ATH",1.0
+LV,lv,"bitcoin jauns maksimums",0.9
+LV,lv,"pārdot bitcoin",-0.5
+LV,lv,"bitcoin pārdošana",-0.5
+LV,lv,"dump btc",-0.8
+LV,lv,"bitcoin krahs",-1.0
+LV,lv,"btc lācis",-0.8
+LV,lv,"bitcoin miris",-1.0
+LV,lv,"bitcoin aizliegums",-1.0
+LV,lv,"kripto regulējums",-0.7
+LV,lv,"bitcoin nelikumīgs",-1.0
+LV,lv,"bitcoin uzlaušana",-1.0
+LV,lv,"kripto krāpšana",-0.8
+LV,lv,"nozagts bitcoin",-0.9
+LV,lv,"bitcoin enerģija",-0.5
+LV,lv,"bitcoin burbulis",-0.8
+LV,lv,"bitcoin ponzi",-0.9
+LV,lv,"bitcoin cena",0.0
+LV,lv,"btc usd",0.0
+LV,lv,"bitcoin kurss",0.0
+LV,lv,"bitcoin ziņas",0.0
+LV,lv,"kripto ziņas",0.0
+LV,lv,"btc šodien",0.0
+LV,lv,"bitcoin halving",0.0
+LV,lv,"btc rakšana",0.0
+LV,lv,"bitcoin blokķēde",0.0
+LV,lv,"kas ir bitcoin",0.0
+LV,lv,"bitcoin izskaidrots",0.0
+LV,lv,"kā bitcoin darbojas",0.0
+LT,lt,"pirkti bitcoin",0.7
+LT,lt,"kaip pirkti btc",0.8
+LT,lt,"bitcoin investicija",0.6
+LT,lt,"btc portfelis",0.5
+LT,lt,"kripto investicija",0.5
+LT,lt,"bitcoin bull",0.9
+LT,lt,"btc moon",1.0
+LT,lt,"bitcoin ralio",0.9
+LT,lt,"bitcoin ETF",0.8
+LT,lt,"institucinis bitcoin",0.7
+LT,lt,"bitcoin legalus",0.6
+LT,lt,"bitcoin aukščiausias",1.0
+LT,lt,"bitcoin ATH",1.0
+LT,lt,"bitcoin naujas rekordas",0.9
+LT,lt,"parduoti bitcoin",-0.5
+LT,lt,"bitcoin pardavimas",-0.5
+LT,lt,"dump btc",-0.8
+LT,lt,"bitcoin griūtis",-1.0
+LT,lt,"btc meška",-0.8
+LT,lt,"bitcoin miręs",-1.0
+LT,lt,"bitcoin draudimas",-1.0
+LT,lt,"kripto reguliavimas",-0.7
+LT,lt,"bitcoin neteisėtas",-1.0
+LT,lt,"bitcoin įsilaužimas",-1.0
+LT,lt,"kripto sukčiai",-0.8
+LT,lt,"pavogtas bitcoin",-0.9
+LT,lt,"bitcoin energija",-0.5
+LT,lt,"bitcoin burbulas",-0.8
+LT,lt,"bitcoin ponzi",-0.9
+LT,lt,"bitcoin kaina",0.0
+LT,lt,"btc usd",0.0
+LT,lt,"bitcoin kursas",0.0
+LT,lt,"bitcoin naujienos",0.0
+LT,lt,"kripto naujienos",0.0
+LT,lt,"btc šiandien",0.0
+LT,lt,"bitcoin halving",0.0
+LT,lt,"btc kasyba",0.0
+LT,lt,"bitcoin blockchain",0.0
+LT,lt,"kas yra bitcoin",0.0
+LT,lt,"bitcoin paaiškinta",0.0
+LT,lt,"kaip veikia bitcoin",0.0
+LU,lb,"buy bitcoin",0.7
+LU,lb,"how to buy btc",0.8
+LU,lb,"bitcoin purchase",0.7
+LU,lb,"bitcoin investment",0.6
+LU,lb,"btc portfolio",0.5
+LU,lb,"crypto invest",0.5
+LU,lb,"bitcoin bull",0.9
+LU,lb,"btc moon",1.0
+LU,lb,"bitcoin rally",0.9
+LU,lb,"bitcoin ETF",0.8
+LU,lb,"institutional bitcoin",0.7
+LU,lb,"bitcoin legal",0.6
+LU,lb,"bitcoin all time high",1.0
+LU,lb,"btc ath",1.0
+LU,lb,"bitcoin new high",0.9
+LU,lb,"sell bitcoin",-0.5
+LU,lb,"bitcoin sell",-0.5
+LU,lb,"dump btc",-0.8
+LU,lb,"bitcoin crash",-1.0
+LU,lb,"btc bear",-0.8
+LU,lb,"bitcoin dead",-1.0
+LU,lb,"bitcoin ban",-1.0
+LU,lb,"crypto regulation",-0.7
+LU,lb,"bitcoin illegal",-1.0
+LU,lb,"bitcoin hack",-1.0
+LU,lb,"crypto scam",-0.8
+LU,lb,"bitcoin stolen",-0.9
+LU,lb,"bitcoin energy",-0.5
+LU,lb,"bitcoin bubble",-0.8
+LU,lb,"bitcoin ponzi",-0.9
+LU,lb,"bitcoin price",0.0
+LU,lb,"btc usd",0.0
+LU,lb,"bitcoin rate",0.0
+LU,lb,"bitcoin news",0.0
+LU,lb,"crypto news",0.0
+LU,lb,"btc today",0.0
+LU,lb,"bitcoin halving",0.0
+LU,lb,"btc mining",0.0
+LU,lb,"bitcoin blockchain",0.0
+LU,lb,"what is bitcoin",0.0
+LU,lb,"bitcoin explained",0.0
+LU,lb,"how bitcoin works",0.0
+MT,mt,"ixtri bitcoin",0.7
+MT,mt,"kif tixtri bitcoin",0.8
+MT,mt,"investi fil-bitcoin",0.6
+MT,mt,"portafollju bitcoin",0.5
+MT,mt,"investiment crypto",0.5
+MT,mt,"bitcoin bull",0.9
+MT,mt,"btc moon",1.0
+MT,mt,"rally bitcoin",0.9
+MT,mt,"bitcoin ETF",0.8
+MT,mt,"bitcoin istituzzjonali",0.7
+MT,mt,"bitcoin legali",0.6
+MT,mt,"bitcoin rekord",1.0
+MT,mt,"bitcoin ATH",1.0
+MT,mt,"bitcoin rekord ġdid",0.9
+MT,mt,"biegħ bitcoin",-0.5
+MT,mt,"bejgħ bitcoin",-0.5
+MT,mt,"dump btc",-0.8
+MT,mt,"krach bitcoin",-1.0
+MT,mt,"btc bear",-0.8
+MT,mt,"bitcoin mejjet",-1.0
+MT,mt,"projbizzjoni bitcoin",-1.0
+MT,mt,"regolament crypto",-0.7
+MT,mt,"bitcoin illegali",-1.0
+MT,mt,"bitcoin hack",-1.0
+MT,mt,"crypto scam",-0.8
+MT,mt,"bitcoin misruq",-0.9
+MT,mt,"enerġija bitcoin",-0.5
+MT,mt,"bozza bitcoin",-0.8
+MT,mt,"bitcoin ponzi",-0.9
+MT,mt,"prezz bitcoin",0.0
+MT,mt,"btc usd",0.0
+MT,mt,"rata bitcoin",0.0
+MT,mt,"aħbarijiet bitcoin",0.0
+MT,mt,"aħbarijiet crypto",0.0
+MT,mt,"btc illum",0.0
+MT,mt,"bitcoin tnaqqis",0.0
+MT,mt,"bci mining",0.0
+MT,mt,"bitcoin blockchain",0.0
+MT,mt,"x'inhu bitcoin",0.0
+MT,mt,"bitcoin spjegat",0.0
+MT,mt,"kif jaħdem bitcoin",0.0
+NL,nl-NL,"bitcoin kopen",0.7
+NL,nl-NL,"hoe bitcoin kopen",0.8
+NL,nl-NL,"bitcoin investering",0.6
+NL,nl-NL,"btc portefeuille",0.5
+NL,nl-NL,"crypto investeren",0.5
+NL,nl-NL,"bitcoin bull",0.9
+NL,nl-NL,"btc moon",1.0
+NL,nl-NL,"bitcoin rally",0.9
+NL,nl-NL,"bitcoin ETF",0.8
+NL,nl-NL,"institutionele bitcoin",0.7
+NL,nl-NL,"bitcoin legaal",0.6
+NL,nl-NL,"bitcoin recordhoogte",1.0
+NL,nl-NL,"bitcoin ATH",1.0
+NL,nl-NL,"bitcoin nieuw hoogtepunt",0.9
+NL,nl-NL,"bitcoin verkopen",-0.5
+NL,nl-NL,"bitcoin verkoop",-0.5
+NL,nl-NL,"dump btc",-0.8
+NL,nl-NL,"bitcoin crash",-1.0
+NL,nl-NL,"btc bear",-0.8
+NL,nl-NL,"bitcoin dood",-1.0
+NL,nl-NL,"bitcoin verbod",-1.0
+NL,nl-NL,"crypto regelgeving",-0.7
+NL,nl-NL,"bitcoin illegaal",-1.0
+NL,nl-NL,"bitcoin hack",-1.0
+NL,nl-NL,"crypto scam",-0.8
+NL,nl-NL,"bitcoin gestolen",-0.9
+NL,nl-NL,"bitcoin energie",-0.5
+NL,nl-NL,"bitcoin zeepbel",-0.8
+NL,nl-NL,"bitcoin ponzi",-0.9
+NL,nl-NL,"bitcoin prijs",0.0
+NL,nl-NL,"btc usd",0.0
+NL,nl-NL,"bitcoin koers",0.0
+NL,nl-NL,"bitcoin nieuws",0.0
+NL,nl-NL,"crypto nieuws",0.0
+NL,nl-NL,"btc vandaag",0.0
+NL,nl-NL,"bitcoin halving",0.0
+NL,nl-NL,"btc mining",0.0
+NL,nl-NL,"bitcoin blockchain",0.0
+NL,nl-NL,"wat is bitcoin",0.0
+NL,nl-NL,"bitcoin uitgelegd",0.0
+NL,nl-NL,"hoe werkt bitcoin",0.0
+NO,no,"kjøpe bitcoin",0.7
+NO,no,"hvordan kjøpe btc",0.8
+NO,no,"kjøp av bitcoin",0.7
+NO,no,"bitcoin investering",0.6
+NO,no,"btc portefølje",0.5
+NO,no,"krypto investering",0.5
+NO,no,"bitcoin bull",0.9
+NO,no,"btc moon",1.0
+NO,no,"bitcoin rally",0.9
+NO,no,"bitcoin ETF",0.8
+NO,no,"institusjonell bitcoin",0.7
+NO,no,"bitcoin lovlig",0.6
+NO,no,"bitcoin høyeste verdi",1.0
+NO,no,"bitcoin ATH",1.0
+NO,no,"bitcoin ny rekord",0.9
+NO,no,"selge bitcoin",-0.5
+NO,no,"bitcoin salg",-0.5
+NO,no,"dump btc",-0.8
+NO,no,"bitcoin krakk",-1.0
+NO,no,"btc bear",-0.8
+NO,no,"bitcoin død",-1.0
+NO,no,"bitcoin forbud",-1.0
+NO,no,"krypto regulering",-0.7
+NO,no,"bitcoin ulovlig",-1.0
+NO,no,"bitcoin hack",-1.0
+NO,no,"krypto svindel",-0.8
+NO,no,"bitcoin stjålet",-0.9
+NO,no,"bitcoin energi",-0.5
+NO,no,"bitcoin boble",-0.8
+NO,no,"bitcoin ponzi",-0.9
+NO,no,"bitcoin pris",0.0
+NO,no,"btc usd",0.0
+NO,no,"bitcoin kurs",0.0
+NO,no,"bitcoin nyheter",0.0
+NO,no,"krypto nyheter",0.0
+NO,no,"btc i dag",0.0
+NO,no,"bitcoin halvering",0.0
+NO,no,"btc gruvedrift",0.0
+NO,no,"bitcoin blockchain",0.0
+NO,no,"hva er bitcoin",0.0
+NO,no,"bitcoin forklart",0.0
+NO,no,"hvordan fungerer bitcoin",0.0
+PL,pl,"kup bitcoin",0.7
+PL,pl,"jak kupić btc",0.8
+PL,pl,"inwestycja bitcoin",0.6
+PL,pl,"portfel krypto",0.5
+PL,pl,"bitcoin wzrost",0.9
+PL,pl,"btc hossa",1.0
+PL,pl,"bitcoin ETF",0.8
+PL,pl,"instytucje bitcoin",0.7
+PL,pl,"bitcoin rekord",1.0
+PL,pl,"btc nowy szczyt",0.9
+PL,pl,"sprzedaj bitcoin",-0.5
+PL,pl,"wyprzedaż btc",-0.8
+PL,pl,"bitcoin krach",-1.0
+PL,pl,"btc bessa",-0.8
+PL,pl,"bitcoin martwy",-1.0
+PL,pl,"zakaz bitcoin",-1.0
+PL,pl,"regulacje krypto",-0.7
+PL,pl,"bitcoin hack",-1.0
+PL,pl,"oszustwo krypto",-0.8
+PL,pl,"bitcoin energia",-0.5
+PL,pl,"bitcoin bańka",-0.8
+PL,pl,"krach na giełdzie bitcoina",-1.0
+PL,pl,"cena bitcoin",0.0
+PL,pl,"kurs btc",0.0
+PL,pl,"bitcoin wiadomości",0.0
+PL,pl,"krypto dziś",0.0
+PL,pl,"bitcoin halving",0.0
+PL,pl,"btc wydobycie",0.0
+PL,pl,"co to bitcoin",0.0
+PL,pl,"jak działa bitcoin",0.0
+PT,pt-PT,"comprar bitcoin",0.7
+PT,pt-PT,"como comprar bitcoin",0.8
+PT,pt-PT,"investir em bitcoin",0.6
+PT,pt-PT,"portfólio bitcoin",0.5
+PT,pt-PT,"bitcoin alta",0.9
+PT,pt-PT,"rali do bitcoin",0.9
+PT,pt-PT,"bitcoin ETF",0.8
+PT,pt-PT,"bitcoin institucional",0.7
+PT,pt-PT,"bitcoin legal",0.6
+PT,pt-PT,"recorde histórico bitcoin",1.0
+PT,pt-PT,"bitcoin ATH",1.0
+PT,pt-PT,"novo recorde bitcoin",0.9
+PT,pt-PT,"vender bitcoin",-0.5
+PT,pt-PT,"queda do bitcoin",-1.0
+PT,pt-PT,"bitcoin morto",-1.0
+PT,pt-PT,"banimento do bitcoin",-1.0
+PT,pt-PT,"regulamentação cripto",-0.7
+PT,pt-PT,"bitcoin ilegal",-1.0
+PT,pt-PT,"hack de bitcoin",-1.0
+PT,pt-PT,"golpe cripto",-0.8
+PT,pt-PT,"bitcoin roubado",-0.9
+PT,pt-PT,"energia bitcoin",-0.5
+PT,pt-PT,"bolha do bitcoin",-0.8
+PT,pt-PT,"esquema ponzi bitcoin",-0.9
+PT,pt-PT,"preço bitcoin",0.0
+PT,pt-PT,"notícias bitcoin",0.0
+PT,pt-PT,"notícias cripto",0.0
+PT,pt-PT,"bitcoin hoje",0.0
+PT,pt-PT,"halving bitcoin",0.0
+PT,pt-PT,"mineração bitcoin",0.0
+PT,pt-PT,"blockchain bitcoin",0.0
+PT,pt-PT,"o que é bitcoin",0.0
+PT,pt-PT,"bitcoin explicado",0.0
+PT,pt-PT,"como o bitcoin funciona",0.0
+RO,ro,"cumpără bitcoin",0.7
+RO,ro,"cum să cumperi btc",0.8
+RO,ro,"investiție bitcoin",0.6
+RO,ro,"portofel cripto",0.5
+RO,ro,"investiție cripto",0.5
+RO,ro,"bitcoin bull",0.9
+RO,ro,"btc moon",1.0
+RO,ro,"raliu bitcoin",0.9
+RO,ro,"bitcoin ETF",0.8
+RO,ro,"bitcoin instituțional",0.7
+RO,ro,"bitcoin legal",0.6
+RO,ro,"record istoric bitcoin",1.0
+RO,ro,"bitcoin ATH",1.0
+RO,ro,"nou record bitcoin",0.9
+RO,ro,"vinde bitcoin",-0.5
+RO,ro,"vânzare bitcoin",-0.5
+RO,ro,"dump btc",-0.8
+RO,ro,"prăbușire bitcoin",-1.0
+RO,ro,"btc urs",-0.8
+RO,ro,"bitcoin mort",-1.0
+RO,ro,"interdicție bitcoin",-1.0
+RO,ro,"reglementare cripto",-0.7
+RO,ro,"bitcoin ilegal",-1.0
+RO,ro,"hacking bitcoin",-1.0
+RO,ro,"escrocherie cripto",-0.8
+RO,ro,"bitcoin furat",-0.9
+RO,ro,"energie bitcoin",-0.5
+RO,ro,"bulă bitcoin",-0.8
+RO,ro,"schema ponzi bitcoin",-0.9
+RO,ro,"preț bitcoin",0.0
+RO,ro,"btc usd",0.0
+RO,ro,"curs bitcoin",0.0
+RO,ro,"știri bitcoin",0.0
+RO,ro,"știri cripto",0.0
+RO,ro,"btc astăzi",0.0
+RO,ro,"înjumătățire bitcoin",0.0
+RO,ro,"minerit bitcoin",0.0
+RO,ro,"blockchain bitcoin",0.0
+RO,ro,"ce este bitcoin",0.0
+RO,ro,"bitcoin explicat",0.0
+RO,ro,"cum funcționează bitcoin",0.0
+SK,sk,"kúpiť bitcoin",0.7
+SK,sk,"ako kúpiť btc",0.8
+SK,sk,"investícia bitcoin",0.6
+SK,sk,"krypto portfólio",0.5
+SK,sk,"investovať do kryptomien",0.5
+SK,sk,"bitcoin býk",0.9
+SK,sk,"btc mesiac",1.0
+SK,sk,"bitcoin rally",0.9
+SK,sk,"bitcoin ETF",0.8
+SK,sk,"inštitucionálny bitcoin",0.7
+SK,sk,"bitcoin legálny",0.6
+SK,sk,"bitcoin rekordné maximum",1.0
+SK,sk,"bitcoin ATH",1.0
+SK,sk,"bitcoin nové maximum",0.9
+SK,sk,"predať bitcoin",-0.5
+SK,sk,"predaj bitcoin",-0.5
+SK,sk,"dump btc",-0.8
+SK,sk,"bitcoin krach",-1.0
+SK,sk,"btc medveď",-0.8
+SK,sk,"bitcoin mŕtvy",-1.0
+SK,sk,"bitcoin zákaz",-1.0
+SK,sk,"krypto regulácia",-0.7
+SK,sk,"bitcoin nelegálny",-1.0
+SK,sk,"bitcoin hack",-1.0
+SK,sk,"krypto podvod",-0.8
+SK,sk,"bitcoin ukradnutý",-0.9
+SK,sk,"bitcoin energia",-0.5
+SK,sk,"bitcoin bublina",-0.8
+SK,sk,"bitcoin ponzi",-0.9
+SK,sk,"cena bitcoinu",0.0
+SK,sk,"btc usd",0.0
+SK,sk,"kurz bitcoinu",0.0
+SK,sk,"bitcoin správy",0.0
+SK,sk,"krypto správy",0.0
+SK,sk,"btc dnes",0.0
+SK,sk,"bitcoin halving",0.0
+SK,sk,"ťažba bitcoinu",0.0
+SK,sk,"bitcoin blockchain",0.0
+SK,sk,"čo je bitcoin",0.0
+SK,sk,"bitcoin vysvetlený",0.0
+SK,sk,"ako funguje bitcoin",0.0
+SI,sl,"kupiti bitcoin",0.7
+SI,sl,"kako kupiti btc",0.8
+SI,sl,"investicija bitcoin",0.6
+SI,sl,"kriptovalutni portfelj",0.5
+SI,sl,"naložba v kripto",0.5
+SI,sl,"bitcoin bull",0.9
+SI,sl,"btc moon",1.0
+SI,sl,"bitcoin rally",0.9
+SI,sl,"bitcoin ETF",0.8
+SI,sl,"institucionalni bitcoin",0.7
+SI,sl,"bitcoin zakonit",0.6
+SI,sl,"rekordna vrednost bitcoina",1.0
+SI,sl,"bitcoin ATH",1.0
+SI,sl,"novo najvišje bitcoin",0.9
+SI,sl,"prodati bitcoin",-0.5
+SI,sl,"prodaja bitcoin",-0.5
+SI,sl,"dump btc",-0.8
+SI,sl,"sesutje bitcoina",-1.0
+SI,sl,"btc medved",-0.8
+SI,sl,"bitcoin mrtev",-1.0
+SI,sl,"prepoved bitcoina",-1.0
+SI,sl,"ureditev kripta",-0.7
+SI,sl,"bitcoin nezakonit",-1.0
+SI,sl,"bitcoin vdor",-1.0
+SI,sl,"kripto prevara",-0.8
+SI,sl,"ukraden bitcoin",-0.9
+SI,sl,"bitcoin energija",-0.5
+SI,sl,"bitcoin balon",-0.8
+SI,sl,"bitcoin ponzi",-0.9
+SI,sl,"cena bitcoina",0.0
+SI,sl,"btc usd",0.0
+SI,sl,"tečaj bitcoina",0.0
+SI,sl,"novice bitcoin",0.0
+SI,sl,"novice kripto",0.0
+SI,sl,"btc danes",0.0
+SI,sl,"bitcoin razpolovitev",0.0
+SI,sl,"rudarjenje bitcoinov",0.0
+SI,sl,"bitcoin blockchain",0.0
+SI,sl,"kaj je bitcoin",0.0
+SI,sl,"bitcoin pojasnjen",0.0
+SI,sl,"kako deluje bitcoin",0.0
+ES,es-ES,"comprar bitcoin",0.7
+ES,es-ES,"cómo comprar btc",0.8
+ES,es-ES,"invertir en bitcoin",0.6
+ES,es-ES,"portafolio bitcoin",0.5
+ES,es-ES,"invertir en criptomonedas",0.5
+ES,es-ES,"bitcoin alcista",0.9
+ES,es-ES,"subida bitcoin",0.9
+ES,es-ES,"bitcoin ETF",0.8
+ES,es-ES,"bitcoin institucional",0.7
+ES,es-ES,"bitcoin legal",0.6
+ES,es-ES,"máximo histórico bitcoin",1.0
+ES,es-ES,"bitcoin ATH",1.0
+ES,es-ES,"nuevo máximo bitcoin",0.9
+ES,es-ES,"vender bitcoin",-0.5
+ES,es-ES,"venta masiva bitcoin",-0.8
+ES,es-ES,"caída del bitcoin",-1.0
+ES,es-ES,"bitcoin bajista",-0.8
+ES,es-ES,"bitcoin muerto",-1.0
+ES,es-ES,"prohibición del bitcoin",-1.0
+ES,es-ES,"regulación cripto",-0.7
+ES,es-ES,"bitcoin ilegal",-1.0
+ES,es-ES,"hackeo de bitcoin",-1.0
+ES,es-ES,"estafa cripto",-0.8
+ES,es-ES,"robo de bitcoin",-0.9
+ES,es-ES,"energía bitcoin",-0.5
+ES,es-ES,"burbuja bitcoin",-0.8
+ES,es-ES,"esquema ponzi bitcoin",-0.9
+ES,es-ES,"precio bitcoin",0.0
+ES,es-ES,"cotización bitcoin",0.0
+ES,es-ES,"noticias bitcoin",0.0
+ES,es-ES,"noticias cripto",0.0
+ES,es-ES,"bitcoin hoy",0.0
+ES,es-ES,"halving bitcoin",0.0
+ES,es-ES,"minería bitcoin",0.0
+ES,es-ES,"blockchain bitcoin",0.0
+ES,es-ES,"qué es bitcoin",0.0
+ES,es-ES,"explicación bitcoin",0.0
+ES,es-ES,"cómo funciona bitcoin",0.0
+SE,sv-SE,"köpa bitcoin",0.7
+SE,sv-SE,"hur köper man btc",0.8
+SE,sv-SE,"köp bitcoin",0.7
+SE,sv-SE,"bitcoin investering",0.6
+SE,sv-SE,"btc portfölj",0.5
+SE,sv-SE,"krypto investering",0.5
+SE,sv-SE,"bitcoin bull",0.9
+SE,sv-SE,"btc moon",1.0
+SE,sv-SE,"bitcoin rally",0.9
+SE,sv-SE,"bitcoin ETF",0.8
+SE,sv-SE,"institutionell bitcoin",0.7
+SE,sv-SE,"bitcoin lagligt",0.6
+SE,sv-SE,"bitcoin rekordnivå",1.0
+SE,sv-SE,"bitcoin ATH",1.0
+SE,sv-SE,"bitcoin nytt rekord",0.9
+SE,sv-SE,"sälj bitcoin",-0.5
+SE,sv-SE,"bitcoin försäljning",-0.5
+SE,sv-SE,"dumpa btc",-0.8
+SE,sv-SE,"bitcoin krasch",-1.0
+SE,sv-SE,"btc bear",-0.8
+SE,sv-SE,"bitcoin död",-1.0
+SE,sv-SE,"bitcoin förbud",-1.0
+SE,sv-SE,"krypto reglering",-0.7
+SE,sv-SE,"bitcoin olagligt",-1.0
+SE,sv-SE,"bitcoin hack",-1.0
+SE,sv-SE,"krypto bluff",-0.8
+SE,sv-SE,"bitcoin stulen",-0.9
+SE,sv-SE,"bitcoin energi",-0.5
+SE,sv-SE,"bitcoin bubbla",-0.8
+SE,sv-SE,"bitcoin ponzi",-0.9
+SE,sv-SE,"bitcoin pris",0.0
+SE,sv-SE,"btc usd",0.0
+SE,sv-SE,"bitcoin kurs",0.0
+SE,sv-SE,"bitcoin nyheter",0.0
+SE,sv-SE,"krypto nyheter",0.0
+SE,sv-SE,"btc idag",0.0
+SE,sv-SE,"bitcoin halvering",0.0
+SE,sv-SE,"btc mining",0.0
+SE,sv-SE,"bitcoin blockchain",0.0
+SE,sv-SE,"vad är bitcoin",0.0
+SE,sv-SE,"bitcoin förklarat",0.0
+SE,sv-SE,"hur fungerar bitcoin",0.0
+CH,de-CH,"Bitcoin kaufen",0.7
+CH,de-CH,"wie Bitcoin kaufen",0.8
+CH,de-CH,"in Bitcoin investieren",0.6
+CH,de-CH,"Bitcoin Portfolio",0.5
+CH,de-CH,"in Krypto investieren",0.5
+CH,de-CH,"Bitcoin steigt",0.9
+CH,de-CH,"Bitcoin Rallye",0.9
+CH,de-CH,"Bitcoin ETF",0.8
+CH,de-CH,"institutionelle Bitcoin",0.7
+CH,de-CH,"Bitcoin legal",0.6
+CH,de-CH,"Bitcoin Rekordhoch",1.0
+CH,de-CH,"Bitcoin ATH",1.0
+CH,de-CH,"neues Bitcoin Hoch",0.9
+CH,de-CH,"Bitcoin verkaufen",-0.5
+CH,de-CH,"Bitcoin Abverkauf",-0.8
+CH,de-CH,"Bitcoin Absturz",-1.0
+CH,de-CH,"Bitcoin Bärenmarkt",-0.8
+CH,de-CH,"Bitcoin tot",-1.0
+CH,de-CH,"Bitcoin Verbot",-1.0
+CH,de-CH,"Krypto Regulierung",-0.7
+CH,de-CH,"Bitcoin illegal",-1.0
+CH,de-CH,"Bitcoin Hack",-1.0
+CH,de-CH,"Krypto Betrug",-0.8
+CH,de-CH,"Bitcoin Diebstahl",-0.9
+CH,de-CH,"Bitcoin Energie",-0.5
+CH,de-CH,"Bitcoin Blase",-0.8
+CH,de-CH,"Bitcoin Schneeballsystem",-0.9
+CH,de-CH,"Bitcoin Preis",0.0
+CH,de-CH,"Bitcoin Kurs",0.0
+CH,de-CH,"Bitcoin Nachrichten",0.0
+CH,de-CH,"Krypto Nachrichten",0.0
+CH,de-CH,"Bitcoin aktuell",0.0
+CH,de-CH,"Bitcoin Halving",0.0
+CH,de-CH,"Bitcoin Mining",0.0
+CH,de-CH,"Bitcoin Blockchain",0.0
+CH,de-CH,"Was ist Bitcoin",0.0
+CH,de-CH,"Bitcoin erklärt",0.0
+CH,de-CH,"Wie funktioniert Bitcoin",0.0
+GB,en-GB,"buy bitcoin",0.7
+GB,en-GB,"how to buy btc",0.8
+GB,en-GB,"bitcoin purchase",0.7
+GB,en-GB,"bitcoin investment",0.6
+GB,en-GB,"btc portfolio",0.5
+GB,en-GB,"crypto invest",0.5
+GB,en-GB,"bitcoin bull",0.9
+GB,en-GB,"btc moon",1.0
+GB,en-GB,"bitcoin rally",0.9
+GB,en-GB,"bitcoin ETF",0.8
+GB,en-GB,"institutional bitcoin",0.7
+GB,en-GB,"bitcoin legal",0.6
+GB,en-GB,"bitcoin all time high",1.0
+GB,en-GB,"btc ath",1.0
+GB,en-GB,"bitcoin new high",0.9
+GB,en-GB,"sell bitcoin",-0.5
+GB,en-GB,"bitcoin sell",-0.5
+GB,en-GB,"dump btc",-0.8
+GB,en-GB,"bitcoin crash",-1.0
+GB,en-GB,"btc bear",-0.8
+GB,en-GB,"bitcoin dead",-1.0
+GB,en-GB,"bitcoin ban",-1.0
+GB,en-GB,"crypto regulation",-0.7
+GB,en-GB,"bitcoin illegal",-1.0
+GB,en-GB,"bitcoin hack",-1.0
+GB,en-GB,"crypto scam",-0.8
+GB,en-GB,"bitcoin stolen",-0.9
+GB,en-GB,"bitcoin energy",-0.5
+GB,en-GB,"bitcoin bubble",-0.8
+GB,en-GB,"bitcoin ponzi",-0.9
+GB,en-GB,"bitcoin price",0.0
+GB,en-GB,"btc usd",0.0
+GB,en-GB,"bitcoin rate",0.0
+GB,en-GB,"bitcoin news",0.0
+GB,en-GB,"crypto news",0.0
+GB,en-GB,"btc today",0.0
+GB,en-GB,"bitcoin halving",0.0
+GB,en-GB,"btc mining",0.0
+GB,en-GB,"bitcoin blockchain",0.0
+GB,en-GB,"what is bitcoin",0.0
+GB,en-GB,"bitcoin explained",0.0
+GB,en-GB,"how bitcoin works",0.0
+CN,zh-CN,"买比特币",0.7
+CN,zh-CN,"卖比特币",-0.5
+CN,zh-CN,"比特币价格",0.0
+CN,zh-CN,"比特币新闻",0.0
+MO,zh,"买比特币",0.7
+MO,zh,"卖比特币",-0.5
+MO,zh,"比特币价格",0.0
+MO,zh,"比特币新闻",0.0
+BH,ar-BH,"شراء بيتكوين",0.7
+BH,ar-BH,"بيع بيتكوين",-0.5
+BH,ar-BH,"حظر بيتكوين",-1.0
+BH,ar-BH,"سعر بيتكوين",0.0
+BH,ar-BH,"أخبار بيتكوين",0.0
+IR,fa-IR,"خرید بیت کوین",0.7
+IR,fa-IR,"فروش بیت کوین",-0.5
+IR,fa-IR,"سقوط بیت کوین",-1.0
+IR,fa-IR,"قیمت بیت کوین",0.0
+IR,fa-IR,"اخبار بیت کوین",0.0
+IQ,ar-IQ,"شراء بيتكوين",0.7
+IQ,ar-IQ,"بيع بيتكوين",-0.5
+IQ,ar-IQ,"حظر بيتكوين",-1.0
+IQ,ar-IQ,"سعر بيتكوين",0.0
+IQ,ar-IQ,"أخبار بيتكوين",0.0
+IL,he,"לקנות ביטקוין",0.7
+IL,he,"איך לקנות ביטקוין",0.8
+IL,he,"השקעת ביטקוין",0.6
+IL,he,"תיק ביטקוין",0.5
+IL,he,"השקעת קריפטו",0.5
+IL,he,"שור ביטקוין",0.9
+IL,he,"ירח ביטקוין",1.0
+IL,he,"ראלי ביטקוין",0.9
+IL,he,"ביטקוין ETF",0.8
+IL,he,"ביטקוין מוסדי",0.7
+IL,he,"ביטקוין חוקי",0.6
+IL,he,"שיא כל הזמנים ביטקוין",1.0
+IL,he,"ביטקוין ATH",1.0
+IL,he,"שיא חדש ביטקוין",0.9
+IL,he,"למכור ביטקוין",-0.5
+IL,he,"מכירת ביטקוין",-0.5
+IL,he,"התרסקות ביטקוין",-1.0
+IL,he,"דוב ביטקוין",-0.8
+IL,he,"ביטקוין מת",-1.0
+IL,he,"איסור ביטקוין",-1.0
+IL,he,"רגולציית קריפטו",-0.7
+IL,he,"ביטקוין לא חוקי",-1.0
+IL,he,"פריצת ביטקוין",-1.0
+IL,he,"הונאת קריפטו",-0.8
+IL,he,"ביטקוין נגנב",-0.9
+IL,he,"אנרגיית ביטקוין",-0.5
+IL,he,"בועת ביטקוין",-0.8
+IL,he,"ביטקוין פונזי",-0.9
+IL,he,"מחיר הביטקוין",0.0
+IL,he,"חדשות ביטקוין",0.0
+IL,he,"חדשות קריפטו",0.0
+IL,he,"ביטקוין היום",0.0
+IL,he,"חלוקת ביטקוין",0.0
+IL,he,"כריית ביטקוין",0.0
+IL,he,"בלוקצ'יין ביטקוין",0.0
+IL,he,"מה זה ביטקוין",0.0
+IL,he,"ביטקוין מוסבר",0.0
+IL,he,"איך ביטקוין עובד",0.0
+JO,ar-JO,"شراء بيتكوين",0.7
+JO,ar-JO,"بيع بيتكوين",-0.5
+JO,ar-JO,"حظر بيتكوين",-1.0
+JO,ar-JO,"سعر بيتكوين",0.0
+JO,ar-JO,"أخبار بيتكوين",0.0
+KW,ar-KW,"شراء بيتكوين",0.7
+KW,ar-KW,"بيع بيتكوين",-0.5
+KW,ar-KW,"حظر بيتكوين",-1.0
+KW,ar-KW,"سعر بيتكوين",0.0
+KW,ar-KW,"أخبار بيتكوين",0.0
+LB,ar-LB,"شراء بيتكوين",0.7
+LB,ar-LB,"بيع بيتكوين",-0.5
+LB,ar-LB,"حظر بيتكوين",-1.0
+LB,ar-LB,"سعر بيتكوين",0.0
+LB,ar-LB,"أخبار بيتكوين",0.0
+OM,ar-OM,"شراء بيتكوين",0.7
+OM,ar-OM,"بيع بيتكوين",-0.5
+OM,ar-OM,"حظر بيتكوين",-1.0
+OM,ar-OM,"سعر بيتكوين",0.0
+OM,ar-OM,"أخبار بيتكوين",0.0
+QA,ar-QA,"شراء بيتكوين",0.7
+QA,ar-QA,"بيع بيتكوين",-0.5
+QA,ar-QA,"حظر بيتكوين",-1.0
+QA,ar-QA,"سعر بيتكوين",0.0
+QA,ar-QA,"أخبار بيتكوين",0.0
+SA,ar-SA,"شراء بيتكوين",0.7
+SA,ar-SA,"بيع بيتكوين",-0.5
+SA,ar-SA,"حظر بيتكوين",-1.0
+SA,ar-SA,"سعر بيتكوين",0.0
+SA,ar-SA,"أخبار بيتكوين",0.0
+TR,tr-TR,"bitcoin türkiye",0.0
+TR,tr-TR,"btc tl",0.0
+TR,tr-TR,"bitcoin lira",0.0
+TR,tr-TR,"bitcoin satın al",0.7
+TR,tr-TR,"bitcoin sat",-0.5
+TR,tr-TR,"bitcoin yasağı",-1.0
+TR,tr-TR,"bitcoin çöküşü",-1.0
+AE,ar-AE,"شراء بيتكوين",0.7
+AE,ar-AE,"بيع بيتكوين",-0.5
+AE,ar-AE,"حظر بيتكوين",-1.0
+AE,ar-AE,"سعر بيتكوين",0.0
+AE,ar-AE,"أخبار بيتكوين",0.0
+YE,ar-YE,"شراء بيتكوين",0.7
+YE,ar-YE,"بيع بيتكوين",-0.5
+YE,ar-YE,"حظر بيتكوين",-1.0
+YE,ar-YE,"سعر بيتكوين",0.0
+YE,ar-YE,"أخبار بيتكوين",0.0
+BS,en-BS,"buy bitcoin",0.7
+BS,en-BS,"how to buy btc",0.8
+BS,en-BS,"bitcoin purchase",0.7
+BS,en-BS,"bitcoin investment",0.6
+BS,en-BS,"btc portfolio",0.5
+BS,en-BS,"crypto invest",0.5
+BS,en-BS,"bitcoin bull",0.9
+BS,en-BS,"btc moon",1.0
+BS,en-BS,"bitcoin rally",0.9
+BS,en-BS,"bitcoin ETF",0.8
+BS,en-BS,"institutional bitcoin",0.7
+BS,en-BS,"bitcoin legal",0.6
+BS,en-BS,"bitcoin all time high",1.0
+BS,en-BS,"btc ath",1.0
+BS,en-BS,"bitcoin new high",0.9
+BS,en-BS,"sell bitcoin",-0.5
+BS,en-BS,"bitcoin sell",-0.5
+BS,en-BS,"dump btc",-0.8
+BS,en-BS,"bitcoin crash",-1.0
+BS,en-BS,"btc bear",-0.8
+BS,en-BS,"bitcoin dead",-1.0
+BS,en-BS,"bitcoin ban",-1.0
+BS,en-BS,"crypto regulation",-0.7
+BS,en-BS,"bitcoin illegal",-1.0
+BS,en-BS,"bitcoin hack",-1.0
+BS,en-BS,"crypto scam",-0.8
+BS,en-BS,"bitcoin stolen",-0.9
+BS,en-BS,"bitcoin energy",-0.5
+BS,en-BS,"bitcoin bubble",-0.8
+BS,en-BS,"bitcoin ponzi",-0.9
+BS,en-BS,"bitcoin price",0.0
+BS,en-BS,"btc usd",0.0
+BS,en-BS,"bitcoin rate",0.0
+BS,en-BS,"bitcoin news",0.0
+BS,en-BS,"crypto news",0.0
+BS,en-BS,"btc today",0.0
+BS,en-BS,"bitcoin halving",0.0
+BS,en-BS,"btc mining",0.0
+BS,en-BS,"bitcoin blockchain",0.0
+BS,en-BS,"what is bitcoin",0.0
+BS,en-BS,"bitcoin explained",0.0
+BS,en-BS,"how bitcoin works",0.0
+BM,en-BM,"buy bitcoin",0.7
+BM,en-BM,"how to buy btc",0.8
+BM,en-BM,"bitcoin purchase",0.7
+BM,en-BM,"bitcoin investment",0.6
+BM,en-BM,"btc portfolio",0.5
+BM,en-BM,"crypto invest",0.5
+BM,en-BM,"bitcoin bull",0.9
+BM,en-BM,"btc moon",1.0
+BM,en-BM,"bitcoin rally",0.9
+BM,en-BM,"bitcoin ETF",0.8
+BM,en-BM,"institutional bitcoin",0.7
+BM,en-BM,"bitcoin legal",0.6
+BM,en-BM,"bitcoin all time high",1.0
+BM,en-BM,"btc ath",1.0
+BM,en-BM,"bitcoin new high",0.9
+BM,en-BM,"sell bitcoin",-0.5
+BM,en-BM,"bitcoin sell",-0.5
+BM,en-BM,"dump btc",-0.8
+BM,en-BM,"bitcoin crash",-1.0
+BM,en-BM,"btc bear",-0.8
+BM,en-BM,"bitcoin dead",-1.0
+BM,en-BM,"bitcoin ban",-1.0
+BM,en-BM,"crypto regulation",-0.7
+BM,en-BM,"bitcoin illegal",-1.0
+BM,en-BM,"bitcoin hack",-1.0
+BM,en-BM,"crypto scam",-0.8
+BM,en-BM,"bitcoin stolen",-0.9
+BM,en-BM,"bitcoin energy",-0.5
+BM,en-BM,"bitcoin bubble",-0.8
+BM,en-BM,"bitcoin ponzi",-0.9
+BM,en-BM,"bitcoin price",0.0
+BM,en-BM,"btc usd",0.0
+BM,en-BM,"bitcoin rate",0.0
+BM,en-BM,"bitcoin news",0.0
+BM,en-BM,"crypto news",0.0
+BM,en-BM,"btc today",0.0
+BM,en-BM,"bitcoin halving",0.0
+BM,en-BM,"btc mining",0.0
+BM,en-BM,"bitcoin blockchain",0.0
+BM,en-BM,"what is bitcoin",0.0
+BM,en-BM,"bitcoin explained",0.0
+BM,en-BM,"how bitcoin works",0.0
+VG,en-VG,"buy bitcoin",0.7
+VG,en-VG,"how to buy btc",0.8
+VG,en-VG,"bitcoin purchase",0.7
+VG,en-VG,"bitcoin investment",0.6
+VG,en-VG,"btc portfolio",0.5
+VG,en-VG,"crypto invest",0.5
+VG,en-VG,"bitcoin bull",0.9
+VG,en-VG,"btc moon",1.0
+VG,en-VG,"bitcoin rally",0.9
+VG,en-VG,"bitcoin ETF",0.8
+VG,en-VG,"institutional bitcoin",0.7
+VG,en-VG,"bitcoin legal",0.6
+VG,en-VG,"bitcoin all time high",1.0
+VG,en-VG,"btc ath",1.0
+VG,en-VG,"bitcoin new high",0.9
+VG,en-VG,"sell bitcoin",-0.5
+VG,en-VG,"bitcoin sell",-0.5
+VG,en-VG,"dump btc",-0.8
+VG,en-VG,"bitcoin crash",-1.0
+VG,en-VG,"btc bear",-0.8
+VG,en-VG,"bitcoin dead",-1.0
+VG,en-VG,"bitcoin ban",-1.0
+VG,en-VG,"crypto regulation",-0.7
+VG,en-VG,"bitcoin illegal",-1.0
+VG,en-VG,"bitcoin hack",-1.0
+VG,en-VG,"crypto scam",-0.8
+VG,en-VG,"bitcoin stolen",-0.9
+VG,en-VG,"bitcoin energy",-0.5
+VG,en-VG,"bitcoin bubble",-0.8
+VG,en-VG,"bitcoin ponzi",-0.9
+VG,en-VG,"bitcoin price",0.0
+VG,en-VG,"btc usd",0.0
+VG,en-VG,"bitcoin rate",0.0
+VG,en-VG,"bitcoin news",0.0
+VG,en-VG,"crypto news",0.0
+VG,en-VG,"btc today",0.0
+VG,en-VG,"bitcoin halving",0.0
+VG,en-VG,"btc mining",0.0
+VG,en-VG,"bitcoin blockchain",0.0
+VG,en-VG,"what is bitcoin",0.0
+VG,en-VG,"bitcoin explained",0.0
+VG,en-VG,"how bitcoin works",0.0
+KY,en-KY,"buy bitcoin",0.7
+KY,en-KY,"how to buy btc",0.8
+KY,en-KY,"bitcoin purchase",0.7
+KY,en-KY,"bitcoin investment",0.6
+KY,en-KY,"btc portfolio",0.5
+KY,en-KY,"crypto invest",0.5
+KY,en-KY,"bitcoin bull",0.9
+KY,en-KY,"btc moon",1.0
+KY,en-KY,"bitcoin rally",0.9
+KY,en-KY,"bitcoin ETF",0.8
+KY,en-KY,"institutional bitcoin",0.7
+KY,en-KY,"bitcoin legal",0.6
+KY,en-KY,"bitcoin all time high",1.0
+KY,en-KY,"btc ath",1.0
+KY,en-KY,"bitcoin new high",0.9
+KY,en-KY,"sell bitcoin",-0.5
+KY,en-KY,"bitcoin sell",-0.5
+KY,en-KY,"dump btc",-0.8
+KY,en-KY,"bitcoin crash",-1.0
+KY,en-KY,"btc bear",-0.8
+KY,en-KY,"bitcoin dead",-1.0
+KY,en-KY,"bitcoin ban",-1.0
+KY,en-KY,"crypto regulation",-0.7
+KY,en-KY,"bitcoin illegal",-1.0
+KY,en-KY,"bitcoin hack",-1.0
+KY,en-KY,"crypto scam",-0.8
+KY,en-KY,"bitcoin stolen",-0.9
+KY,en-KY,"bitcoin energy",-0.5
+KY,en-KY,"bitcoin bubble",-0.8
+KY,en-KY,"bitcoin ponzi",-0.9
+KY,en-KY,"bitcoin price",0.0
+KY,en-KY,"btc usd",0.0
+KY,en-KY,"bitcoin rate",0.0
+KY,en-KY,"bitcoin news",0.0
+KY,en-KY,"crypto news",0.0
+KY,en-KY,"btc today",0.0
+KY,en-KY,"bitcoin halving",0.0
+KY,en-KY,"btc mining",0.0
+KY,en-KY,"bitcoin blockchain",0.0
+KY,en-KY,"what is bitcoin",0.0
+KY,en-KY,"bitcoin explained",0.0
+KY,en-KY,"how bitcoin works",0.0
+CW,nl,"bitcoin kopen",0.7
+CW,nl,"hoe bitcoin kopen",0.8
+CW,nl,"bitcoin investering",0.6
+CW,nl,"btc portefeuille",0.5
+CW,nl,"crypto investeren",0.5
+CW,nl,"bitcoin bull",0.9
+CW,nl,"btc moon",1.0
+CW,nl,"bitcoin rally",0.9
+CW,nl,"bitcoin ETF",0.8
+CW,nl,"institutionele bitcoin",0.7
+CW,nl,"bitcoin legaal",0.6
+CW,nl,"bitcoin recordhoogte",1.0
+CW,nl,"bitcoin ATH",1.0
+CW,nl,"bitcoin nieuw hoogtepunt",0.9
+CW,nl,"bitcoin verkopen",-0.5
+CW,nl,"bitcoin verkoop",-0.5
+CW,nl,"dump btc",-0.8
+CW,nl,"bitcoin crash",-1.0
+CW,nl,"btc bear",-0.8
+CW,nl,"bitcoin dood",-1.0
+CW,nl,"bitcoin verbod",-1.0
+CW,nl,"crypto regelgeving",-0.7
+CW,nl,"bitcoin illegaal",-1.0
+CW,nl,"bitcoin hack",-1.0
+CW,nl,"crypto scam",-0.8
+CW,nl,"bitcoin gestolen",-0.9
+CW,nl,"bitcoin energie",-0.5
+CW,nl,"bitcoin zeepbel",-0.8
+CW,nl,"bitcoin ponzi",-0.9
+CW,nl,"bitcoin prijs",0.0
+CW,nl,"btc usd",0.0
+CW,nl,"bitcoin koers",0.0
+CW,nl,"bitcoin nieuws",0.0
+CW,nl,"crypto nieuws",0.0
+CW,nl,"btc vandaag",0.0
+CW,nl,"bitcoin halving",0.0
+CW,nl,"btc mining",0.0
+CW,nl,"bitcoin blockchain",0.0
+CW,nl,"wat is bitcoin",0.0
+CW,nl,"bitcoin uitgelegd",0.0
+CW,nl,"hoe werkt bitcoin",0.0
+IM,en,"buy bitcoin",0.7
+IM,en,"how to buy btc",0.8
+IM,en,"bitcoin purchase",0.7
+IM,en,"bitcoin investment",0.6
+IM,en,"btc portfolio",0.5
+IM,en,"crypto invest",0.5
+IM,en,"bitcoin bull",0.9
+IM,en,"btc moon",1.0
+IM,en,"bitcoin rally",0.9
+IM,en,"bitcoin ETF",0.8
+IM,en,"institutional bitcoin",0.7
+IM,en,"bitcoin legal",0.6
+IM,en,"bitcoin all time high",1.0
+IM,en,"btc ath",1.0
+IM,en,"bitcoin new high",0.9
+IM,en,"sell bitcoin",-0.5
+IM,en,"bitcoin sell",-0.5
+IM,en,"dump btc",-0.8
+IM,en,"bitcoin crash",-1.0
+IM,en,"btc bear",-0.8
+IM,en,"bitcoin dead",-1.0
+IM,en,"bitcoin ban",-1.0
+IM,en,"crypto regulation",-0.7
+IM,en,"bitcoin illegal",-1.0
+IM,en,"bitcoin hack",-1.0
+IM,en,"crypto scam",-0.8
+IM,en,"bitcoin stolen",-0.9
+IM,en,"bitcoin energy",-0.5
+IM,en,"bitcoin bubble",-0.8
+IM,en,"bitcoin ponzi",-0.9
+IM,en,"bitcoin price",0.0
+IM,en,"btc usd",0.0
+IM,en,"bitcoin rate",0.0
+IM,en,"bitcoin news",0.0
+IM,en,"crypto news",0.0
+IM,en,"btc today",0.0
+IM,en,"bitcoin halving",0.0
+IM,en,"btc mining",0.0
+IM,en,"bitcoin blockchain",0.0
+IM,en,"what is bitcoin",0.0
+IM,en,"bitcoin explained",0.0
+IM,en,"how bitcoin works",0.0
+LI,de-LI,"Bitcoin kaufen",0.7
+LI,de-LI,"wie Bitcoin kaufen",0.8
+LI,de-LI,"in Bitcoin investieren",0.6
+LI,de-LI,"Bitcoin Portfolio",0.5
+LI,de-LI,"in Krypto investieren",0.5
+LI,de-LI,"Bitcoin steigt",0.9
+LI,de-LI,"Bitcoin Rallye",0.9
+LI,de-LI,"Bitcoin ETF",0.8
+LI,de-LI,"institutionelle Bitcoin",0.7
+LI,de-LI,"Bitcoin legal",0.6
+LI,de-LI,"Bitcoin Rekordhoch",1.0
+LI,de-LI,"Bitcoin ATH",1.0
+LI,de-LI,"neues Bitcoin Hoch",0.9
+LI,de-LI,"Bitcoin verkaufen",-0.5
+LI,de-LI,"Bitcoin Abverkauf",-0.8
+LI,de-LI,"Bitcoin Absturz",-1.0
+LI,de-LI,"Bitcoin Bärenmarkt",-0.8
+LI,de-LI,"Bitcoin tot",-1.0
+LI,de-LI,"Bitcoin Verbot",-1.0
+LI,de-LI,"Krypto Regulierung",-0.7
+LI,de-LI,"Bitcoin illegal",-1.0
+LI,de-LI,"Bitcoin Hack",-1.0
+LI,de-LI,"Krypto Betrug",-0.8
+LI,de-LI,"Bitcoin Diebstahl",-0.9
+LI,de-LI,"Bitcoin Energie",-0.5
+LI,de-LI,"Bitcoin Blase",-0.8
+LI,de-LI,"Bitcoin Schneeballsystem",-0.9
+LI,de-LI,"Bitcoin Preis",0.0
+LI,de-LI,"Bitcoin Kurs",0.0
+LI,de-LI,"Bitcoin Nachrichten",0.0
+LI,de-LI,"Krypto Nachrichten",0.0
+LI,de-LI,"Bitcoin aktuell",0.0
+LI,de-LI,"Bitcoin Halving",0.0
+LI,de-LI,"Bitcoin Mining",0.0
+LI,de-LI,"Bitcoin Blockchain",0.0
+LI,de-LI,"Was ist Bitcoin",0.0
+LI,de-LI,"Bitcoin erklärt",0.0
+LI,de-LI,"Wie funktioniert Bitcoin",0.0
+MC,fr-MC,"acheter bitcoin",0.7
+MC,fr-MC,"comment acheter du bitcoin",0.8
+MC,fr-MC,"investir dans le bitcoin",0.6
+MC,fr-MC,"portefeuille bitcoin",0.5
+MC,fr-MC,"investir crypto",0.5
+MC,fr-MC,"bitcoin haussier",0.9
+MC,fr-MC,"rallye bitcoin",0.9
+MC,fr-MC,"bitcoin ETF",0.8
+MC,fr-MC,"bitcoin institutionnel",0.7
+MC,fr-MC,"bitcoin légal",0.6
+MC,fr-MC,"record bitcoin",1.0
+MC,fr-MC,"bitcoin ATH",1.0
+MC,fr-MC,"nouveau record bitcoin",0.9
+MC,fr-MC,"vendre bitcoin",-0.5
+MC,fr-MC,"ventes massives bitcoin",-0.8
+MC,fr-MC,"krach bitcoin",-1.0
+MC,fr-MC,"bitcoin baissier",-0.8
+MC,fr-MC,"bitcoin mort",-1.0
+MC,fr-MC,"interdiction du bitcoin",-1.0
+MC,fr-MC,"réglementation crypto",-0.7
+MC,fr-MC,"bitcoin illégal",-1.0
+MC,fr-MC,"hack bitcoin",-1.0
+MC,fr-MC,"arnaque crypto",-0.8
+MC,fr-MC,"vol de bitcoin",-0.9
+MC,fr-MC,"énergie bitcoin",-0.5
+MC,fr-MC,"bulle bitcoin",-0.8
+MC,fr-MC,"arnaque ponzi bitcoin",-0.9
+MC,fr-MC,"prix bitcoin",0.0
+MC,fr-MC,"cours bitcoin",0.0
+MC,fr-MC,"actualités bitcoin",0.0
+MC,fr-MC,"actualités crypto",0.0
+MC,fr-MC,"bitcoin aujourd'hui",0.0
+MC,fr-MC,"halving bitcoin",0.0
+MC,fr-MC,"minage bitcoin",0.0
+MC,fr-MC,"blockchain bitcoin",0.0
+MC,fr-MC,"qu'est-ce que le bitcoin",0.0
+MC,fr-MC,"bitcoin expliqué",0.0
+MC,fr-MC,"comment fonctionne le bitcoin",0.0
+SC,en-SC,"buy bitcoin",0.7
+SC,en-SC,"how to buy btc",0.8
+SC,en-SC,"bitcoin purchase",0.7
+SC,en-SC,"bitcoin investment",0.6
+SC,en-SC,"btc portfolio",0.5
+SC,en-SC,"crypto invest",0.5
+SC,en-SC,"bitcoin bull",0.9
+SC,en-SC,"btc moon",1.0
+SC,en-SC,"bitcoin rally",0.9
+SC,en-SC,"bitcoin ETF",0.8
+SC,en-SC,"institutional bitcoin",0.7
+SC,en-SC,"bitcoin legal",0.6
+SC,en-SC,"bitcoin all time high",1.0
+SC,en-SC,"btc ath",1.0
+SC,en-SC,"bitcoin new high",0.9
+SC,en-SC,"sell bitcoin",-0.5
+SC,en-SC,"bitcoin sell",-0.5
+SC,en-SC,"dump btc",-0.8
+SC,en-SC,"bitcoin crash",-1.0
+SC,en-SC,"btc bear",-0.8
+SC,en-SC,"bitcoin dead",-1.0
+SC,en-SC,"bitcoin ban",-1.0
+SC,en-SC,"crypto regulation",-0.7
+SC,en-SC,"bitcoin illegal",-1.0
+SC,en-SC,"bitcoin hack",-1.0
+SC,en-SC,"crypto scam",-0.8
+SC,en-SC,"bitcoin stolen",-0.9
+SC,en-SC,"bitcoin energy",-0.5
+SC,en-SC,"bitcoin bubble",-0.8
+SC,en-SC,"bitcoin ponzi",-0.9
+SC,en-SC,"bitcoin price",0.0
+SC,en-SC,"btc usd",0.0
+SC,en-SC,"bitcoin rate",0.0
+SC,en-SC,"bitcoin news",0.0
+SC,en-SC,"crypto news",0.0
+SC,en-SC,"btc today",0.0
+SC,en-SC,"bitcoin halving",0.0
+SC,en-SC,"btc mining",0.0
+SC,en-SC,"bitcoin blockchain",0.0
+SC,en-SC,"what is bitcoin",0.0
+SC,en-SC,"bitcoin explained",0.0
+SC,en-SC,"how bitcoin works",0.0
+VI,en-VI,"buy bitcoin",0.7
+VI,en-VI,"how to buy btc",0.8
+VI,en-VI,"bitcoin purchase",0.7
+VI,en-VI,"bitcoin investment",0.6
+VI,en-VI,"btc portfolio",0.5
+VI,en-VI,"crypto invest",0.5
+VI,en-VI,"bitcoin bull",0.9
+VI,en-VI,"btc moon",1.0
+VI,en-VI,"bitcoin rally",0.9
+VI,en-VI,"bitcoin ETF",0.8
+VI,en-VI,"institutional bitcoin",0.7
+VI,en-VI,"bitcoin legal",0.6
+VI,en-VI,"bitcoin all time high",1.0
+VI,en-VI,"btc ath",1.0
+VI,en-VI,"bitcoin new high",0.9
+VI,en-VI,"sell bitcoin",-0.5
+VI,en-VI,"bitcoin sell",-0.5
+VI,en-VI,"dump btc",-0.8
+VI,en-VI,"bitcoin crash",-1.0
+VI,en-VI,"btc bear",-0.8
+VI,en-VI,"bitcoin dead",-1.0
+VI,en-VI,"bitcoin ban",-1.0
+VI,en-VI,"crypto regulation",-0.7
+VI,en-VI,"bitcoin illegal",-1.0
+VI,en-VI,"bitcoin hack",-1.0
+VI,en-VI,"crypto scam",-0.8
+VI,en-VI,"bitcoin stolen",-0.9
+VI,en-VI,"bitcoin energy",-0.5
+VI,en-VI,"bitcoin bubble",-0.8
+VI,en-VI,"bitcoin ponzi",-0.9
+VI,en-VI,"bitcoin price",0.0
+VI,en-VI,"btc usd",0.0
+VI,en-VI,"bitcoin rate",0.0
+VI,en-VI,"bitcoin news",0.0
+VI,en-VI,"crypto news",0.0
+VI,en-VI,"btc today",0.0
+VI,en-VI,"bitcoin halving",0.0
+VI,en-VI,"btc mining",0.0
+VI,en-VI,"bitcoin blockchain",0.0
+VI,en-VI,"what is bitcoin",0.0
+VI,en-VI,"bitcoin explained",0.0
+VI,en-VI,"how bitcoin works",0.0
+AR,es-AR,"bitcoin argentina",0.3
+AR,es-AR,"dolar blue bitcoin",0.5
+AR,es-AR,"comprar btc",0.7
+BR,pt-BR,"comprar bitcoin",0.7
+BR,pt-BR,"como comprar bitcoin",0.8
+BR,pt-BR,"investir em bitcoin",0.6
+BR,pt-BR,"portfólio bitcoin",0.5
+BR,pt-BR,"bitcoin alta",0.9
+BR,pt-BR,"rali do bitcoin",0.9
+BR,pt-BR,"bitcoin ETF",0.8
+BR,pt-BR,"bitcoin institucional",0.7
+BR,pt-BR,"bitcoin legal",0.6
+BR,pt-BR,"recorde histórico bitcoin",1.0
+BR,pt-BR,"bitcoin ATH",1.0
+BR,pt-BR,"novo recorde bitcoin",0.9
+BR,pt-BR,"vender bitcoin",-0.5
+BR,pt-BR,"queda do bitcoin",-1.0
+BR,pt-BR,"bitcoin morto",-1.0
+BR,pt-BR,"banimento do bitcoin",-1.0
+BR,pt-BR,"regulamentação cripto",-0.7
+BR,pt-BR,"bitcoin ilegal",-1.0
+BR,pt-BR,"hack de bitcoin",-1.0
+BR,pt-BR,"golpe cripto",-0.8
+BR,pt-BR,"bitcoin roubado",-0.9
+BR,pt-BR,"energia bitcoin",-0.5
+BR,pt-BR,"bolha do bitcoin",-0.8
+BR,pt-BR,"esquema ponzi bitcoin",-0.9
+BR,pt-BR,"preço bitcoin",0.0
+BR,pt-BR,"notícias bitcoin",0.0
+BR,pt-BR,"notícias cripto",0.0
+BR,pt-BR,"bitcoin hoje",0.0
+BR,pt-BR,"halving bitcoin",0.0
+BR,pt-BR,"mineração bitcoin",0.0
+BR,pt-BR,"blockchain bitcoin",0.0
+BR,pt-BR,"o que é bitcoin",0.0
+BR,pt-BR,"bitcoin explicado",0.0
+BR,pt-BR,"como o bitcoin funciona",0.0
+MX,es-MX,"comprar bitcoin",0.7
+MX,es-MX,"cómo comprar btc",0.8
+MX,es-MX,"invertir en bitcoin",0.6
+MX,es-MX,"portafolio bitcoin",0.5
+MX,es-MX,"invertir en criptomonedas",0.5
+MX,es-MX,"bitcoin alcista",0.9
+MX,es-MX,"subida bitcoin",0.9
+MX,es-MX,"bitcoin ETF",0.8
+MX,es-MX,"bitcoin institucional",0.7
+MX,es-MX,"bitcoin legal",0.6
+MX,es-MX,"máximo histórico bitcoin",1.0
+MX,es-MX,"bitcoin ATH",1.0
+MX,es-MX,"nuevo máximo bitcoin",0.9
+MX,es-MX,"vender bitcoin",-0.5
+MX,es-MX,"venta masiva bitcoin",-0.8
+MX,es-MX,"caída del bitcoin",-1.0
+MX,es-MX,"bitcoin bajista",-0.8
+MX,es-MX,"bitcoin muerto",-1.0
+MX,es-MX,"prohibición del bitcoin",-1.0
+MX,es-MX,"regulación cripto",-0.7
+MX,es-MX,"bitcoin ilegal",-1.0
+MX,es-MX,"hackeo de bitcoin",-1.0
+MX,es-MX,"estafa cripto",-0.8
+MX,es-MX,"robo de bitcoin",-0.9
+MX,es-MX,"energía bitcoin",-0.5
+MX,es-MX,"burbuja bitcoin",-0.8
+MX,es-MX,"esquema ponzi bitcoin",-0.9
+MX,es-MX,"precio bitcoin",0.0
+MX,es-MX,"cotización bitcoin",0.0
+MX,es-MX,"noticias bitcoin",0.0
+MX,es-MX,"noticias cripto",0.0
+MX,es-MX,"bitcoin hoy",0.0
+MX,es-MX,"halving bitcoin",0.0
+MX,es-MX,"minería bitcoin",0.0
+MX,es-MX,"blockchain bitcoin",0.0
+MX,es-MX,"qué es bitcoin",0.0
+MX,es-MX,"explicación bitcoin",0.0
+MX,es-MX,"cómo funciona bitcoin",0.0
+NG,en-NG,"buy bitcoin nigeria",0.7
+NG,en-NG,"naira bitcoin",0.5
+NG,en-NG,"p2p bitcoin",0.4
+RU,ru,"биткоин",0.0
+RU,ru,"криптовалюта",0.0
+RU,ru,"купить биткоин",0.7
+RU,ru,"продать биткоин",-0.5
+RU,ru,"крах биткоина",-1.0
+RU,ru,"запрет биткоина",-1.0
+RU,ru,"пузырь биткоина",-0.8
+RU,ru,"биткоин скам",-0.8
+ZA,en-ZA,"buy bitcoin",0.7
+ZA,en-ZA,"how to buy btc",0.8
+ZA,en-ZA,"bitcoin purchase",0.7
+ZA,en-ZA,"bitcoin investment",0.6
+ZA,en-ZA,"btc portfolio",0.5
+ZA,en-ZA,"crypto invest",0.5
+ZA,en-ZA,"bitcoin bull",0.9
+ZA,en-ZA,"btc moon",1.0
+ZA,en-ZA,"bitcoin rally",0.9
+ZA,en-ZA,"bitcoin ETF",0.8
+ZA,en-ZA,"institutional bitcoin",0.7
+ZA,en-ZA,"bitcoin legal",0.6
+ZA,en-ZA,"bitcoin all time high",1.0
+ZA,en-ZA,"btc ath",1.0
+ZA,en-ZA,"bitcoin new high",0.9
+ZA,en-ZA,"sell bitcoin",-0.5
+ZA,en-ZA,"bitcoin sell",-0.5
+ZA,en-ZA,"dump btc",-0.8
+ZA,en-ZA,"bitcoin crash",-1.0
+ZA,en-ZA,"btc bear",-0.8
+ZA,en-ZA,"bitcoin dead",-1.0
+ZA,en-ZA,"bitcoin ban",-1.0
+ZA,en-ZA,"crypto regulation",-0.7
+ZA,en-ZA,"bitcoin illegal",-1.0
+ZA,en-ZA,"bitcoin hack",-1.0
+ZA,en-ZA,"crypto scam",-0.8
+ZA,en-ZA,"bitcoin stolen",-0.9
+ZA,en-ZA,"bitcoin energy",-0.5
+ZA,en-ZA,"bitcoin bubble",-0.8
+ZA,en-ZA,"bitcoin ponzi",-0.9
+ZA,en-ZA,"bitcoin price",0.0
+ZA,en-ZA,"btc usd",0.0e
+ZA,en-ZA,"bitcoin rate",0.0
+ZA,en-ZA,"bitcoin news",0.0
+ZA,en-ZA,"crypto news",0.0
+ZA,en-ZA,"btc today",0.0
+ZA,en-ZA,"bitcoin halving",0.0
+ZA,en-ZA,"btc mining",0.0
+ZA,en-ZA,"bitcoin blockchain",0.0
+ZA,en-ZA,"what is bitcoin",0.0
+ZA,en-ZA,"bitcoin explained",0.0
+ZA,en-ZA,"how bitcoin works",0.0
