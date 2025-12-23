@@ -45,6 +45,9 @@ ENV/
 
 # Large SQL files
 data/ai_blockchain-postgres.sql
+data/gdelt.sql
+data/ohlcv.sql
+data/tickers.sql
 
 # Logs
 *.log

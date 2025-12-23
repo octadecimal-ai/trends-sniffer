@@ -10,14 +10,14 @@ Wszystkie parametry konfiguracyjne znajdują się na górze pliku.
 # ============================================================================
 
 # --- Parametry inicjalizacji TrendReq ---
-CONFIG_LANGUAGE = 'pl-PL'          # Język interfejsu (pl-PL, en-US, de-DE, itp.)
+CONFIG_LANGUAGE = 'en-CA'          # Język interfejsu (pl-PL, en-US, de-DE, itp.)
 CONFIG_TIMEZONE = -120             # Strefa czasowa w minutach od UTC (-120 = UTC-2 dla Polski)
 CONFIG_RETRIES = 2                 # Liczba ponownych prób przy błędach
 CONFIG_BACKOFF_FACTOR = 0.1        # Czas oczekiwania między ponownymi próbami (w sekundach)
 CONFIG_REQUESTS_ARGS = None        # Dodatkowe nagłówki HTTP (None lub dict, np. {'headers': {'User-Agent': '...'}})
-
+    
 # --- Parametry zapytania (build_payload) ---
-CONFIG_KEYWORDS = ["BTC"]  # Lista słów kluczowych (maksymalnie 5)
+CONFIG_KEYWORDS = ["how to buy btc"]  # Lista słów kluczowych (maksymalnie 5)
 CONFIG_CATEGORY = 0                # Kategoria (0 = wszystkie, 7 = Finanse, 71 = Technologia, itd.)
 CONFIG_TIMEFRAME = 'now 1-H'   # Zakres czasowy:
                                    #   'today 5-y' - ostatnie 5 lat
@@ -27,7 +27,7 @@ CONFIG_TIMEFRAME = 'now 1-H'   # Zakres czasowy:
                                    #   'now 7-d' - ostatnie 7 dni
                                    #   'now 1-d' - ostatnie 24 godziny
                                    #   'YYYY-MM-DD YYYY-MM-DD' - zakres dat (np. '2020-01-01 2020-12-31')
-CONFIG_COUNTRY = 'US'             # Kod kraju (PL, US, DE, GB, '' dla całego świata)
+CONFIG_COUNTRY = 'CA'              # Kod kraju (PL, US, DE, GB, '' dla całego świata)
                                    # Lista kodów: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
 CONFIG_REGION = None               # Kod regionu (opcjonalnie, np. 'PL-MZ' dla Mazowsza)
 CONFIG_CITY = None                 # Nazwa miasta (opcjonalnie, np. 'Warsaw')
@@ -75,6 +75,12 @@ CONFIG_VERBOSE = True              # Czy wyświetlać szczegółowe informacje
 
 import os
 import sys
+
+# Dodaj katalog główny projektu do ścieżki Python, aby umożliwić import modułów
+project_root = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+if project_root not in sys.path:
+    sys.path.insert(0, project_root)
+
 from src.services.trends_sniffer_service import TrendsSnifferService
 
 
