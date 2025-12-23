@@ -182,19 +182,19 @@ class BTCUSDCDataLoader:
                 OHLCV.symbol == self.symbol,
                 OHLCV.timeframe == self.timeframe
             ).scalar()
-            
+        
             if result is None:
-                return None
-            
-            # Konwertuj na datetime i upewnij się że jest tz-aware
+            return None
+        
+        # Konwertuj na datetime i upewnij się że jest tz-aware
             if hasattr(result, 'to_pydatetime'):
                 dt = result.to_pydatetime()
             else:
                 dt = result
             
-            if dt.tzinfo is None:
-                dt = dt.replace(tzinfo=timezone.utc)
-            return dt
+        if dt.tzinfo is None:
+            dt = dt.replace(tzinfo=timezone.utc)
+        return dt
     
     def get_data(
         self,

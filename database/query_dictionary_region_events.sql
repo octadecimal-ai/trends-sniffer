@@ -121,9 +121,6 @@ FROM
 
 WHERE 
     bsp.multiplier <> 0
-    -- Opcjonalne filtry czasowe (będą dodawane przez API):
-    -- AND ss.occurrence_time >= :time_from
-    -- AND ss.occurrence_time <= :time_to
 
 ORDER BY 
     ss.occurrence_time DESC;

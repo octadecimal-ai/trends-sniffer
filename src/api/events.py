@@ -5,9 +5,10 @@ Endpoint zwracający wydarzenia regionalne z danymi OHLCV i GDELT sentiment.
 """
 
 import os
-from datetime import datetime, timedelta, timezone
-from typing import Optional, List
+from datetime import datetime, timedelta, timezone, time as dt_time
+from typing import Optional, List, Tuple
 from pathlib import Path
+from decimal import Decimal
 
 from fastapi import FastAPI, Query, HTTPException
 from fastapi.responses import JSONResponse
@@ -38,9 +39,9 @@ def build_query(
     time_to: Optional[datetime] = None,
     region: Optional[str] = None,
     country: Optional[List[str]] = None
-) -> str:
+) -> Tuple[str, dict]:
     """
-    Buduje zapytanie SQL z filtrami.
+    Buduje zapytanie SQL z filtrami używając parametrów SQLAlchemy.
     
     Args:
         time_from: Czas początkowy (UTC) - domyślnie now()
@@ -49,7 +50,7 @@ def build_query(
         country: Lista kodów krajów (domyślnie ['PL'])
     
     Returns:
-        Zapytanie SQL jako string
+        Tuple (zapytanie SQL jako string, parametry jako dict)
     """
     # Domyślne wartości
     if time_from is None:
@@ -64,28 +65,29 @@ def build_query(
     
     # Dodaj filtry WHERE (zapytanie już ma WHERE bsp.multiplier <> 0)
     where_conditions = []
+    params = {}
     
     # Filtr po czasie - filtrujemy po occurrence_time z sentiments_sniff
     if time_from:
-        time_from_str = time_from.isoformat()
-        where_conditions.append(f"ss.occurrence_time >= '{time_from_str}'")
+        where_conditions.append("ss.occurrence_time >= :time_from")
+        params['time_from'] = time_from
     
     if time_to:
-        time_to_str = time_to.isoformat()
-        where_conditions.append(f"ss.occurrence_time <= '{time_to_str}'")
+        where_conditions.append("ss.occurrence_time <= :time_to")
+        params['time_to'] = time_to
     
     # Filtr po regionie
     if region:
-        # Escapuj pojedyncze cudzysłowy (na wypadek)
-        region_escaped = region.replace("'", "''")
-        where_conditions.append(f"r.code = '{region_escaped}'")
+        where_conditions.append("r.code = :region")
+        params['region'] = region
     
     # Filtr po krajach
     if country:
-        # Escapuj pojedyncze cudzysłowy w kodach krajów
-        country_escaped = [c.replace("'", "''") for c in country]
-        country_list = "', '".join(country_escaped)
-        where_conditions.append(f"c.iso2_code IN ('{country_list}')")
+        # Użyj parametru dla każdego kraju lub IN z parametrem
+        placeholders = ', '.join([f':country_{i}' for i in range(len(country))])
+        where_conditions.append(f"c.iso2_code IN ({placeholders})")
+        for i, c in enumerate(country):
+            params[f'country_{i}'] = c.upper()
     
     # Dodaj warunki do istniejącego WHERE
     if where_conditions:
@@ -94,24 +96,13 @@ def build_query(
         # Znajdź miejsce przed ORDER BY
         order_by_pos = query.rfind('ORDER BY')
         if order_by_pos != -1:
-            # Znajdź linię z komentarzem o opcjonalnych filtrach (jeśli istnieje)
-            comment_pos = query.rfind('-- Opcjonalne filtry', 0, order_by_pos)
-            if comment_pos != -1:
-                # Zastąp komentarz warunkami
-                # Znajdź koniec linii z komentarzem
-                comment_end = query.find('\n', comment_pos)
-                if comment_end != -1:
-                    query = query[:comment_pos] + additional_conditions + '\n' + query[comment_end:]
-                else:
-                    query = query[:comment_pos] + additional_conditions + '\n' + query[order_by_pos:]
-            else:
-                # Jeśli nie ma komentarza, dodaj przed ORDER BY
-                query = query[:order_by_pos] + additional_conditions + '\n' + query[order_by_pos:]
+            # Dodaj przed ORDER BY
+            query = query[:order_by_pos] + additional_conditions + '\n    ' + query[order_by_pos:]
         else:
             # Jeśli nie ma ORDER BY, dodaj na końcu
             query = query.rstrip() + additional_conditions
     
-    return query
+    return query, params
 
 
 async def get_events(
@@ -138,8 +129,8 @@ async def get_events(
         if time_to is None:
             time_to = time_from - timedelta(hours=1)
         
-        # Buduj zapytanie
-        query = build_query(
+        # Buduj zapytanie z parametrami
+        query, params = build_query(
             time_from=time_from,
             time_to=time_to,
             region=region,
@@ -148,9 +139,9 @@ async def get_events(
         
         logger.info(f"Wykonuję zapytanie z parametrami: time_from={time_from}, time_to={time_to}, region={region}, country={country}")
         
-        # Wykonaj zapytanie
+        # Wykonaj zapytanie z parametrami
         with db_manager.get_session() as session:
-            result = session.execute(text(query))
+            result = session.execute(text(query), params)
             rows = result.fetchall()
             
             # Konwertuj wyniki na listę słowników
@@ -159,9 +150,18 @@ async def get_events(
             for row in rows:
                 row_dict = {}
                 for col, val in zip(columns, row):
+                    # Konwertuj None
+                    if val is None:
+                        row_dict[col] = None
                     # Konwertuj datetime na string ISO format
-                    if isinstance(val, datetime):
+                    elif isinstance(val, datetime):
                         row_dict[col] = val.isoformat()
+                    # Konwertuj time na string
+                    elif isinstance(val, dt_time):
+                        row_dict[col] = val.isoformat()
+                    # Konwertuj Decimal na float
+                    elif isinstance(val, Decimal):
+                        row_dict[col] = float(val)
                     # Konwertuj inne typy na JSON-serializable
                     elif hasattr(val, '__dict__'):
                         row_dict[col] = str(val)
