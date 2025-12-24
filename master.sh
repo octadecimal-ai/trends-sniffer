@@ -24,10 +24,12 @@ NC='\033[0m' # No Color
 
 # Katalogi
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-DAEMONS_DIR="${SCRIPT_DIR}/daemons"
-LOG_DIR="${SCRIPT_DIR}/.dev/logs"
-STATE_DIR="${SCRIPT_DIR}/.dev/state"
+PROJECT_DIR="$SCRIPT_DIR"  # Katalog główny projektu (master.sh jest w katalogu głównym)
+DAEMONS_DIR="${PROJECT_DIR}/daemons"
+LOG_DIR="${PROJECT_DIR}/.dev/logs"
+STATE_DIR="${PROJECT_DIR}/.dev/state"
 PID_FILE="${LOG_DIR}/master_daemon.pid"
+ENV_FILE="${PROJECT_DIR}/.env"  # Plik .env zawsze w katalogu głównym
 
 # Utwórz katalogi
 mkdir -p "$LOG_DIR"
@@ -219,7 +221,7 @@ start_daemon() {
         "$service_script" --start > /dev/null 2>&1
     else
         # Dla zwykłych skryptów - uruchom w tle
-        cd "$SCRIPT_DIR"
+        cd "$PROJECT_DIR"
         nohup bash "$service_script" > "${LOG_DIR}/${daemon_name}.log" 2>&1 &
         local pid=$!
         
@@ -232,11 +234,26 @@ start_daemon() {
     
     sleep 3
     
+    sleep 2
+    
     if is_daemon_running "$daemon_name"; then
         log_success "Daemon $daemon_name uruchomiony"
         return 0
     else
         log_error "Nie udało się uruchomić daemona $daemon_name"
+        log_info "Sprawdź:"
+        log_info "  - Czy skrypt $service_script istnieje i jest wykonywalny?"
+        log_info "  - Czy są wymagane uprawnienia?"
+        log_info "  - Sprawdź logi: ${LOG_DIR}/${daemon_name}.log"
+        
+        # Sprawdź logi jeśli istnieją
+        if [ -f "${LOG_DIR}/${daemon_name}.log" ]; then
+            log_info "Ostatnie linie z logów:"
+            tail -n 5 "${LOG_DIR}/${daemon_name}.log" 2>/dev/null | while IFS= read -r line; do
+                log_info "  $line"
+            done || true
+        fi
+        
         return 1
     fi
 }
@@ -348,10 +365,55 @@ restart_vpn() {
 
 # Odtwórz dźwięk alarmowy
 play_alert_sound() {
+    local error_output=""
     if [ -f "$SOUND_FILE" ]; then
-        afplay "$SOUND_FILE" 2>/dev/null || true
+        error_output=$(afplay "$SOUND_FILE" 2>&1)
+        local exit_code=$?
+        if [ $exit_code -eq 0 ]; then
+            return 0
+        else
+            echo "$error_output" >&2
+            return $exit_code
+        fi
     else
-        say "Alert! Daemon problem detected." 2>/dev/null || true
+        error_output=$(say "Alert! Daemon problem detected." 2>&1)
+        local exit_code=$?
+        if [ $exit_code -eq 0 ]; then
+            return 0
+        else
+            echo "$error_output" >&2
+            return $exit_code
+        fi
+    fi
+}
+
+# Test dźwięku alarmowego
+test_alert_sound() {
+    log_info "Testowanie dźwięku alarmowego..."
+    log_info "Plik dźwiękowy: $SOUND_FILE"
+    
+    if [ ! -f "$SOUND_FILE" ]; then
+        log_warning "Plik dźwiękowy nie istnieje: $SOUND_FILE"
+        log_info "Używam alternatywnej metody: say"
+    fi
+    
+    local error_output
+    error_output=$(play_alert_sound 2>&1)
+    local exit_code=$?
+    
+    if [ $exit_code -eq 0 ]; then
+        log_success "Dźwięk alarmowy odtworzony pomyślnie"
+        return 0
+    else
+        log_error "Nie udało się odtworzyć dźwięku alarmowego"
+        if [ -n "$error_output" ]; then
+            log_error "Szczegóły błędu: $error_output"
+        fi
+        log_info "Sprawdź:"
+        log_info "  - Czy plik $SOUND_FILE istnieje?"
+        log_info "  - Czy masz uprawnienia do odtwarzania dźwięku?"
+        log_info "  - Czy komenda 'say' jest dostępna?"
+        return 1
     fi
 }
 
@@ -361,13 +423,17 @@ send_alert_email() {
     local problem_description=$2
     local duration_minutes=$3
     
-    # Sprawdź konfigurację SMTP z .env
-    if [ ! -f "${SCRIPT_DIR}/.env" ]; then
-        log_warning "Brak pliku .env - pomijam wysyłanie emaila"
+    # Sprawdź konfigurację SMTP z .env (zawsze z katalogu głównego projektu)
+    if [ ! -f "$ENV_FILE" ]; then
+        log_warning "Brak pliku .env w katalogu głównym projektu: $ENV_FILE"
+        log_info "Utwórz plik .env w katalogu głównym z konfiguracją SMTP"
         return 1
     fi
     
-    source "${SCRIPT_DIR}/.env"
+    # Załaduj .env ignorując błędy parsowania
+    set +e
+    source "$ENV_FILE" 2>/dev/null
+    set -e
     
     if [ -z "${SMTP_USER:-}" ] || [ -z "${SMTP_PASSWORD:-}" ]; then
         log_warning "Brak konfiguracji SMTP - pomijam wysyłanie emaila"
@@ -387,9 +453,18 @@ Proszę sprawdzić logi i stan systemu.
 Logi: ${LOG_DIR}/master_daemon_$(date +%Y%m%d).log"
     
     # Wyślij email przez Python (prostsze niż przez bash)
-    python3 << EOF
+    # Eksportuj zmienne środowiskowe dla Pythona
+    export SMTP_HOST="${SMTP_HOST:-smtp.gmail.com}"
+    export SMTP_PORT="${SMTP_PORT:-587}"
+    export SMTP_USER
+    export SMTP_PASSWORD
+    export SMTP_FROM="${SMTP_FROM:-$SMTP_USER}"
+    
+    local email_error_output
+    email_error_output=$(python3 << PYEOF 2>&1
 import smtplib
 import os
+import sys
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 
@@ -400,30 +475,107 @@ smtp_password = os.getenv('SMTP_PASSWORD')
 smtp_from = os.getenv('SMTP_FROM', smtp_user)
 
 if not smtp_user or not smtp_password:
-    exit(1)
-
-msg = MIMEMultipart()
-msg['From'] = smtp_from
-msg['To'] = '$EMAIL_RECIPIENT'
-msg['Subject'] = '$subject'
-msg.attach(MIMEText('''$body''', 'plain', 'utf-8'))
+    print("BŁĄD: Brak SMTP_USER lub SMTP_PASSWORD w zmiennych środowiskowych", file=sys.stderr)
+    sys.exit(1)
 
 try:
-    with smtplib.SMTP(smtp_host, smtp_port) as server:
-        server.starttls()
-        server.login(smtp_user, smtp_password)
-        server.send_message(msg)
-    print("Email wysłany")
-except Exception as e:
-    print(f"Błąd wysyłania emaila: {e}")
-    exit(1)
-EOF
+    msg = MIMEMultipart()
+    msg['From'] = smtp_from
+    msg['To'] = '$EMAIL_RECIPIENT'
+    msg['Subject'] = '$subject'
+    msg.attach(MIMEText('''$body''', 'plain', 'utf-8'))
     
-    if [ $? -eq 0 ]; then
+    print(f"Łączenie z {smtp_host}:{smtp_port}...", file=sys.stderr)
+    with smtplib.SMTP(smtp_host, smtp_port, timeout=10) as server:
+        print("Rozpoczynam TLS...", file=sys.stderr)
+        server.starttls()
+        print(f"Logowanie jako {smtp_user}...", file=sys.stderr)
+        server.login(smtp_user, smtp_password)
+        print("Wysyłanie wiadomości...", file=sys.stderr)
+        server.send_message(msg)
+    print("SUCCESS: Email wysłany pomyślnie", file=sys.stderr)
+    sys.exit(0)
+except smtplib.SMTPAuthenticationError as e:
+    print(f"BŁĄD_AUTENTYKACJI: {e}", file=sys.stderr)
+    sys.exit(1)
+except smtplib.SMTPConnectError as e:
+    print(f"BŁĄD_POŁĄCZENIA: Nie można połączyć z {smtp_host}:{smtp_port} - {e}", file=sys.stderr)
+    sys.exit(1)
+except smtplib.SMTPException as e:
+    print(f"BŁĄD_SMTP: {e}", file=sys.stderr)
+    sys.exit(1)
+except Exception as e:
+    print(f"BŁĄD_NIEOCZEKIWANY: {type(e).__name__}: {e}", file=sys.stderr)
+    import traceback
+    traceback.print_exc(file=sys.stderr)
+    sys.exit(1)
+PYEOF
+    )
+    local email_exit_code=$?
+    
+    if [ $email_exit_code -eq 0 ]; then
         log_success "Email wysłany do $EMAIL_RECIPIENT"
         return 0
     else
         log_error "Nie udało się wysłać emaila"
+        if [ -n "$email_error_output" ]; then
+            echo ""
+            log_error "Szczegóły błędu:"
+            echo "$email_error_output" | while IFS= read -r line; do
+                log_error "  $line"
+            done
+        fi
+        log_info "Sprawdź konfigurację SMTP w pliku .env:"
+        log_info "  - SMTP_HOST=${SMTP_HOST:-BRAK}"
+        log_info "  - SMTP_PORT=${SMTP_PORT:-BRAK}"
+        log_info "  - SMTP_USER=${SMTP_USER:-BRAK}"
+        log_info "  - SMTP_PASSWORD=${SMTP_PASSWORD:+USTAWIONE (ukryte)}"
+        log_info "  - SMTP_FROM=${SMTP_FROM:-BRAK}"
+        return 1
+    fi
+}
+
+# Test wysyłki emaila
+test_alert_email() {
+    log_info "Testowanie wysyłki emaila..."
+    log_info "Odbiorca: $EMAIL_RECIPIENT"
+    
+    # Sprawdź konfigurację przed testem (zawsze z katalogu głównego projektu)
+    if [ ! -f "$ENV_FILE" ]; then
+        log_error "Brak pliku .env w katalogu głównym projektu: $ENV_FILE"
+        log_info "Utwórz plik .env w katalogu głównym z konfiguracją SMTP"
+        return 1
+    fi
+    
+    set +e
+    source "$ENV_FILE" 2>/dev/null
+    set -e
+    
+    if [ -z "${SMTP_USER:-}" ]; then
+        log_error "Brak SMTP_USER w pliku .env"
+        return 1
+    fi
+    
+    if [ -z "${SMTP_PASSWORD:-}" ]; then
+        log_error "Brak SMTP_PASSWORD w pliku .env"
+        return 1
+    fi
+    
+    log_info "Konfiguracja SMTP:"
+    log_info "  - Host: ${SMTP_HOST:-smtp.gmail.com}"
+    log_info "  - Port: ${SMTP_PORT:-587}"
+    log_info "  - User: ${SMTP_USER}"
+    log_info "  - From: ${SMTP_FROM:-${SMTP_USER}}"
+    
+    local test_daemon="TEST_DAEMON"
+    local test_description="To jest test wysyłki emaila z master.sh"
+    local test_duration=0
+    
+    if send_alert_email "$test_daemon" "$test_description" "$test_duration"; then
+        log_success "Email testowy wysłany pomyślnie do $EMAIL_RECIPIENT"
+        return 0
+    else
+        log_error "Nie udało się wysłać emaila testowego"
         return 1
     fi
 }
@@ -453,8 +605,8 @@ import psycopg2
 table = "$table"
 date_column = "$date_column"
 
-# Załaduj .env z katalogu projektu
-project_dir = "$SCRIPT_DIR"
+# Załaduj .env z katalogu głównego projektu
+project_dir = "$PROJECT_DIR"
 env_path = os.path.join(project_dir, ".env")
 load_dotenv(dotenv_path=env_path)
 
@@ -818,6 +970,32 @@ while [[ $# -gt 0 ]]; do
             exit 0
             ;;
         --status)
+            STATUS_TEST_SOUND=false
+            STATUS_TEST_EMAIL=false
+            shift
+            # Sprawdź czy są dodatkowe opcje testowania
+            while [[ $# -gt 0 ]]; do
+                case $1 in
+                    --test-sound)
+                        STATUS_TEST_SOUND=true
+                        shift
+                        ;;
+                    --test-email)
+                        STATUS_TEST_EMAIL=true
+                        shift
+                        ;;
+                    --test-all)
+                        STATUS_TEST_SOUND=true
+                        STATUS_TEST_EMAIL=true
+                        shift
+                        ;;
+                    *)
+                        # Nieznany argument - zakończ parsowanie
+                        break
+                        ;;
+                esac
+            done
+            
             if [ -f "$PID_FILE" ]; then
                 PID=$(cat "$PID_FILE")
                 if ps -p "$PID" > /dev/null 2>&1; then
@@ -838,11 +1016,44 @@ while [[ $# -gt 0 ]]; do
             else
                 log_warning "Master daemon nie jest uruchomiony"
             fi
+            
+            # Testy jeśli zostały włączone
+            if [ "$STATUS_TEST_SOUND" = true ] || [ "$STATUS_TEST_EMAIL" = true ]; then
+                echo ""
+                echo "─────────────────────────────────────────"
+                echo "Testowanie funkcji powiadomień:"
+                echo "─────────────────────────────────────────"
+            fi
+            
+            if [ "$STATUS_TEST_SOUND" = true ]; then
+                test_alert_sound
+            fi
+            
+            if [ "$STATUS_TEST_EMAIL" = true ]; then
+                test_alert_email
+            fi
+            
+            exit 0
+            ;;
+        --test-sound)
+            test_alert_sound
+            exit 0
+            ;;
+        --test-email)
+            test_alert_email
+            exit 0
+            ;;
+        --test-all)
+            echo "Testowanie wszystkich funkcji powiadomień..."
+            echo ""
+            test_alert_sound
+            echo ""
+            test_alert_email
             exit 0
             ;;
         *)
             log_error "Nieznany parametr: $1"
-            echo "Użycie: $0 [--all|--daemon_name...] [--stop|--status]"
+            echo "Użycie: $0 [--all|--daemon_name...] [--stop|--status [--test-sound|--test-email|--test-all]]"
             echo ""
             echo "Dostępne daemony:"
             echo "  --dydx_perpetual_market_trades_service"
@@ -851,6 +1062,14 @@ while [[ $# -gt 0 ]]; do
             echo "  --btcusdc_updater"
             echo "  --gdelt_sentiment_daemon"
             echo "  --all (wszystkie powyższe + api_server)"
+            echo ""
+            echo "Opcje testowania:"
+            echo "  --status --test-sound    - Sprawdź status i przetestuj dźwięk"
+            echo "  --status --test-email    - Sprawdź status i przetestuj email"
+            echo "  --status --test-all      - Sprawdź status i przetestuj wszystko"
+            echo "  --test-sound             - Tylko test dźwięku"
+            echo "  --test-email             - Tylko test emaila"
+            echo "  --test-all               - Test wszystkiego"
             exit 1
             ;;
     esac
@@ -876,7 +1095,8 @@ fi
 if [ ! -f "$PID_FILE" ] || ! ps -p "$(cat "$PID_FILE" 2>/dev/null)" > /dev/null 2>&1; then
     log_info "Uruchamianie master daemon w tle..."
     
-    # Uruchom w tle
+    # Uruchom w tle (z katalogu głównego projektu)
+    cd "$PROJECT_DIR"
     nohup bash "$0" --monitor "${selected_daemons[@]}" >> "$LOG_FILE" 2>&1 &
     MASTER_PID=$!
     echo $MASTER_PID > "$PID_FILE"
