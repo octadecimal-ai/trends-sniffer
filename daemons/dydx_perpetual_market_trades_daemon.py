@@ -127,6 +127,131 @@ def save_progress(conn, ticker: str, current_date: datetime, total_trades: int, 
         conn.rollback()
 
 
+def update_current_data(
+    provider: DydxIndexerProvider,
+    conn,
+    ticker: str
+) -> tuple[bool, int]:
+    """
+    Aktualizuje bieżące dane (od ostatniego rekordu w bazie do teraz).
+    
+    Returns:
+        (success, trades_count) gdzie:
+        - success: True jeśli aktualizacja zakończona sukcesem
+        - trades_count: Liczba zapisanych transakcji
+    """
+    try:
+        # Znajdź najnowszy rekord w bazie
+        with conn.cursor() as cur:
+            select_sql = """
+                SELECT MAX(effective_at)
+                FROM dydx_perpetual_market_trades
+                WHERE market = %s
+            """
+            cur.execute(select_sql, (ticker,))
+            row = cur.fetchone()
+            
+            if row and row[0]:
+                last_record_time = row[0]
+                if isinstance(last_record_time, str):
+                    last_record_time = datetime.fromisoformat(last_record_time.replace('Z', '+00:00'))
+                elif not isinstance(last_record_time, datetime):
+                    last_record_time = datetime.now(timezone.utc) - timedelta(hours=1)
+            else:
+                # Brak danych w bazie - pobierz ostatnią godzinę
+                last_record_time = datetime.now(timezone.utc) - timedelta(hours=1)
+                logger.info(f"ℹ️ Brak danych w bazie dla {ticker}, pobieram ostatnią godzinę")
+        
+        # Pobierz dane od ostatniego rekordu do teraz
+        now = datetime.now(timezone.utc)
+        time_since_last = (now - last_record_time).total_seconds()
+        
+        if time_since_last < 60:  # Mniej niż 1 minuta - za wcześnie na aktualizację
+            logger.debug(f"⏭️ Ostatni rekord jest zbyt świeży ({time_since_last:.0f}s temu), pomijam aktualizację")
+            return True, 0
+        
+        logger.info(f"🔄 Aktualizacja bieżących danych dla {ticker} (od {last_record_time} do {now})")
+        
+        all_trades = []
+        current_end = now
+        batch_count = 0
+        consecutive_failures = 0
+        max_batches = 100  # Limit dla aktualnych danych
+        total_inserted = 0
+        
+        while current_end > last_record_time and batch_count < max_batches:
+            # Pobierz transakcje z retry
+            trades = get_trades_with_retry(
+                provider=provider,
+                ticker=ticker,
+                created_before_or_at=current_end,
+                created_on_or_after=last_record_time,
+                consecutive_failures=consecutive_failures
+            )
+            
+            if trades is None:
+                consecutive_failures += 1
+                if consecutive_failures >= MAX_CONSECUTIVE_FAILURES:
+                    logger.warning(f"⚠️ Zbyt wiele błędów podczas aktualizacji bieżących danych ({consecutive_failures})")
+                    break
+                wait_time = min(RETRY_DELAY_BASE * (2 ** consecutive_failures), RETRY_DELAY_MAX)
+                time.sleep(wait_time)
+                continue
+            
+            if not trades:
+                logger.debug(f"Brak więcej transakcji dla aktualizacji bieżących danych (batch {batch_count + 1})")
+                break
+            
+            consecutive_failures = 0
+            batch_count += 1
+            all_trades.extend(trades)
+            
+            logger.info(f"✓ Batch {batch_count}: pobrano {len(trades)} transakcji dla aktualizacji bieżących danych")
+            
+            # Znajdź najstarszą transakcję z tego batcha
+            oldest_trade = min(trades, key=lambda t: t.get('createdAt', current_end))
+            oldest_date = oldest_trade.get('createdAt')
+            
+            if isinstance(oldest_date, datetime):
+                current_end = oldest_date
+            elif isinstance(oldest_date, str):
+                try:
+                    current_end = datetime.fromisoformat(oldest_date.replace('Z', '+00:00'))
+                except:
+                    logger.error(f"Błąd parsowania daty: {oldest_date}")
+                    break
+            else:
+                logger.error(f"Nieprawidłowy format daty: {oldest_date}")
+                break
+            
+            # Jeśli najstarsza transakcja jest przed ostatnim rekordem, zakończ
+            if current_end <= last_record_time:
+                break
+            
+            # Jeśli pobraliśmy mniej niż limit, to znaczy że to koniec
+            if len(trades) < 100:
+                break
+        
+        # Zapisz wszystkie transakcje do bazy
+        if all_trades:
+            try:
+                inserted = insert_market_trades(conn, ticker, all_trades)
+                total_inserted += inserted
+                logger.info(f"💾 Zapisano {inserted} transakcji z aktualizacji bieżących danych do bazy")
+            except Exception as e:
+                logger.error(f"❌ Błąd zapisywania aktualizacji bieżących danych: {e}")
+                return False, 0
+        
+        logger.info(f"✓ Aktualizacja bieżących danych zakończona: {total_inserted} transakcji w {batch_count} batchach")
+        return True, total_inserted
+        
+    except Exception as e:
+        logger.error(f"❌ Błąd podczas aktualizacji bieżących danych: {e}")
+        import traceback
+        logger.error(traceback.format_exc())
+        return False, 0
+
+
 def process_single_day(
     provider: DydxIndexerProvider,
     conn,
@@ -312,6 +437,7 @@ def main():
     parser.add_argument('--days-back-start', type=int, default=1, help='Od ilu dni wstecz zacząć (domyślnie: 1)')
     parser.add_argument('--max-days', type=int, help='Maksymalna liczba dni do przetworzenia (None = bez limitu)')
     parser.add_argument('--delay-between-days', type=int, default=5, help='Opóźnienie między dniami w sekundach (domyślnie: 5)')
+    parser.add_argument('--current-data-update-interval', type=int, default=300, help='Interwał aktualizacji bieżących danych w sekundach (domyślnie: 300 = 5 min)')
     
     args = parser.parse_args()
     
@@ -351,9 +477,22 @@ def main():
     days_successful = 0
     days_failed = 0
     total_trades = 0
+    last_current_data_update = datetime.now(timezone.utc) - timedelta(seconds=args.current_data_update_interval)
     
     try:
         while True:
+            # Sprawdź czy należy zaktualizować bieżące dane
+            time_since_last_update = (datetime.now(timezone.utc) - last_current_data_update).total_seconds()
+            if time_since_last_update >= args.current_data_update_interval:
+                logger.info(f"🔄 Rozpoczynam aktualizację bieżących danych (ostatnia aktualizacja {time_since_last_update:.0f}s temu)")
+                update_success, update_trades = update_current_data(provider, conn, args.ticker)
+                if update_success:
+                    last_current_data_update = datetime.now(timezone.utc)
+                    total_trades += update_trades
+                    logger.info(f"✓ Aktualizacja bieżących danych zakończona: {update_trades} transakcji")
+                else:
+                    logger.warning(f"⚠️ Aktualizacja bieżących danych zakończona z błędami")
+            
             # Przetwórz jeden dzień
             success, trades_count, attempts = process_single_day(
                 provider=provider,

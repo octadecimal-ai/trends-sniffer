@@ -1,0 +1,3 @@
+2025-12-24T22:15:26.520440+00:00
+/Users/octadecimal/Projects/trends-sniffer/backups/backup_trends_sniffer_20251224_221513.sql.gz
+116456245

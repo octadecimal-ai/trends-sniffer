@@ -1002,14 +1002,30 @@ class DatabaseManager:
                     'resolution': resolution
                 })
             
+            # Użyj UPSERT (ON CONFLICT DO UPDATE) dla PostgreSQL
+            from sqlalchemy.dialects.postgresql import insert as pg_insert
+            
             with self.get_session() as session:
+                saved_count = 0
                 for record in records:
-                    gdelt_sentiment = GDELTSentiment(**record)
-                    session.add(gdelt_sentiment)
+                    stmt = pg_insert(GDELTSentiment).values(**record).on_conflict_do_update(
+                        constraint='uq_gdelt_sentiment',
+                        set_={
+                            'tone': record['tone'],
+                            'tone_std': record['tone_std'],
+                            'volume': record['volume'],
+                            'positive_count': record['positive_count'],
+                            'negative_count': record['negative_count'],
+                            'neutral_count': record['neutral_count'],
+                            'language': record['language'],
+                        }
+                    )
+                    session.execute(stmt)
+                    saved_count += 1
                 session.commit()
             
-            logger.debug(f"Zapisano {len(records)} rekordów GDELT sentymentu dla {region}")
-            return len(records)
+            logger.debug(f"Zapisano {saved_count} rekordów GDELT sentymentu dla {region}")
+            return saved_count
             
         except Exception as e:
             logger.error(f"Błąd zapisu GDELT sentymentu do bazy: {e}")

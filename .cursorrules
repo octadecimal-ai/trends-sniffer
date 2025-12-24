@@ -47,6 +47,17 @@ Jeśli nie możesz przetestować (np. brak dostępu do terminala), wyraźnie to 
 - Jeśli komenda nie zwraca outputu lub kończy się błędem, nie twierdź że została wykonana pomyślnie
 - Zawsze weryfikuj faktyczny stan przed poinformowaniem użytkownika o sukcesie
 
+## 🔄 Procedura przed push do repozytorium
+
+**Przed wykonaniem `git push` zawsze:**
+1. Zatrzymaj `trends_sniffer_service` daemon (używa VPN)
+2. Rozłącz VPN (Mullvad)
+3. Wykonaj commit i push
+4. Po push: uruchom ponownie `trends_sniffer_service`
+5. Połącz VPN ponownie
+
+**Powód:** trends_sniffer_service używa VPN do pobierania danych Google Trends z różnych krajów. VPN może blokować push do GitHuba lub powodować problemy z połączeniem.
+
 ## 📊 Stan projektu i priorytety
 
 ### Już zaimplementowane (✅):

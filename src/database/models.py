@@ -292,6 +292,7 @@ class GDELTSentiment(Base):
     created_at = Column(DateTime, default=utcnow)
     
     __table_args__ = (
+        UniqueConstraint('timestamp', 'region', 'query', 'resolution', name='uq_gdelt_sentiment'),
         Index('ix_gdelt_sentiment_lookup', 'region', 'timestamp'),
         Index('ix_gdelt_sentiment_query', 'query', 'timestamp'),
         Index('ix_gdelt_sentiment_timestamp', 'timestamp', postgresql_using='brin'),  # For TimescaleDB
@@ -377,6 +378,8 @@ TIMESCALE_HYPERTABLES = [
     ('trades', 'timestamp'),
     ('technical_indicators', 'timestamp'),
     ('sentiment_scores', 'timestamp'),
+    ('market_indices', 'timestamp'),
+    ('fear_greed_index', 'timestamp'),
 ]
 
 def create_timescale_hypertables(engine):
@@ -745,4 +748,149 @@ class DictionarySocialEvent(Base):
     
     def __repr__(self):
         return f"<DictionarySocialEvent {self.phase_code} ({self.region_code}) @ {self.utc_start}-{self.utc_end}>"
+
+
+# === Dane Makroekonomiczne i Indeksy Rynkowe ===
+
+class MarketIndex(Base):
+    """
+    Indeksy rynkowe z tradycyjnych rynków finansowych.
+    
+    Przechowuje dane o:
+    - S&P 500 (^GSPC) - główny indeks US
+    - NASDAQ (^IXIC) - indeks technologiczny
+    - VIX (^VIX) - indeks zmienności/strachu
+    - DXY (DX-Y.NYB) - indeks dolara
+    - Złoto (GC=F) - safe haven
+    - Obligacje 10Y (^TNX) - yields
+    
+    Źródło: Yahoo Finance (yfinance)
+    """
+    __tablename__ = 'market_indices'
+    
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    timestamp = Column(DateTime, nullable=False, index=True)
+    symbol = Column(String(20), nullable=False, index=True)  # ^GSPC, ^VIX, DX-Y.NYB
+    name = Column(String(50), nullable=False)  # SPX, VIX, DXY, NASDAQ, GOLD
+    
+    # Dane cenowe
+    value = Column(Float, nullable=False)  # Aktualna wartość indeksu
+    open = Column(Float, nullable=True)
+    high = Column(Float, nullable=True)
+    low = Column(Float, nullable=True)
+    close = Column(Float, nullable=True)
+    volume = Column(BigInteger, nullable=True)
+    
+    # Zmiany
+    change_1h = Column(Float, nullable=True)  # % zmiana 1h
+    change_24h = Column(Float, nullable=True)  # % zmiana 24h
+    change_7d = Column(Float, nullable=True)  # % zmiana 7d
+    
+    # Metadane
+    source = Column(String(50), default='yfinance')
+    created_at = Column(DateTime, default=utcnow)
+    
+    __table_args__ = (
+        UniqueConstraint('timestamp', 'symbol', name='uq_market_index'),
+        Index('ix_market_indices_lookup', 'symbol', 'timestamp'),
+    )
+    
+    def __repr__(self):
+        return f"<MarketIndex {self.name}={self.value:.2f} @ {self.timestamp}>"
+
+
+class FearGreedIndex(Base):
+    """
+    Crypto Fear & Greed Index z alternative.me.
+    
+    Skala 0-100:
+    - 0-24: Extreme Fear (okazja kupna?)
+    - 25-44: Fear
+    - 45-55: Neutral
+    - 56-75: Greed
+    - 76-100: Extreme Greed (okazja sprzedaży?)
+    
+    Aktualizowany raz dziennie.
+    Źródło: https://api.alternative.me/fng/
+    """
+    __tablename__ = 'fear_greed_index'
+    
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    timestamp = Column(DateTime, nullable=False, index=True)
+    
+    # Wartość indeksu
+    value = Column(Integer, nullable=False)  # 0-100
+    classification = Column(String(20), nullable=False)  # Extreme Fear, Fear, Neutral, Greed, Extreme Greed
+    
+    # Kontekst
+    btc_price_at_reading = Column(Float, nullable=True)  # Cena BTC w momencie odczytu
+    
+    # Zmiany
+    value_change_24h = Column(Integer, nullable=True)  # Zmiana wartości vs wczoraj
+    value_change_7d = Column(Integer, nullable=True)  # Zmiana wartości vs tydzień temu
+    
+    # Metadane
+    time_until_update = Column(String(50), nullable=True)  # Z API
+    source = Column(String(50), default='alternative.me')
+    created_at = Column(DateTime, default=utcnow)
+    
+    __table_args__ = (
+        UniqueConstraint('timestamp', name='uq_fear_greed'),
+        Index('ix_fear_greed_timestamp', 'timestamp'),
+    )
+    
+    def __repr__(self):
+        return f"<FearGreedIndex {self.value} ({self.classification}) @ {self.timestamp}>"
+
+
+class EconomicCalendar(Base):
+    """
+    Kalendarz wydarzeń ekonomicznych (FOMC, CPI, NFP, etc.).
+    
+    Śledzimy wydarzenia, które historycznie wpływają na BTC:
+    - FOMC meetings (8x/rok)
+    - CPI releases (miesięcznie)
+    - NFP (non-farm payrolls, miesięcznie)
+    - GDP releases (kwartalnie)
+    - ECB decisions
+    
+    Źródło: Investing.com, ForexFactory, lub manual
+    """
+    __tablename__ = 'economic_calendar'
+    
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    event_date = Column(DateTime, nullable=False, index=True)
+    
+    # Opis wydarzenia
+    event_name = Column(String(100), nullable=False)  # FOMC Rate Decision
+    event_type = Column(String(50), nullable=False)  # FOMC, CPI, NFP, GDP, ECB
+    country = Column(String(10), nullable=False, default='US')  # US, EU, JP, CN
+    
+    # Ważność
+    importance = Column(String(10), nullable=False)  # high, medium, low
+    
+    # Dane (wypełniane po publikacji)
+    actual = Column(Float, nullable=True)
+    forecast = Column(Float, nullable=True)
+    previous = Column(Float, nullable=True)
+    
+    # Wpływ na rynek
+    btc_price_before = Column(Float, nullable=True)
+    btc_price_after_1h = Column(Float, nullable=True)
+    btc_price_after_24h = Column(Float, nullable=True)
+    
+    # Metadane
+    notes = Column(Text, nullable=True)
+    source = Column(String(50), default='manual')
+    created_at = Column(DateTime, default=utcnow)
+    updated_at = Column(DateTime, default=utcnow, onupdate=utcnow)
+    
+    __table_args__ = (
+        UniqueConstraint('event_date', 'event_name', name='uq_economic_event'),
+        Index('ix_economic_calendar_lookup', 'event_type', 'event_date'),
+        Index('ix_economic_calendar_country', 'country', 'event_date'),
+    )
+    
+    def __repr__(self):
+        return f"<EconomicCalendar {self.event_name} @ {self.event_date}>"
 

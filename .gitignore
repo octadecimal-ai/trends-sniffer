@@ -59,6 +59,10 @@ output/
 *.csv
 !data/*.csv
 
+# Backups
+backups/
+*.sql.gz
+
 # OS
 .DS_Store
 Thumbs.db

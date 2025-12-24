@@ -48,8 +48,10 @@ log_error() {
 }
 
 # === Pliki ===
-PID_FILE="$PROJECT_ROOT/data/gdelt_sentiment_daemon.pid"
-LOG_FILE="$PROJECT_ROOT/logs/gdelt_sentiment_daemon.log"
+LOG_DIR="${PROJECT_ROOT}/.dev/logs"
+mkdir -p "$LOG_DIR"
+PID_FILE="${LOG_DIR}/gdelt_sentiment_daemon.pid"
+LOG_FILE="${LOG_DIR}/gdelt_sentiment_daemon.log"
 DAEMON_SCRIPT="$SCRIPT_DIR/gdelt_sentiment_daemon.py"
 
 # === Funkcje daemona ===
@@ -78,17 +80,16 @@ start_daemon() {
     
     # Sprawdź czy venv jest aktywne
     if [ -z "$VIRTUAL_ENV" ]; then
-        if [ -f "venv/bin/activate" ]; then
-            source venv/bin/activate
+        if [ -f "$PROJECT_ROOT/venv/bin/activate" ]; then
+            source "$PROJECT_ROOT/venv/bin/activate"
+        elif [ -f "$PROJECT_ROOT/.venv/bin/activate" ]; then
+            source "$PROJECT_ROOT/.venv/bin/activate"
         else
             log_error "Venv nie jest dostępne!"
+            log_info "Szukam w: $PROJECT_ROOT/venv i $PROJECT_ROOT/.venv"
             return 1
         fi
     fi
-    
-    # Utwórz katalogi jeśli nie istnieją
-    mkdir -p "$PROJECT_ROOT/data"
-    mkdir -p "$PROJECT_ROOT/logs"
     
     # Zbierz dodatkowe argumenty
     EXTRA_ARGS=()

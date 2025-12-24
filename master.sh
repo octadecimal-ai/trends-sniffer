@@ -69,7 +69,7 @@ log_error() {
 # ============================================================================
 
 # Lista wszystkich daemonów
-ALL_DAEMONS="dydx_perpetual_market_trades_service dydx_top_traders_observer_service trends_sniffer_service btcusdc_updater gdelt_sentiment_daemon api_server"
+ALL_DAEMONS="dydx_perpetual_market_trades_service dydx_top_traders_observer_service trends_sniffer_service btcusdc_updater gdelt_sentiment_daemon market_indices_daemon api_server docs_server database_backup_daemon"
 
 # Funkcja zwracająca konfigurację daemona (kompatybilna z bash 3.2)
 get_daemon_config() {
@@ -128,11 +128,31 @@ get_daemon_config() {
                 *) return 1 ;;
             esac
             ;;
+        market_indices_daemon)
+            case "$key" in
+                service_script) echo "${DAEMONS_DIR}/start_market_indices_daemon.sh" ;;
+                check_method) echo "pid" ;;
+                pid_file) echo "${LOG_DIR}/market_indices_daemon.pid" ;;
+                table) echo "market_indices" ;;
+                date_column) echo "timestamp" ;;
+                *) return 1 ;;
+            esac
+            ;;
         api_server)
             case "$key" in
                 service_script) echo "${DAEMONS_DIR}/start_api_server.sh" ;;
                 check_method) echo "port" ;;
                 port) echo "8000" ;;
+                table) echo "" ;;
+                date_column) echo "" ;;
+                *) return 1 ;;
+            esac
+            ;;
+        docs_server)
+            case "$key" in
+                service_script) echo "${DAEMONS_DIR}/start_docs_server.sh" ;;
+                check_method) echo "port" ;;
+                port) echo "8080" ;;
                 table) echo "" ;;
                 date_column) echo "" ;;
                 *) return 1 ;;
@@ -178,6 +198,47 @@ check_daemon_port() {
         return 0
     fi
     return 1
+}
+
+# Uruchom panel zarządzania daemonami jeśli nie działa
+start_daemon_panel_if_needed() {
+    local panel_port=8090
+    local panel_script="${DAEMONS_DIR}/start_daemon_panel.sh"
+    local panel_pid_file="${LOG_DIR}/daemon_panel.pid"
+    
+    # Sprawdź czy panel już działa
+    if check_daemon_port "$panel_port"; then
+        log_info "Panel zarządzania daemonami już działa na porcie $panel_port"
+        return 0
+    fi
+    
+    # Sprawdź czy skrypt istnieje
+    if [ ! -f "$panel_script" ]; then
+        log_warning "Skrypt panelu nie istnieje: $panel_script"
+        return 1
+    fi
+    
+    log_info "Uruchamianie panelu zarządzania daemonami na porcie $panel_port..."
+    
+    # Uruchom panel w tle
+    cd "$PROJECT_DIR"
+    DAEMON_PANEL_BACKGROUND=true nohup bash "$panel_script" > "${LOG_DIR}/daemon_panel.log" 2>&1 &
+    local panel_pid=$!
+    echo $panel_pid > "$panel_pid_file"
+    
+    # Poczekaj chwilę i sprawdź czy się uruchomił
+    sleep 3
+    
+    if check_daemon_port "$panel_port"; then
+        log_success "Panel zarządzania daemonami uruchomiony (PID: $panel_pid)"
+        log_info "Panel dostępny pod: http://localhost:$panel_port"
+        return 0
+    else
+        log_error "Nie udało się uruchomić panelu zarządzania daemonami"
+        log_info "Sprawdź logi: ${LOG_DIR}/daemon_panel.log"
+        rm -f "$panel_pid_file"
+        return 1
+    fi
 }
 
 # Sprawdź czy daemon działa
@@ -896,9 +957,18 @@ monitor_loop() {
             check_and_fix_daemon "$daemon_name" || true
         done
         
-        # Zawsze sprawdź api_server
+        # Zawsze sprawdź api_server, docs_server i database_backup_daemon
         if is_valid_daemon "api_server"; then
             check_and_fix_daemon "api_server" || true
+        fi
+        if is_valid_daemon "docs_server"; then
+            check_and_fix_daemon "docs_server" || true
+        fi
+        if is_valid_daemon "database_backup_daemon"; then
+            check_and_fix_daemon "database_backup_daemon" || true
+        fi
+        if is_valid_daemon "database_backup_daemon"; then
+            check_and_fix_daemon "database_backup_daemon" || true
         fi
         
         # Poczekaj do następnego sprawdzenia
@@ -956,6 +1026,18 @@ while [[ $# -gt 0 ]]; do
             ;;
         --gdelt_sentiment_daemon)
             selected_daemons+=("gdelt_sentiment_daemon")
+            shift
+            ;;
+        --market_indices_daemon)
+            selected_daemons+=("market_indices_daemon")
+            shift
+            ;;
+        --docs_server)
+            selected_daemons+=("docs_server")
+            shift
+            ;;
+        --database_backup_daemon)
+            selected_daemons+=("database_backup_daemon")
             shift
             ;;
         --stop)
@@ -1033,6 +1115,13 @@ while [[ $# -gt 0 ]]; do
                 test_alert_email
             fi
             
+            # Uruchom panel zarządzania daemonami jeśli nie działa
+            echo ""
+            echo "─────────────────────────────────────────"
+            echo "Panel zarządzania daemonami:"
+            echo "─────────────────────────────────────────"
+            start_daemon_panel_if_needed
+            
             exit 0
             ;;
         --test-sound)
@@ -1061,7 +1150,10 @@ while [[ $# -gt 0 ]]; do
             echo "  --trends_sniffer_service"
             echo "  --btcusdc_updater"
             echo "  --gdelt_sentiment_daemon"
-            echo "  --all (wszystkie powyższe + api_server)"
+            echo "  --market_indices_daemon"
+            echo "  --docs_server"
+            echo "  --database_backup_daemon"
+            echo "  --all (wszystkie powyższe + api_server + docs_server + database_backup_daemon)"
             echo ""
             echo "Opcje testowania:"
             echo "  --status --test-sound    - Sprawdź status i przetestuj dźwięk"
@@ -1082,7 +1174,9 @@ if [ "$all_daemons" = true ]; then
         "trends_sniffer_service"
         "btcusdc_updater"
         "gdelt_sentiment_daemon"
+        "market_indices_daemon"
     )
+    # api_server, docs_server i database_backup_daemon są zawsze monitorowane
 fi
 
 if [ ${#selected_daemons[@]} -eq 0 ] && [ "$all_daemons" = false ]; then
