@@ -259,9 +259,9 @@ class BinanceCollector:
             if not success:
                 logger.warning("Nie udało się pobrać danych po wszystkich próbach, przerywam paginację")
                 break
-            
-            # Rate limiting - czekaj między requestami
-            time.sleep(0.1)
+                
+                # Rate limiting - czekaj między requestami
+                time.sleep(0.1)
         
         if not all_data:
             return pd.DataFrame()

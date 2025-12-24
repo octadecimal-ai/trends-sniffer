@@ -12,8 +12,10 @@ PROJECT_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
 # Przejdź do katalogu projektu
 cd "$PROJECT_DIR"
 
-# Aktywuj venv jeśli istnieje
-if [ -d venv ]; then
+# Aktywuj venv jeśli istnieje (sprawdź zarówno venv jak i .venv)
+if [ -d .venv ]; then
+    source .venv/bin/activate
+elif [ -d venv ]; then
     source venv/bin/activate
 fi
 

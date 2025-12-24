@@ -21,12 +21,17 @@ fi
 if [ ! -f .env ]; then
     echo "Błąd: Plik .env nie istnieje!"
     echo "Utwórz plik .env z zmienną DATABASE_URL"
-    exit 1
+    exit 1 
 fi
 
 # Uruchom serwer
 echo "Uruchamianie Trends Sniffer API Server..."
-echo "Dokumentacja dostępna pod: http://localhost:8000/docs"
+LOCAL_IP=$(ifconfig | grep "inet " | grep "192.168" | awk '{print $2}' | head -1)
+echo "Dokumentacja dostępna pod:"
+echo "  - Lokalnie: http://localhost:8000/docs"
+if [ -n "$LOCAL_IP" ]; then
+    echo "  - Sieć lokalna: http://$LOCAL_IP:8000/docs"
+fi
 echo ""
 
 python3 -m uvicorn src.api.main:app --host 0.0.0.0 --port 8000 --reload
