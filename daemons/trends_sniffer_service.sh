@@ -10,11 +10,12 @@
 # ============================================================================
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+PROJECT_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
 SERVICE_NAME="com.octadecimal.trends-sniffer"
 PLIST_FILE="$HOME/Library/LaunchAgents/${SERVICE_NAME}.plist"
-PYTHON_SCRIPT="${SCRIPT_DIR}/src/scripts/fetch_trends_with_vpn.py"
-LOG_FILE="${SCRIPT_DIR}/.dev/logs/trends_sniffer_service.log"
-PID_FILE="${SCRIPT_DIR}/.dev/trends_sniffer_service.pid"
+PYTHON_SCRIPT="${SCRIPT_DIR}/fetch_trends_with_vpn.py"
+LOG_FILE="${PROJECT_DIR}/.dev/logs/trends_sniffer_service.log"
+PID_FILE="${PROJECT_DIR}/.dev/trends_sniffer_service.pid"
 
 # Utwórz katalogi jeśli nie istnieją
 mkdir -p "$(dirname "$LOG_FILE")"
@@ -41,7 +42,7 @@ create_plist() {
     </array>
     
     <key>WorkingDirectory</key>
-    <string>${SCRIPT_DIR}</string>
+    <string>${PROJECT_DIR}</string>
     
     <key>StandardOutPath</key>
     <string>${LOG_FILE}</string>

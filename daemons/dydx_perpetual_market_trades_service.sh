@@ -1,67 +1,32 @@
 #!/bin/bash
 # ============================================================================
-# Skrypt zarządzający usługą dYdX Top Traders Observer
+# Skrypt zarządzający usługą dYdX Perpetual Market Trades
 # ============================================================================
 # Użycie:
-#   ./dydx_top_traders_observer_service.sh --start    # Uruchom usługę
-#   ./dydx_top_traders_observer_service.sh --stop     # Zatrzymaj usługę
-#   ./dydx_top_traders_observer_service.sh --restart  # Restart usługi
-#   ./dydx_top_traders_observer_service.sh --status   # Status usługi
+#   ./dydx_perpetual_market_trades_service.sh --start    # Uruchom usługę
+#   ./dydx_perpetual_market_trades_service.sh --stop     # Zatrzymaj usługę
+#   ./dydx_perpetual_market_trades_service.sh --restart  # Restart usługi
+#   ./dydx_perpetual_market_trades_service.sh --status   # Status usługi
 # ============================================================================
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-SERVICE_NAME="com.octadecimal.dydx-top-traders-observer"
+PROJECT_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
+SERVICE_NAME="com.octadecimal.dydx-perpetual-market-trades"
 PLIST_FILE="$HOME/Library/LaunchAgents/${SERVICE_NAME}.plist"
-PYTHON_SCRIPT="${SCRIPT_DIR}/src/scripts/dydx_top_traders_observer.py"
-LOG_FILE="${SCRIPT_DIR}/.dev/logs/dydx_top_traders_observer.log"
-PID_FILE="${SCRIPT_DIR}/.dev/dydx_top_traders_observer.pid"
+PYTHON_SCRIPT="${SCRIPT_DIR}/dydx_perpetual_market_trades_daemon.py"
+LOG_FILE="${PROJECT_DIR}/.dev/logs/dydx_perpetual_market_trades_service.log"
+PID_FILE="${PROJECT_DIR}/.dev/dydx_perpetual_market_trades_service.pid"
 
 # Utwórz katalogi jeśli nie istnieją
 mkdir -p "$(dirname "$LOG_FILE")"
 mkdir -p "$(dirname "$PID_FILE")"
 
-# Domyślne wartości parametrów
-UPDATE_INTERVAL=3600      # 1 godzina
-WATCH_INTERVAL=300        # 5 minut
-TOP_N=50
-TICKERS="BTC-USD ETH-USD"
-WINDOW_HOURS=24
-TESTNET=""
+# Domyślne wartości
+TICKER="BTC-USD"
+DAYS_BACK_START=1
 
 # Funkcja do tworzenia pliku plist dla launchd
 create_plist() {
-    # Sprawdź czy .venv istnieje
-    if [ -d "${SCRIPT_DIR}/.venv" ]; then
-        PYTHON_BIN="${SCRIPT_DIR}/.venv/bin/python3"
-    elif [ -d "${SCRIPT_DIR}/venv" ]; then
-        PYTHON_BIN="${SCRIPT_DIR}/venv/bin/python3"
-    else
-        PYTHON_BIN="/usr/bin/python3"
-    fi
-    
-    # Buduj argumenty
-    ARGS=("${PYTHON_SCRIPT}")
-    ARGS+=("--update-interval=${UPDATE_INTERVAL}")
-    ARGS+=("--watch-interval=${WATCH_INTERVAL}")
-    ARGS+=("--top-n=${TOP_N}")
-    ARGS+=("--window-hours=${WINDOW_HOURS}")
-    
-    if [ -n "$TESTNET" ]; then
-        ARGS+=("--testnet")
-    fi
-    
-    # Dodaj tickers
-    for ticker in $TICKERS; do
-        ARGS+=("--tickers")
-        ARGS+=("$ticker")
-    done
-    
-    # Konwertuj array na string dla plist
-    ARGS_STR=""
-    for arg in "${ARGS[@]}"; do
-        ARGS_STR="${ARGS_STR}<string>${arg}</string>"
-    done
-    
     cat > "$PLIST_FILE" << EOF
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
@@ -72,12 +37,14 @@ create_plist() {
     
     <key>ProgramArguments</key>
     <array>
-        <string>${PYTHON_BIN}</string>
-        ${ARGS_STR}
+        <string>/usr/bin/python3</string>
+        <string>${PYTHON_SCRIPT}</string>
+        <string>--ticker=${TICKER}</string>
+        <string>--days-back-start=${DAYS_BACK_START}</string>
     </array>
     
     <key>WorkingDirectory</key>
-    <string>${SCRIPT_DIR}</string>
+    <string>${PROJECT_DIR}</string>
     
     <key>StandardOutPath</key>
     <string>${LOG_FILE}</string>
@@ -96,12 +63,6 @@ create_plist() {
     
     <key>Nice</key>
     <integer>1</integer>
-    
-    <key>EnvironmentVariables</key>
-    <dict>
-        <key>PATH</key>
-        <string>/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin</string>
-    </dict>
 </dict>
 </plist>
 EOF
@@ -152,6 +113,7 @@ start_service() {
     if check_status > /dev/null 2>&1; then
         echo "✓ Usługa została uruchomiona pomyślnie"
         echo "  Logi: $LOG_FILE"
+        echo "  Logi szczegółowe (dni): ${SCRIPT_DIR}/.dev/logs/dydx_perpetual_market_trades_days.log"
         return 0
     else
         echo "✗ Nie udało się uruchomić usługi"
@@ -195,29 +157,21 @@ restart_service() {
 ACTION=""
 while [[ $# -gt 0 ]]; do
     case $1 in
-        --update-interval=*)
-            UPDATE_INTERVAL="${1#*=}"
+        --ticker=*)
+            TICKER="${1#*=}"
             shift
             ;;
-        --watch-interval=*)
-            WATCH_INTERVAL="${1#*=}"
+        --ticker)
+            TICKER="$2"
+            shift 2
+            ;;
+        --days-back-start=*)
+            DAYS_BACK_START="${1#*=}"
             shift
             ;;
-        --top-n=*)
-            TOP_N="${1#*=}"
-            shift
-            ;;
-        --tickers=*)
-            TICKERS="${1#*=}"
-            shift
-            ;;
-        --window-hours=*)
-            WINDOW_HOURS="${1#*=}"
-            shift
-            ;;
-        --testnet)
-            TESTNET="true"
-            shift
+        --days-back-start)
+            DAYS_BACK_START="$2"
+            shift 2
             ;;
         --start|--stop|--restart|--status)
             ACTION="$1"
@@ -225,6 +179,7 @@ while [[ $# -gt 0 ]]; do
             break
             ;;
         *)
+            # Nieznany parametr - zignoruj i przejdź dalej
             shift
             ;;
     esac
@@ -249,23 +204,23 @@ case "$ACTION" in
             echo "----------------------------------------"
             tail -n 20 "$LOG_FILE" 2>/dev/null || echo "Brak logów"
         fi
+        if [ -f "${SCRIPT_DIR}/.dev/logs/dydx_perpetual_market_trades_days.log" ]; then
+            echo ""
+            echo "Ostatnie 10 linii z logów dni:"
+            echo "----------------------------------------"
+            tail -n 10 "${SCRIPT_DIR}/.dev/logs/dydx_perpetual_market_trades_days.log" 2>/dev/null || echo "Brak logów"
+        fi
         ;;
     *)
-        echo "Użycie: $0 [opcje] {--start|--stop|--restart|--status}"
+        echo "Użycie: $0 [--ticker=TICKER] [--days-back-start=N] {--start|--stop|--restart|--status}"
         echo ""
         echo "Opcje:"
         echo "  --start                    Uruchom usługę w tle"
         echo "  --stop                     Zatrzymaj usługę"
         echo "  --restart                  Restart usługi"
         echo "  --status                   Pokaż status usługi i ostatnie logi"
-        echo ""
-        echo "Parametry konfiguracyjne:"
-        echo "  --update-interval=SEC      Interwał aktualizacji rankingu (domyślnie: 3600)"
-        echo "  --watch-interval=SEC       Interwał sprawdzania fill'ów (domyślnie: 300)"
-        echo "  --top-n=N                  Liczba top traderów (domyślnie: 50)"
-        echo "  --tickers=\"T1 T2\"          Lista rynków (domyślnie: \"BTC-USD ETH-USD\")"
-        echo "  --window-hours=H           Okno czasowe rankingu (domyślnie: 24)"
-        echo "  --testnet                  Użyj testnet API"
+        echo "  --ticker=TICKER            Symbol rynku (domyślnie: BTC-USD)"
+        echo "  --days-back-start=N        Od ilu dni wstecz zacząć (domyślnie: 1)"
         exit 1
         ;;
 esac

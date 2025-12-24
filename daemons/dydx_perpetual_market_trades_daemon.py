@@ -20,7 +20,7 @@ from typing import List, Dict, Any, Optional
 from pathlib import Path
 
 # Dodaj ścieżkę projektu
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..'))
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
 
 from dotenv import load_dotenv
 import psycopg2

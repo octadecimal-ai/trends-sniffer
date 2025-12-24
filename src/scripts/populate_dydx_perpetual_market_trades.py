@@ -251,13 +251,35 @@ def insert_market_trades(conn, ticker: str, trades: List[Dict[str, Any]]) -> int
             metadata = EXCLUDED.metadata
     """
     
-    with conn.cursor() as cur:
-        execute_values(cur, insert_sql, rows)
-        # rowcount może być 0 jeśli wszystkie już istnieją (ON CONFLICT UPDATE)
-        inserted = cur.rowcount if cur.rowcount > 0 else len(rows)
-    
-    conn.commit()
-    return inserted
+    try:
+        with conn.cursor() as cur:
+            # Sprawdź ile rekordów już istnieje przed zapisem (dla debugowania)
+            if rows:
+                trade_ids = [row[1] for row in rows]  # trade_id jest na pozycji 1
+                placeholders = ','.join(['%s'] * len(trade_ids))
+                cur.execute(f"""
+                    SELECT COUNT(*) FROM dydx_perpetual_market_trades 
+                    WHERE ticker = %s AND trade_id IN ({placeholders})
+                """, [ticker] + trade_ids)
+                existing_count = cur.fetchone()[0]
+                logger.debug(f"Przed zapisem: {existing_count} z {len(rows)} rekordów już istnieje")
+            
+            execute_values(cur, insert_sql, rows)
+            # rowcount zwraca liczbę wstawionych LUB zaktualizowanych wierszy
+            # W przypadku ON CONFLICT DO UPDATE, rowcount zawsze > 0 jeśli coś zostało zmienione
+            rowcount = cur.rowcount
+            logger.debug(f"execute_values wykonane: rowcount={rowcount}, rows={len(rows)}")
+        
+        conn.commit()
+        logger.debug(f"Commit wykonany. Zwracam rowcount={rowcount}")
+        # Zwróć faktyczny rowcount (liczba wstawionych/zaktualizowanych wierszy)
+        return rowcount
+    except Exception as e:
+        logger.error(f"Błąd podczas zapisu do bazy: {e}")
+        import traceback
+        logger.error(traceback.format_exc())
+        conn.rollback()
+        raise
 
 
 def main():
