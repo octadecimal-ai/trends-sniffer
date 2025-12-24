@@ -1,6 +1,31 @@
 # Zasady projektu trends-sniffer
 
-## Główna zasada projektu
+## 🎯 Cel projektu
+
+**trends-sniffer** to projekt badawczy mający na celu predykcję kierunku ceny Bitcoin (wzrost/spadek) w horyzoncie 1 godziny, wykorzystując:
+- Dane on-chain i order flow (dYdX, Binance)
+- Sentyment z mediów (GDELT, Google Trends)
+- Dane makroekonomiczne (VIX, DXY, S&P 500)
+- Alternatywne źródła danych (propagacja spatio-temporal, top traders)
+- Podejście hybrydowe ML + LLM
+
+## 🔬 Filozofia badawcza projektu
+
+> **NIE ODRZUCAMY ŻADNEJ HIPOTEZY BEZ EMPIRYCZNEJ WERYFIKACJI.**
+
+Kluczowe zasady:
+1. **Wszystko co można zmierzyć, można przetestować** - nawet "szalone" pomysły
+2. **ML nie ma uprzedzeń** - jeśli korelacja istnieje, model ją znajdzie
+3. **Peer-reviewed papers istnieją dla zaskakujących czynników** (lunar cycles, sunspots, pogoda)
+4. **Propagacja spatio-temporal** - lokalne czynniki (pogoda SV, Texas grid) mogą mieć globalny wpływ
+5. **Rynek jako żywy organizm** 🫀 - vital signs, stany patologiczne, cykle życiowe jako framework analizy
+6. **Nie mówimy "to nie działa" bez testów** - mówimy "do zbadania" 🔬
+
+Dokumentacja badań: `docs/alternative_data_research/`
+
+---
+
+## Główna zasada techniczna
 
 **NIGDY NIE INFORMUJ UŻYTKOWNIKA, ŻE COŚ DZIAŁA, DOPÓKI TEGO NIE PRZETESTOWUJESZ I NIE UPEWNISZ SIĘ, ŻE TAK FAKTYCZNIE JEST.**
 
@@ -21,4 +46,27 @@ Jeśli nie możesz przetestować (np. brak dostępu do terminala), wyraźnie to 
 - **NIGDY NIE OKŁAMUJ UŻYTKOWNIKA** - jeśli nie możesz wykonać akcji lub nie jesteś pewien wyniku, wyraźnie to zaznacz
 - Jeśli komenda nie zwraca outputu lub kończy się błędem, nie twierdź że została wykonana pomyślnie
 - Zawsze weryfikuj faktyczny stan przed poinformowaniem użytkownika o sukcesie
+
+## 📊 Stan projektu i priorytety
+
+### Już zaimplementowane (✅):
+- Order Flow z dYdX (perpetual trades)
+- OHLCV z Binance
+- GDELT Sentiment
+- Google Trends
+- Funding Rate, Open Interest
+- 5 kwerend ML datasets
+
+### Do implementacji (priorytet):
+1. 🥇 S&P 500, NASDAQ, VIX, DXY (yfinance) - korelacje z tradycyjnymi rynkami
+2. 🥈 Fear & Greed Index (alternative.me)
+3. 🥉 Top Trader Tracking (dYdX) - mamy dane, trzeba zbudować logikę
+4. Regional Google Trends (propagacja przez strefy czasowe)
+5. Kalendarz FOMC/CPI
+
+### Technologia:
+- Baza: PostgreSQL + TimescaleDB (hypertables)
+- ORM: SQLAlchemy
+- ML: XGBoost/LightGBM + LSTM (planowane)
+- LLM: Hybrid approach (ML + LLM dla newsów)
 
