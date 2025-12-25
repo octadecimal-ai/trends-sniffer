@@ -17,6 +17,7 @@ from fastapi.responses import HTMLResponse, JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
 from loguru import logger
 from sqlalchemy import create_engine, text
+from sqlalchemy.pool import QueuePool
 import importlib.util
 from daemons.database_backup_daemon import get_last_backup_info
 
@@ -31,6 +32,37 @@ ENV_FILE = PROJECT_ROOT / ".env"
 if ENV_FILE.exists():
     load_dotenv(ENV_FILE)
 
+# Globalny engine z connection poolingiem (jeden dla całego panelu)
+_global_engine = None
+
+def get_database_engine():
+    """Zwraca globalny engine z connection poolingiem."""
+    global _global_engine
+    if _global_engine is None:
+        database_url = os.getenv('DATABASE_URL')
+        if not database_url:
+            raise ValueError("DATABASE_URL nie jest ustawiony")
+        
+        # Konfiguracja connection pool
+        pool_config = {}
+        if 'postgresql' in database_url:
+            pool_config = {
+                'poolclass': QueuePool,
+                'pool_size': 5,
+                'max_overflow': 10,
+                'pool_timeout': 30,
+                'pool_recycle': 3600  # Recycle connections after 1 hour
+            }
+        
+        _global_engine = create_engine(
+            database_url,
+            echo=False,
+            **pool_config
+        )
+        logger.info("Globalny database engine utworzony z connection poolingiem")
+    
+    return _global_engine
+
 # Konfiguracja daemonów (z master.sh)
 # Używamy kolumn reprezentujących rzeczywiste daty danych, nie daty wykonania skryptów
 DAEMON_TABLES = {
@@ -43,7 +75,7 @@ DAEMON_TABLES = {
         "date_column": "effective_at"  # Rzeczywista data fill'a (transakcji)
     },
     "trends_sniffer_service": {
-        "table": "sentiment_measurement",  # Tabela z pomiarami sentymentu
+        "table": "google_trends_sentiment_measurement",  # Tabela z pomiarami sentymentu
         "date_column": "created_at"  # Data utworzenia rekordu
     },
     "btcusdc_updater": {
@@ -57,6 +89,22 @@ DAEMON_TABLES = {
     "market_indices_daemon": {
         "table": "market_indices",
         "date_column": "timestamp"  # Rzeczywista data indeksu
+    },
+    "economic_calendar_daemon": {
+        "table": "manual_economic_calendar",
+        "date_column": "event_date"  # Data wydarzenia ekonomicznego
+    },
+    "sentiment_propagation_daemon": {
+        "table": "google_trends_sentiment_propagation",
+        "date_column": "timestamp"  # Timestamp metryk propagacji
+    },
+    "technical_indicators_daemon": {
+        "table": "technical_indicators",
+        "date_column": "timestamp"  # Timestamp wskaźników technicznych
+    },
+    "order_flow_imbalance_daemon": {
+        "table": "dydx_order_flow_imbalance",
+        "date_column": "timestamp"  # Timestamp metryk imbalance
     },
     "api_server": {
         "table": None,
@@ -76,6 +124,10 @@ ALL_DAEMONS = [
     "btcusdc_updater",
     "gdelt_sentiment_daemon",
     "market_indices_daemon",
+    "economic_calendar_daemon",
+    "sentiment_propagation_daemon",
+    "technical_indicators_daemon",
+    "order_flow_imbalance_daemon",
     "api_server",
     "docs_server",
     "database_backup_daemon"
@@ -89,8 +141,22 @@ async def lifespan(app: FastAPI):
     logger.info(f"Master script: {MASTER_SCRIPT}")
     if not MASTER_SCRIPT.exists():
         logger.warning(f"Master script nie istnieje: {MASTER_SCRIPT}")
+    
+    # Inicjalizuj globalny engine przy starcie
+    try:
+        get_database_engine()
+        logger.info("Globalny database engine zainicjalizowany z connection poolingiem")
+    except Exception as e:
+        logger.error(f"Błąd inicjalizacji bazy danych: {e}")
+    
     yield
-    # Shutdown
+    
+    # Shutdown - zamknij połączenia
+    global _global_engine
+    if _global_engine is not None:
+        _global_engine.dispose()
+        logger.info("Połączenia z bazą danych zamknięte")
+    
     logger.info("Panel zarządzania daemonami zamykany")
 
 
@@ -182,6 +248,22 @@ def is_daemon_running(daemon_name: str) -> bool:
             "method": "pid",
             "pid_file": str(LOG_DIR / "market_indices_daemon.pid")
         },
+        "economic_calendar_daemon": {
+            "method": "pid",
+            "pid_file": str(LOG_DIR / "economic_calendar_daemon.pid")
+        },
+        "sentiment_propagation_daemon": {
+            "method": "pid",
+            "pid_file": str(LOG_DIR / "sentiment_propagation_daemon.pid")
+        },
+        "technical_indicators_daemon": {
+            "method": "pid",
+            "pid_file": str(LOG_DIR / "technical_indicators_daemon.pid")
+        },
+        "order_flow_imbalance_daemon": {
+            "method": "pid",
+            "pid_file": str(LOG_DIR / "order_flow_imbalance_daemon.pid")
+        },
         "api_server": {
             "method": "port",
             "port": 8000
@@ -218,6 +300,30 @@ def is_daemon_running(daemon_name: str) -> bool:
     elif method == "pid":
         pid_file = Path(config["pid_file"])
         if not pid_file.exists():
+            # Jeśli plik PID nie istnieje, sprawdź czy proces działa po nazwie
+            # (może być uruchomiony bezpośrednio, nie przez skrypt)
+            daemon_name_to_script = {
+                "technical_indicators_daemon": "technical_indicators_daemon.py",
+                "order_flow_imbalance_daemon": "order_flow_imbalance_daemon.py",
+                "gdelt_sentiment_daemon": "gdelt_sentiment_daemon.py",
+                "market_indices_daemon": "market_indices_daemon.py",
+                "economic_calendar_daemon": "economic_calendar_daemon.py",
+                "sentiment_propagation_daemon": "sentiment_propagation_daemon.py",
+                "btcusdc_updater": "btcusdc_updater.py",
+                "database_backup_daemon": "database_backup_daemon.py"
+            }
+            script_name = daemon_name_to_script.get(daemon_name)
+            if script_name:
+                try:
+                    # Sprawdź czy proces z tą nazwą skryptu działa
+                    result = subprocess.run(
+                        ["pgrep", "-f", script_name],
+                        capture_output=True,
+                        timeout=5
+                    )
+                    return result.returncode == 0
+                except:
+                    pass
             return False
         try:
             pid = int(pid_file.read_text().strip())
@@ -259,15 +365,14 @@ def get_table_stats(daemon_name: str) -> Optional[Dict]:
     table = config["table"]
     date_column = config["date_column"]
     
-    database_url = os.getenv('DATABASE_URL')
-    if not database_url:
-        return None
-    
     try:
-        engine = create_engine(database_url)
+        engine = get_database_engine()
+        # Sprawdź typ bazy danych z engine
+        is_postgresql = 'postgresql' in str(engine.url)
+        
         with engine.connect() as conn:
             # Sprawdź czy tabela istnieje
-            if 'postgresql' in database_url:
+            if is_postgresql:
                 check_query = text("""
                     SELECT EXISTS (
                         SELECT FROM information_schema.tables 
@@ -283,7 +388,7 @@ def get_table_stats(daemon_name: str) -> Optional[Dict]:
                 """)
             
             result = conn.execute(check_query, {"table_name": table})
-            table_exists = result.scalar() > 0 if 'postgresql' not in database_url else result.scalar()
+            table_exists = result.scalar() if is_postgresql else result.scalar() > 0
             
             if not table_exists:
                 return {
@@ -316,7 +421,7 @@ def get_table_stats(daemon_name: str) -> Optional[Dict]:
             table_size_bytes = None
             table_size_formatted = None
             
-            if 'postgresql' in database_url:
+            if is_postgresql:
                 # PostgreSQL: użyj pg_total_relation_size()
                 try:
                     # Używamy quote_ident do bezpiecznego escapowania nazwy tabeli
@@ -570,6 +675,10 @@ async def start_daemon(daemon_name: str):
         "btcusdc_updater": "daemons/start_btcusdc_updater.sh",
         "gdelt_sentiment_daemon": "daemons/start_gdelt_sentiment_daemon.sh",
         "market_indices_daemon": "daemons/start_market_indices_daemon.sh",
+        "economic_calendar_daemon": "daemons/start_economic_calendar_daemon.sh",
+        "sentiment_propagation_daemon": "daemons/start_sentiment_propagation_daemon.sh",
+        "technical_indicators_daemon": "daemons/start_technical_indicators_daemon.sh",
+        "order_flow_imbalance_daemon": "daemons/start_order_flow_imbalance_daemon.sh",
         "api_server": "daemons/start_api_server.sh",
         "docs_server": "daemons/start_docs_server.sh"
     }
@@ -606,11 +715,23 @@ async def start_daemon(daemon_name: str):
         await asyncio.sleep(2)
         running = is_daemon_running(daemon_name)
         
-        return JSONResponse(content={
-            "success": running,
-            "message": result.stdout if result.returncode == 0 else result.stderr,
-            "daemon": daemon_name
-        })
+        if running:
+            return JSONResponse(content={
+                "success": True,
+                "message": result.stdout.strip() if result.stdout else "Daemon uruchomiony pomyślnie",
+                "daemon": daemon_name
+            })
+        else:
+            error_msg = result.stderr.strip() if result.stderr else "Daemon nie został uruchomiony"
+            if result.returncode != 0:
+                error_msg = f"Kod błędu: {result.returncode}. {error_msg}"
+            if result.stdout:
+                error_msg = f"{error_msg}\n{result.stdout.strip()}"
+            return JSONResponse(content={
+                "success": False,
+                "message": error_msg,
+                "daemon": daemon_name
+            })
     except Exception as e:
         return JSONResponse(content={
             "success": False,
@@ -633,6 +754,10 @@ async def stop_daemon(daemon_name: str):
         "btcusdc_updater": "daemons/start_btcusdc_updater.sh",
         "gdelt_sentiment_daemon": "daemons/start_gdelt_sentiment_daemon.sh",
         "market_indices_daemon": "daemons/start_market_indices_daemon.sh",
+        "economic_calendar_daemon": "daemons/start_economic_calendar_daemon.sh",
+        "sentiment_propagation_daemon": "daemons/start_sentiment_propagation_daemon.sh",
+        "technical_indicators_daemon": "daemons/start_technical_indicators_daemon.sh",
+        "order_flow_imbalance_daemon": "daemons/start_order_flow_imbalance_daemon.sh",
         "api_server": "daemons/start_api_server.sh",
         "docs_server": "daemons/start_docs_server.sh"
     }
@@ -669,11 +794,23 @@ async def stop_daemon(daemon_name: str):
         await asyncio.sleep(2)
         running = is_daemon_running(daemon_name)
         
-        return JSONResponse(content={
-            "success": not running,
-            "message": result.stdout if result.returncode == 0 else result.stderr,
-            "daemon": daemon_name
-        })
+        if not running:
+            return JSONResponse(content={
+                "success": True,
+                "message": result.stdout.strip() if result.stdout else "Daemon zatrzymany pomyślnie",
+                "daemon": daemon_name
+            })
+        else:
+            error_msg = result.stderr.strip() if result.stderr else "Nie udało się zatrzymać daemona"
+            if result.returncode != 0:
+                error_msg = f"Kod błędu: {result.returncode}. {error_msg}"
+            if result.stdout:
+                error_msg = f"{error_msg}\n{result.stdout.strip()}"
+            return JSONResponse(content={
+                "success": False,
+                "message": error_msg,
+                "daemon": daemon_name
+            })
     except Exception as e:
         return JSONResponse(content={
             "success": False,
@@ -690,15 +827,27 @@ async def restart_daemon(daemon_name: str):
     
     # Najpierw stop, potem start
     stop_result = await stop_daemon(daemon_name)
+    stop_data = json.loads(stop_result.body)
+    
     import asyncio
     await asyncio.sleep(2)
-    start_result = await start_daemon(daemon_name)
     
-    return JSONResponse(content={
-        "success": start_result.body and json.loads(start_result.body).get("success", False),
-        "message": f"Restart: {json.loads(stop_result.body).get('message', '')} -> {json.loads(start_result.body).get('message', '')}",
-        "daemon": daemon_name
-    })
+    start_result = await start_daemon(daemon_name)
+    start_data = json.loads(start_result.body)
+    
+    if start_data.get("success", False):
+        return JSONResponse(content={
+            "success": True,
+            "message": f"Restart zakończony pomyślnie. Stop: {stop_data.get('message', 'OK')}. Start: {start_data.get('message', 'OK')}",
+            "daemon": daemon_name
+        })
+    else:
+        error_msg = f"Błąd restartu. Stop: {stop_data.get('message', 'OK')}. Start: {start_data.get('message', 'Błąd')}"
+        return JSONResponse(content={
+            "success": False,
+            "message": error_msg,
+            "daemon": daemon_name
+        })
 
 
 @app.get("/api/master/status")
@@ -767,6 +916,173 @@ async def get_backup_info_endpoint():
     """Zwraca informacje o ostatnim backupie."""
     backup_info = get_backup_info()
     return JSONResponse(content=backup_info or {})
+
+
+@app.get("/api/top-trader-alerts")
+async def get_top_trader_alerts(
+    limit: int = 50,
+    severity: Optional[str] = None,
+    alert_type: Optional[str] = None,
+    unread_only: bool = False
+):
+    """
+    Zwraca alerty top traderów.
+    
+    Args:
+        limit: Maksymalna liczba alertów do zwrócenia
+        severity: Filtr po ważności (low, medium, high, critical)
+        alert_type: Filtr po typie (LARGE_TRADE, VOLUME_SPIKE, etc.)
+        unread_only: Tylko nieprzeczytane alerty
+    """
+    try:
+        engine = get_database_engine()
+        
+        query = """
+            SELECT 
+                id,
+                alert_timestamp,
+                trader_address,
+                subaccount_number,
+                trader_rank,
+                fill_id,
+                ticker,
+                side,
+                price,
+                size,
+                volume_usd,
+                alert_type,
+                alert_severity,
+                alert_message,
+                threshold_value,
+                actual_value,
+                is_read,
+                created_at
+            FROM dydx_top_trader_alerts
+            WHERE 1=1
+        """
+        params = {}
+        
+        if unread_only:
+            query += " AND is_read = FALSE"
+        
+        if severity:
+            query += " AND alert_severity = :severity"
+            params['severity'] = severity
+        
+        if alert_type:
+            query += " AND alert_type = :alert_type"
+            params['alert_type'] = alert_type
+        
+        query += " ORDER BY alert_timestamp DESC LIMIT :limit"
+        params['limit'] = limit
+        
+        with engine.connect() as conn:
+            result = conn.execute(text(query), params)
+            alerts = []
+            for row in result:
+                alerts.append({
+                    'id': row[0],
+                    'alert_timestamp': row[1].isoformat() if row[1] else None,
+                    'trader_address': row[2],
+                    'subaccount_number': row[3],
+                    'trader_rank': row[4],
+                    'fill_id': row[5],
+                    'ticker': row[6],
+                    'side': row[7],
+                    'price': float(row[8]) if row[8] else None,
+                    'size': float(row[9]) if row[9] else None,
+                    'volume_usd': float(row[10]) if row[10] else None,
+                    'alert_type': row[11],
+                    'alert_severity': row[12],
+                    'alert_message': row[13],
+                    'threshold_value': float(row[14]) if row[14] else None,
+                    'actual_value': float(row[15]) if row[15] else None,
+                    'is_read': row[16],
+                    'created_at': row[17].isoformat() if row[17] else None,
+                })
+        
+        return JSONResponse(content={
+            'alerts': alerts,
+            'count': len(alerts)
+        })
+        
+    except Exception as e:
+        logger.error(f"Błąd podczas pobierania alertów: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.get("/api/top-trader-alerts/summary")
+async def get_top_trader_alerts_summary(hours: int = 24):
+    """
+    Zwraca agregowane statystyki alertów.
+    
+    Args:
+        hours: Liczba godzin wstecz do analizy
+    """
+    try:
+        engine = get_database_engine()
+        
+        query = """
+            SELECT 
+                alert_type,
+                alert_severity,
+                COUNT(*) as count,
+                COUNT(DISTINCT trader_address || ':' || subaccount_number) as unique_traders,
+                SUM(volume_usd) as total_volume_usd,
+                AVG(volume_usd) as avg_volume_usd,
+                MAX(volume_usd) as max_volume_usd
+            FROM dydx_top_trader_alerts
+            WHERE alert_timestamp >= NOW() - INTERVAL ':hours hours'
+            GROUP BY alert_type, alert_severity
+            ORDER BY alert_severity DESC, count DESC
+        """
+        
+        with engine.connect() as conn:
+            result = conn.execute(text(query.replace(':hours', str(hours))))
+            summary = []
+            for row in result:
+                summary.append({
+                    'alert_type': row[0],
+                    'alert_severity': row[1],
+                    'count': row[2],
+                    'unique_traders': row[3],
+                    'total_volume_usd': float(row[4]) if row[4] else 0,
+                    'avg_volume_usd': float(row[5]) if row[5] else 0,
+                    'max_volume_usd': float(row[6]) if row[6] else 0,
+                })
+        
+        return JSONResponse(content={
+            'summary': summary,
+            'hours': hours
+        })
+        
+    except Exception as e:
+        logger.error(f"Błąd podczas pobierania podsumowania alertów: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.post("/api/top-trader-alerts/{alert_id}/read")
+async def mark_alert_read(alert_id: int):
+    """Oznacza alert jako przeczytany."""
+    try:
+        engine = get_database_engine()
+        
+        with engine.begin() as conn:
+            result = conn.execute(
+                text("UPDATE dydx_top_trader_alerts SET is_read = TRUE WHERE id = :id"),
+                {'id': alert_id}
+            )
+            
+            if result.rowcount == 0:
+                raise HTTPException(status_code=404, detail=f"Alert {alert_id} nie znaleziony")
+        
+        return JSONResponse(content={'success': True, 'alert_id': alert_id})
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Błąd podczas oznaczania alertu jako przeczytany: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
 
 
 def get_panel_html() -> str:
@@ -866,8 +1182,8 @@ def get_panel_html() -> str:
             background: #0f9d0f;
         }
         .daemon-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            display: flex;
+            flex-direction: column;
             gap: 20px;
         }
         .daemon-card {
@@ -877,6 +1193,7 @@ def get_panel_html() -> str:
             box-shadow: 0 2px 4px rgba(0,0,0,0.3);
             transition: transform 0.2s, box-shadow 0.2s;
             border: 1px solid #3e3e42;
+            width: 100%;
         }
         .daemon-card:hover {
             transform: translateY(-2px);
@@ -888,6 +1205,7 @@ def get_panel_html() -> str:
             justify-content: space-between;
             align-items: center;
             margin-bottom: 15px;
+            flex-wrap: wrap;
         }
         .daemon-name {
             font-size: 1.2em;
@@ -916,6 +1234,9 @@ def get_panel_html() -> str:
             margin: 15px 0;
             font-size: 0.9em;
             color: #cccccc;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 10px;
         }
         .daemon-info-item {
             margin: 5px 0;
@@ -924,11 +1245,30 @@ def get_panel_html() -> str:
             display: flex;
             gap: 10px;
             margin-top: 15px;
+            justify-content: flex-end;
         }
         .daemon-actions button {
-            flex: 1;
-            padding: 8px 12px;
+            padding: 8px 20px;
             font-size: 0.9em;
+            min-width: 120px;
+        }
+        .daemon-actions button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        .spinner {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border: 2px solid #ffffff;
+            border-radius: 50%;
+            border-top-color: transparent;
+            animation: spin 0.8s linear infinite;
+            margin-right: 8px;
+            vertical-align: middle;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
         }
         .loading {
             text-align: center;
@@ -1035,7 +1375,7 @@ def get_panel_html() -> str:
                 // Render daemons
                 const daemonsDiv = document.getElementById('daemons');
                 daemonsDiv.innerHTML = data.daemons.map(daemon => `
-                    <div class="daemon-card">
+                    <div class="daemon-card" data-daemon="${daemon.name}">
                         <div class="daemon-header">
                             <div class="daemon-name">${daemon.name}</div>
                             <span class="status-badge ${daemon.running ? 'status-running' : 'status-stopped'}">
@@ -1104,50 +1444,151 @@ def get_panel_html() -> str:
         }
         
         async function startDaemon(name) {
+            const card = document.querySelector(`[data-daemon="${name}"]`);
+            if (!card) return;
+            
+            const buttons = card.querySelectorAll('.daemon-actions button');
+            const originalButtons = Array.from(buttons).map(btn => ({
+                element: btn,
+                html: btn.innerHTML,
+                disabled: btn.disabled
+            }));
+            
+            // Wyszarz przyciski i pokaż spinner
+            buttons.forEach(btn => {
+                btn.disabled = true;
+                if (btn.textContent.includes('Start')) {
+                    btn.innerHTML = '<span class="spinner"></span> Uruchamianie...';
+                }
+            });
+            
             showMessage('Uruchamianie ' + name + '...', 'info');
+            
             try {
                 const response = await fetch(`/api/start/${name}`, { method: 'POST' });
                 const data = await response.json();
+                
+                // Przywróć przyciski
+                originalButtons.forEach(orig => {
+                    orig.element.disabled = orig.disabled;
+                    orig.element.innerHTML = orig.html;
+                });
+                
                 if (data.success) {
                     showMessage('Daemon ' + name + ' uruchomiony', 'success');
                     setTimeout(refreshStatus, 2000);
                 } else {
-                    showMessage('Błąd: ' + data.message, 'error');
+                    const errorMsg = data.message || 'Nieznany błąd';
+                    showMessage('Błąd uruchomienia ' + name + ': ' + errorMsg, 'error');
                 }
             } catch (error) {
-                showMessage('Błąd: ' + error.message, 'error');
+                // Przywróć przyciski
+                originalButtons.forEach(orig => {
+                    orig.element.disabled = orig.disabled;
+                    orig.element.innerHTML = orig.html;
+                });
+                
+                showMessage('Błąd połączenia: ' + error.message, 'error');
             }
         }
         
         async function stopDaemon(name) {
+            const card = document.querySelector(`[data-daemon="${name}"]`);
+            if (!card) return;
+            
+            const buttons = card.querySelectorAll('.daemon-actions button');
+            const originalButtons = Array.from(buttons).map(btn => ({
+                element: btn,
+                html: btn.innerHTML,
+                disabled: btn.disabled
+            }));
+            
+            // Wyszarz przyciski i pokaż spinner
+            buttons.forEach(btn => {
+                btn.disabled = true;
+                const btnText = btn.textContent.trim();
+                if (btnText.includes('Stop') || btnText.includes('⏹')) {
+                    btn.innerHTML = '<span class="spinner"></span> Zatrzymywanie...';
+                }
+            });
+            
             showMessage('Zatrzymywanie ' + name + '...', 'info');
+            
             try {
                 const response = await fetch(`/api/stop/${name}`, { method: 'POST' });
                 const data = await response.json();
+                
+                // Przywróć przyciski
+                originalButtons.forEach(orig => {
+                    orig.element.disabled = orig.disabled;
+                    orig.element.innerHTML = orig.html;
+                });
+                
                 if (data.success) {
                     showMessage('Daemon ' + name + ' zatrzymany', 'success');
                     setTimeout(refreshStatus, 2000);
                 } else {
-                    showMessage('Błąd: ' + data.message, 'error');
+                    const errorMsg = data.message || 'Nieznany błąd';
+                    showMessage('Błąd zatrzymania ' + name + ': ' + errorMsg, 'error');
                 }
             } catch (error) {
-                showMessage('Błąd: ' + error.message, 'error');
+                // Przywróć przyciski
+                originalButtons.forEach(orig => {
+                    orig.element.disabled = orig.disabled;
+                    orig.element.innerHTML = orig.html;
+                });
+                
+                showMessage('Błąd połączenia: ' + error.message, 'error');
             }
         }
         
         async function restartDaemon(name) {
+            const card = document.querySelector(`[data-daemon="${name}"]`);
+            if (!card) return;
+            
+            const buttons = card.querySelectorAll('.daemon-actions button');
+            const originalButtons = Array.from(buttons).map(btn => ({
+                element: btn,
+                html: btn.innerHTML,
+                disabled: btn.disabled
+            }));
+            
+            // Wyszarz przyciski i pokaż spinner
+            buttons.forEach(btn => {
+                btn.disabled = true;
+                const btnText = btn.textContent.trim();
+                if (btnText.includes('Restart') || btnText.includes('🔄')) {
+                    btn.innerHTML = '<span class="spinner"></span> Restartowanie...';
+                }
+            });
+            
             showMessage('Restartowanie ' + name + '...', 'info');
+            
             try {
                 const response = await fetch(`/api/restart/${name}`, { method: 'POST' });
                 const data = await response.json();
+                
+                // Przywróć przyciski
+                originalButtons.forEach(orig => {
+                    orig.element.disabled = orig.disabled;
+                    orig.element.innerHTML = orig.html;
+                });
+                
                 if (data.success) {
                     showMessage('Daemon ' + name + ' zrestartowany', 'success');
                     setTimeout(refreshStatus, 3000);
                 } else {
-                    showMessage('Błąd: ' + data.message, 'error');
+                    const errorMsg = data.message || 'Nieznany błąd';
+                    showMessage('Błąd restartu ' + name + ': ' + errorMsg, 'error');
                 }
             } catch (error) {
-                showMessage('Błąd: ' + error.message, 'error');
+                // Przywróć przyciski
+                originalButtons.forEach(orig => {
+                    orig.element.disabled = orig.disabled;
+                    orig.element.innerHTML = orig.html;
+                });
+                
+                showMessage('Błąd połączenia: ' + error.message, 'error');
             }
         }
         

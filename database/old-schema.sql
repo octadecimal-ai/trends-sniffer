@@ -474,7 +474,7 @@ SELECT
 FROM countries c
 LEFT JOIN regions r ON c.region_id = r.id
 LEFT JOIN LATERAL (
-    SELECT * FROM sentiment_scores 
+    SELECT * FROM aggregated_sentiment_scores 
     WHERE country_id = c.id 
     ORDER BY calculated_at DESC 
     LIMIT 1
@@ -490,9 +490,9 @@ SELECT
     bp.premium_percent,
     bp.parallel_rate,
     bp.period_date
-FROM btc_premium_data bp
+FROM imf_btc_premium_data bp
 JOIN countries c ON bp.country_id = c.id
-WHERE bp.period_date = (SELECT MAX(period_date) FROM btc_premium_data)
+WHERE bp.period_date = (SELECT MAX(period_date) FROM imf_btc_premium_data)
 ORDER BY bp.premium_percent DESC NULLS LAST;
 
 -- Widok: Kraje z najwyższym hashrate

@@ -10,11 +10,11 @@ DROP VIEW IF EXISTS v_table_stats;
 
 CREATE VIEW v_table_stats AS
 SELECT 
-    'sentiments_sniff' AS tabela,
+    'google_trends_sentiments_sniff' AS tabela,
     COUNT(*) AS liczba_rekordow,
     MIN(occurrence_time) AS data_pierwszego_rekordu,
     MAX(occurrence_time) AS data_ostatniego_rekordu
-FROM public.sentiments_sniff
+FROM public.google_trends_sentiments_sniff
 
 UNION ALL
 
@@ -73,20 +73,56 @@ FROM public.market_indices
 UNION ALL
 
 SELECT 
-    'fear_greed_index' AS tabela,
+    'alternative_me_fear_greed_index' AS tabela,
     COUNT(*) AS liczba_rekordow,
     MIN(timestamp) AS data_pierwszego_rekordu,
     MAX(timestamp) AS data_ostatniego_rekordu
-FROM public.fear_greed_index
+FROM public.alternative_me_fear_greed_index
 
 UNION ALL
 
 SELECT 
-    'economic_calendar' AS tabela,
+    'manual_economic_calendar' AS tabela,
     COUNT(*) AS liczba_rekordow,
     MIN(event_date) AS data_pierwszego_rekordu,
     MAX(event_date) AS data_ostatniego_rekordu
-FROM public.economic_calendar;
+FROM public.manual_economic_calendar
+
+UNION ALL
+
+SELECT 
+    'google_trends_sentiment_propagation' AS tabela,
+    COUNT(*) AS liczba_rekordow,
+    MIN(timestamp) AS data_pierwszego_rekordu,
+    MAX(timestamp) AS data_ostatniego_rekordu
+FROM public.google_trends_sentiment_propagation
+
+UNION ALL
+
+SELECT 
+    'dydx_top_trader_alerts' AS tabela,
+    COUNT(*) AS liczba_rekordow,
+    MIN(alert_timestamp) AS data_pierwszego_rekordu,
+    MAX(alert_timestamp) AS data_ostatniego_rekordu
+FROM public.dydx_top_trader_alerts
+
+UNION ALL
+
+SELECT 
+    'technical_indicators' AS tabela,
+    COUNT(*) AS liczba_rekordow,
+    MIN(timestamp) AS data_pierwszego_rekordu,
+    MAX(timestamp) AS data_ostatniego_rekordu
+FROM public.technical_indicators
+
+UNION ALL
+
+SELECT 
+    'dydx_order_flow_imbalance' AS tabela,
+    COUNT(*) AS liczba_rekordow,
+    MIN(timestamp) AS data_pierwszego_rekordu,
+    MAX(timestamp) AS data_ostatniego_rekordu
+FROM public.dydx_order_flow_imbalance;
 
 -- Komentarz do widoku
 COMMENT ON VIEW v_table_stats IS 'Statystyki tabel: liczba rekordów i zakres dat (pierwszy/ostatni rekord) dla głównych tabel systemu';

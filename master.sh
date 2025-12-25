@@ -69,7 +69,7 @@ log_error() {
 # ============================================================================
 
 # Lista wszystkich daemonów
-ALL_DAEMONS="dydx_perpetual_market_trades_service dydx_top_traders_observer_service trends_sniffer_service btcusdc_updater gdelt_sentiment_daemon market_indices_daemon api_server docs_server database_backup_daemon"
+ALL_DAEMONS="dydx_perpetual_market_trades_service dydx_top_traders_observer_service trends_sniffer_service btcusdc_updater gdelt_sentiment_daemon market_indices_daemon economic_calendar_daemon sentiment_propagation_daemon technical_indicators_daemon order_flow_imbalance_daemon api_server docs_server database_backup_daemon"
 
 # Funkcja zwracająca konfigurację daemona (kompatybilna z bash 3.2)
 get_daemon_config() {
@@ -103,7 +103,7 @@ get_daemon_config() {
                 service_script) echo "${DAEMONS_DIR}/trends_sniffer_service.sh" ;;
                 check_method) echo "launchctl" ;;
                 service_name) echo "com.octadecimal.trends-sniffer" ;;
-                table) echo "sentiment_measurement" ;;
+                table) echo "google_trends_sentiment_measurement" ;;
                 date_column) echo "created_at" ;;
                 *) return 1 ;;
             esac
@@ -134,6 +134,46 @@ get_daemon_config() {
                 check_method) echo "pid" ;;
                 pid_file) echo "${LOG_DIR}/market_indices_daemon.pid" ;;
                 table) echo "market_indices" ;;
+                date_column) echo "timestamp" ;;
+                *) return 1 ;;
+            esac
+            ;;
+        economic_calendar_daemon)
+            case "$key" in
+                service_script) echo "${DAEMONS_DIR}/start_economic_calendar_daemon.sh" ;;
+                check_method) echo "pid" ;;
+                pid_file) echo "${LOG_DIR}/economic_calendar_daemon.pid" ;;
+                table) echo "manual_economic_calendar" ;;
+                date_column) echo "event_date" ;;
+                *) return 1 ;;
+            esac
+            ;;
+        sentiment_propagation_daemon)
+            case "$key" in
+                service_script) echo "${DAEMONS_DIR}/start_sentiment_propagation_daemon.sh" ;;
+                check_method) echo "pid" ;;
+                pid_file) echo "${LOG_DIR}/sentiment_propagation_daemon.pid" ;;
+                table) echo "google_trends_sentiment_propagation" ;;
+                date_column) echo "timestamp" ;;
+                *) return 1 ;;
+            esac
+            ;;
+        technical_indicators_daemon)
+            case "$key" in
+                service_script) echo "${DAEMONS_DIR}/start_technical_indicators_daemon.sh" ;;
+                check_method) echo "pid" ;;
+                pid_file) echo "${LOG_DIR}/technical_indicators_daemon.pid" ;;
+                table) echo "technical_indicators" ;;
+                date_column) echo "timestamp" ;;
+                *) return 1 ;;
+            esac
+            ;;
+        order_flow_imbalance_daemon)
+            case "$key" in
+                service_script) echo "${DAEMONS_DIR}/start_order_flow_imbalance_daemon.sh" ;;
+                check_method) echo "pid" ;;
+                pid_file) echo "${LOG_DIR}/order_flow_imbalance_daemon.pid" ;;
+                table) echo "dydx_order_flow_imbalance" ;;
                 date_column) echo "timestamp" ;;
                 *) return 1 ;;
             esac
@@ -1032,6 +1072,22 @@ while [[ $# -gt 0 ]]; do
             selected_daemons+=("market_indices_daemon")
             shift
             ;;
+        --economic_calendar_daemon)
+            selected_daemons+=("economic_calendar_daemon")
+            shift
+            ;;
+        --sentiment_propagation_daemon)
+            selected_daemons+=("sentiment_propagation_daemon")
+            shift
+            ;;
+        --technical_indicators_daemon)
+            selected_daemons+=("technical_indicators_daemon")
+            shift
+            ;;
+        --order_flow_imbalance_daemon)
+            selected_daemons+=("order_flow_imbalance_daemon")
+            shift
+            ;;
         --docs_server)
             selected_daemons+=("docs_server")
             shift
@@ -1151,6 +1207,10 @@ while [[ $# -gt 0 ]]; do
             echo "  --btcusdc_updater"
             echo "  --gdelt_sentiment_daemon"
             echo "  --market_indices_daemon"
+            echo "  --economic_calendar_daemon"
+            echo "  --sentiment_propagation_daemon"
+            echo "  --technical_indicators_daemon"
+            echo "  --order_flow_imbalance_daemon"
             echo "  --docs_server"
             echo "  --database_backup_daemon"
             echo "  --all (wszystkie powyższe + api_server + docs_server + database_backup_daemon)"
@@ -1175,6 +1235,9 @@ if [ "$all_daemons" = true ]; then
         "btcusdc_updater"
         "gdelt_sentiment_daemon"
         "market_indices_daemon"
+        "economic_calendar_daemon"
+        "sentiment_propagation_daemon"
+        "technical_indicators_daemon"
     )
     # api_server, docs_server i database_backup_daemon są zawsze monitorowane
 fi

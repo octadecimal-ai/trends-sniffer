@@ -162,7 +162,7 @@ SELECT
     value_change_24h,
     value_change_7d,
     timestamp
-FROM fear_greed_index
+FROM alternative_me_fear_greed_index
 ORDER BY timestamp DESC
 LIMIT 1;
 
@@ -176,7 +176,7 @@ SELECT
     importance,
     forecast,
     previous
-FROM economic_calendar
+FROM manual_economic_calendar
 WHERE event_date >= NOW()
 ORDER BY event_date
 LIMIT 20;

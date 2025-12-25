@@ -2,3 +2,6 @@
 1766612409:dydx_top_traders_observer_service:dydx_fills
 1766612710:gdelt_sentiment_daemon:gdelt_sentiment
 1766612710:market_indices_daemon:market_indices
+1766616941:dydx_top_traders_observer_service:dydx_fills
+1766618753:dydx_top_traders_observer_service:dydx_fills
+1766621469:dydx_top_traders_observer_service:dydx_fills

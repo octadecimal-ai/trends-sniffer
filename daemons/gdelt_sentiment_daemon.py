@@ -93,13 +93,25 @@ COUNTRY_NAMES = {
 class GDELTSentimentDaemon:
     """
     Daemon do zbierania danych sentymentu z GDELT API.
+    
+    Obsługuje wiele query jednocześnie:
+    - Podstawowe: bitcoin, cryptocurrency
+    - Regulatory: regulacje, zakazy, compliance
+    - Geopolitical: konflikty, sankcje, kryzysy
     """
+    
+    # Predefiniowane query dla różnych kategorii
+    DEFAULT_QUERIES = {
+        "general": "bitcoin OR cryptocurrency OR BTC",
+        "regulatory": "(bitcoin OR cryptocurrency OR BTC) AND (regulation OR ban OR legal OR SEC OR CFTC OR compliance OR regulatory)",
+        "geopolitical": "(bitcoin OR cryptocurrency OR BTC) AND (sanctions OR war OR conflict OR crisis OR geopolitical OR sanctions OR embargo)"
+    }
     
     def __init__(
         self,
         countries: List[str],
-        query: str,
-        interval: int,
+        queries: Optional[Dict[str, str]] = None,
+        interval: int = 3600,
         database_url: Optional[str] = None,
         days_back: int = 1,
         resolution: str = "hour"
@@ -109,14 +121,23 @@ class GDELTSentimentDaemon:
         
         Args:
             countries: Lista kodów krajów do monitorowania
-            query: Zapytanie wyszukiwania GDELT
+            queries: Słownik query {nazwa: query_string} (domyślnie: DEFAULT_QUERIES)
             interval: Interwał zbierania danych w sekundach
             database_url: URL bazy danych (opcjonalnie, użyje DATABASE_URL z .env)
             days_back: Ile dni wstecz pobierać dane (domyślnie 1)
             resolution: Rozdzielczość czasowa (hour, day)
         """
         self.countries = countries
-        self.query = query
+        # Jeśli podano pojedyncze query (backward compatibility), konwertuj na dict
+        if queries is None:
+            queries = self.DEFAULT_QUERIES.copy()
+        elif isinstance(queries, str):
+            # Backward compatibility: pojedyncze query jako string
+            queries = {"general": queries}
+        elif not isinstance(queries, dict):
+            raise ValueError("queries musi być dict {nazwa: query} lub string (backward compatibility)")
+        
+        self.queries = queries
         self.interval = interval
         self.days_back = days_back
         self.resolution = resolution
@@ -172,12 +193,14 @@ class GDELTSentimentDaemon:
         logger.info(f"Otrzymano sygnał {signum} - zatrzymywanie...")
         self.running = False
     
-    def _collect_and_save(self, country: str) -> bool:
+    def _collect_and_save(self, country: str, query_name: str, query: str) -> bool:
         """
-        Zbiera dane sentymentu dla danego kraju i zapisuje do bazy.
+        Zbiera dane sentymentu dla danego kraju i query, zapisuje do bazy.
         
         Args:
             country: Kod kraju
+            query_name: Nazwa query (np. "general", "regulatory", "geopolitical")
+            query: Zapytanie GDELT
             
         Returns:
             True jeśli sukces, False w przeciwnym razie
@@ -186,11 +209,11 @@ class GDELTSentimentDaemon:
             country_name = COUNTRY_NAMES.get(country, country)
             language = COUNTRY_LANGUAGES.get(country, "en")
             
-            logger.info(f"📊 Zbieram dane GDELT dla {country_name} ({country})...")
+            logger.info(f"📊 Zbieram dane GDELT dla {country_name} ({country}) - query: {query_name}...")
             
             # Próba 1: Pobierz dane tone timeseries z GDELT (Timeline API)
             df = self.gdelt_collector.fetch_tone_timeseries(
-                query=self.query,
+                query=query,
                 days_back=self.days_back,
                 resolution=self.resolution,
                 source_country=country
@@ -198,12 +221,12 @@ class GDELTSentimentDaemon:
             
             # Próba 2: Fallback - pobierz globalne artykuły i filtruj po source_country
             if df.empty:
-                logger.debug(f"Timeline API nie zwrócił danych dla {country_name}, próbuję fallback z globalnych artykułów...")
+                logger.debug(f"Timeline API nie zwrócił danych dla {country_name} ({query_name}), próbuję fallback z globalnych artykułów...")
                 try:
                     # Pobierz globalne artykuły (bez filtrowania po kraju)
                     # GDELT API często nie obsługuje sourcecountry: dla wielu krajów
                     articles_df = self.gdelt_collector.fetch_articles(
-                        query=self.query,
+                        query=query,
                         days_back=self.days_back,
                         max_records=500,  # Więcej rekordów, bo filtrujemy później
                         source_country=None  # Globalne zapytanie
@@ -228,29 +251,29 @@ class GDELTSentimentDaemon:
                             df = country_articles['tone'].resample(freq).mean().to_frame()
                             df['volume'] = country_articles['tone'].resample(freq).count()
                             
-                            logger.info(f"Fallback: Znaleziono {len(country_articles)} artykułów z {country_name}, agregowano do {len(df)} punktów czasowych")
+                            logger.info(f"Fallback: Znaleziono {len(country_articles)} artykułów z {country_name} ({query_name}), agregowano do {len(df)} punktów czasowych")
                         else:
-                            logger.debug(f"⚠️  Brak artykułów z source_country={country} w globalnych wynikach")
+                            logger.debug(f"⚠️  Brak artykułów z source_country={country} w globalnych wynikach dla {query_name}")
                     else:
-                        logger.debug(f"⚠️  Brak kolumny 'source_country' w wynikach lub brak artykułów")
+                        logger.debug(f"⚠️  Brak kolumny 'source_country' w wynikach lub brak artykułów dla {query_name}")
                 except Exception as e:
-                    logger.debug(f"Błąd fallback dla {country_name}: {e}")
+                    logger.debug(f"Błąd fallback dla {country_name} ({query_name}): {e}")
                     import traceback
                     logger.debug(traceback.format_exc())
             
             if df.empty:
-                logger.warning(f"⚠️  Brak danych GDELT dla {country_name} (ani Timeline, ani artykuły)")
+                logger.warning(f"⚠️  Brak danych GDELT dla {country_name} ({query_name}) (ani Timeline, ani artykuły)")
                 return False
             
             # Sprawdź czy mamy kolumny tone i volume
             if 'tone' not in df.columns:
-                logger.warning(f"⚠️  Brak kolumny 'tone' w danych dla {country_name}")
+                logger.warning(f"⚠️  Brak kolumny 'tone' w danych dla {country_name} ({query_name})")
                 return False
             
-            # Zapisz do bazy
+            # Zapisz do bazy (używamy pełnego query string jako identyfikator)
             saved = self.db.save_gdelt_sentiment(
                 df=df,
-                query=self.query,
+                query=query,  # Pełne query string
                 region=country,
                 language=language,
                 resolution=self.resolution
@@ -259,16 +282,16 @@ class GDELTSentimentDaemon:
             if saved > 0:
                 self.stats["records_saved"] += saved
                 logger.success(
-                    f"✅ Zapisano {saved} rekordów GDELT dla {country_name} "
+                    f"✅ Zapisano {saved} rekordów GDELT dla {country_name} ({query_name}) "
                     f"(okres: {df.index.min()} → {df.index.max()})"
                 )
                 return True
             else:
-                logger.warning(f"⚠️  Nie zapisano żadnych rekordów dla {country_name}")
+                logger.warning(f"⚠️  Nie zapisano żadnych rekordów dla {country_name} ({query_name})")
                 return False
                 
         except Exception as e:
-            logger.error(f"❌ Błąd podczas zbierania danych dla {country}: {e}")
+            logger.error(f"❌ Błąd podczas zbierania danych dla {country} ({query_name}): {e}")
             logger.debug(traceback.format_exc())
             self.stats["errors_count"] += 1
             return False
@@ -279,7 +302,9 @@ class GDELTSentimentDaemon:
         logger.info("🚀 GDELT Sentiment Daemon uruchomiony")
         logger.info("=" * 60)
         logger.info(f"Kraje: {', '.join(self.countries)}")
-        logger.info(f"Query: {self.query}")
+        logger.info(f"Query ({len(self.queries)}):")
+        for query_name, query in self.queries.items():
+            logger.info(f"  - {query_name}: {query[:80]}...")
         logger.info(f"Interwał: {self.interval} sekund")
         logger.info(f"Dni wstecz: {self.days_back}")
         logger.info(f"Rozdzielczość: {self.resolution}")
@@ -293,9 +318,11 @@ class GDELTSentimentDaemon:
                 
                 logger.info(f"\n🔄 Cykl #{self.stats['cycles_count'] + 1} - {cycle_start.strftime('%Y-%m-%d %H:%M:%S UTC')}")
                 
-                # Zbierz dane dla każdego kraju
+                # Zbierz dane dla każdego kraju i każdego query
                 for country in self.countries:
-                    self._collect_and_save(country)
+                    for query_name, query in self.queries.items():
+                        self._collect_and_save(country, query_name, query)
+                        time.sleep(1)  # Rate limiting między query
                     time.sleep(1)  # Rate limiting między krajami
                 
                 self.stats["cycles_count"] += 1
@@ -346,8 +373,14 @@ def main():
     )
     parser.add_argument(
         "--query",
-        default="bitcoin OR cryptocurrency",
-        help="Zapytanie wyszukiwania GDELT (domyślnie: bitcoin OR cryptocurrency)"
+        default=None,
+        help="Zapytanie wyszukiwania GDELT (opcjonalnie, domyślnie używa DEFAULT_QUERIES). Format: 'nazwa1:query1,nazwa2:query2' lub pojedyncze query dla backward compatibility"
+    )
+    parser.add_argument(
+        "--use-default-queries",
+        action="store_true",
+        default=True,
+        help="Użyj predefiniowanych query (general, regulatory, geopolitical) - domyślnie włączone"
     )
     parser.add_argument(
         "--interval",
@@ -378,6 +411,35 @@ def main():
     # Parsuj kraje
     countries = [c.strip() for c in args.countries.split(",")]
     
+    # Parsuj query
+    queries = None
+    if args.query:
+        # Format: "nazwa1:query1,nazwa2:query2" lub pojedyncze query
+        if ":" in args.query and "," in args.query:
+            # Wiele query z nazwami
+            queries = {}
+            for item in args.query.split(","):
+                if ":" in item:
+                    name, query = item.split(":", 1)
+                    queries[name.strip()] = query.strip()
+                else:
+                    # Pojedyncze query bez nazwy
+                    queries["custom"] = item.strip()
+        elif ":" in args.query:
+            # Pojedyncze query z nazwą
+            name, query = args.query.split(":", 1)
+            queries = {name.strip(): query.strip()}
+        else:
+            # Pojedyncze query bez nazwy (backward compatibility)
+            queries = {"general": args.query.strip()}
+    elif args.use_default_queries:
+        # Użyj predefiniowanych query
+        queries = GDELTSentimentDaemon.DEFAULT_QUERIES.copy()
+    
+    if not queries:
+        logger.error("Brak zdefiniowanych query! Użyj --query lub --use-default-queries")
+        sys.exit(1)
+    
     # Konfiguruj logowanie
     logger.remove()
     logger.add(
@@ -402,7 +464,7 @@ def main():
     try:
         daemon = GDELTSentimentDaemon(
             countries=countries,
-            query=args.query,
+            queries=queries,
             interval=args.interval,
             database_url=args.database_url,
             days_back=args.days_back,

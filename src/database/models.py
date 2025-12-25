@@ -20,7 +20,7 @@ def utcnow():
     return datetime.now(timezone.utc)
 from sqlalchemy import (
     Column, String, Float, Integer, DateTime, BigInteger, UniqueConstraint,
-    Index, UniqueConstraint, ForeignKey, Boolean, Text, Enum
+    Index, UniqueConstraint, ForeignKey, Boolean, Text, Enum, Numeric
 )
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
@@ -188,7 +188,7 @@ class SentimentScore(Base):
     """
     Wyniki analizy sentymentu z różnych źródeł.
     """
-    __tablename__ = 'sentiment_scores'
+    __tablename__ = 'aggregated_sentiment_scores'
     
     id = Column(Integer, primary_key=True, autoincrement=True)
     timestamp = Column(DateTime, nullable=False, index=True)
@@ -203,7 +203,7 @@ class SentimentScore(Base):
     raw_data = Column(Text, nullable=True)  # JSON z dodatkowymi danymi
     
     __table_args__ = (
-        Index('ix_sentiment_lookup', 'symbol', 'source', 'timestamp'),
+        Index('ix_aggregated_sentiment_scores_lookup', 'symbol', 'source', 'timestamp'),
     )
 
 
@@ -813,7 +813,7 @@ class FearGreedIndex(Base):
     Aktualizowany raz dziennie.
     Źródło: https://api.alternative.me/fng/
     """
-    __tablename__ = 'fear_greed_index'
+    __tablename__ = 'alternative_me_fear_greed_index'
     
     id = Column(Integer, primary_key=True, autoincrement=True)
     timestamp = Column(DateTime, nullable=False, index=True)
@@ -835,8 +835,8 @@ class FearGreedIndex(Base):
     created_at = Column(DateTime, default=utcnow)
     
     __table_args__ = (
-        UniqueConstraint('timestamp', name='uq_fear_greed'),
-        Index('ix_fear_greed_timestamp', 'timestamp'),
+        UniqueConstraint('timestamp', name='uq_alternative_me_fear_greed_index'),
+        Index('ix_alternative_me_fear_greed_index_timestamp', 'timestamp'),
     )
     
     def __repr__(self):
@@ -856,7 +856,7 @@ class EconomicCalendar(Base):
     
     Źródło: Investing.com, ForexFactory, lub manual
     """
-    __tablename__ = 'economic_calendar'
+    __tablename__ = 'manual_economic_calendar'
     
     id = Column(Integer, primary_key=True, autoincrement=True)
     event_date = Column(DateTime, nullable=False, index=True)
@@ -893,4 +893,205 @@ class EconomicCalendar(Base):
     
     def __repr__(self):
         return f"<EconomicCalendar {self.event_name} @ {self.event_date}>"
+
+
+class SentimentPropagation(Base):
+    """
+    Metryki propagacji sentymentu między regionami (APAC, EU, US).
+    
+    Analizuje jak sentyment propaguje się przez strefy czasowe:
+    - APAC (Asia-Pacific): UTC+8 to UTC+12
+    - EU (Europe): UTC+0 to UTC+3
+    - US (Americas): UTC-8 to UTC-3
+    
+    Metryki:
+    - Korelacje z opóźnieniem czasowym (lagged correlations)
+    - Prędkość propagacji (propagation speed)
+    - Amplifikacja/tłumienie sentymentu
+    - Leading region (region wiodący)
+    - Global Activity Index (GAI)
+    """
+    __tablename__ = 'google_trends_sentiment_propagation'
+    
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    timestamp = Column(DateTime, nullable=False, index=True)
+    
+    # Korelacje z opóźnieniem czasowym (lagged correlations)
+    asia_to_eu_corr = Column(Numeric(5, 4), nullable=True)      # Asia → EU (lag 4h)
+    eu_to_us_corr = Column(Numeric(5, 4), nullable=True)        # EU → US (lag 4h)
+    us_to_asia_corr = Column(Numeric(5, 4), nullable=True)      # US → Asia (overnight, lag 12h)
+    
+    # Prędkość propagacji (godziny)
+    propagation_speed_hours = Column(Numeric(4, 2), nullable=True)
+    
+    # Amplifikacja lub tłumienie
+    asia_to_eu_amplification = Column(Numeric(5, 4), nullable=True)  # EU_sentiment / Asia_sentiment
+    eu_to_us_amplification = Column(Numeric(5, 4), nullable=True)    # US_sentiment / EU_sentiment
+    us_to_asia_amplification = Column(Numeric(5, 4), nullable=True)  # Asia_sentiment / US_sentiment
+    
+    # Leading region
+    leading_region = Column(String(10), nullable=True)  # APAC, EU, US, MIXED, NONE
+    
+    # Global Activity Index
+    gai_score = Column(Numeric(10, 4), nullable=True)
+    
+    # Sentyment per region (surowy)
+    asia_sentiment = Column(Numeric(10, 4), nullable=True)
+    eu_sentiment = Column(Numeric(10, 4), nullable=True)
+    us_sentiment = Column(Numeric(10, 4), nullable=True)
+    
+    # Liczba pomiarów per region
+    asia_measurements_count = Column(Integer, default=0)
+    eu_measurements_count = Column(Integer, default=0)
+    us_measurements_count = Column(Integer, default=0)
+    
+    # Metadane
+    calculation_window_hours = Column(Integer, default=24)
+    created_at = Column(DateTime, default=utcnow)
+    
+    __table_args__ = (
+        Index('ix_google_trends_sentiment_propagation_timestamp', 'timestamp'),
+        Index('ix_google_trends_sentiment_propagation_leading_region', 'leading_region', 'timestamp'),
+    )
+    
+    def __repr__(self):
+        return f"<SentimentPropagation @ {self.timestamp} (leading: {self.leading_region}, GAI: {self.gai_score})>"
+
+
+class TopTraderAlert(Base):
+    """
+    Alerty dotyczące aktywności top traderów na dYdX.
+    
+    Alerty są generowane gdy:
+    - Top trader wykonuje dużą transakcję (przekracza threshold)
+    - Top trader zmienia znacząco pozycję (net position change)
+    - Top trader osiąga określony wolumen w oknie czasowym
+    - Top trader ma nietypową aktywność (anomalia)
+    """
+    __tablename__ = 'dydx_top_trader_alerts'
+    
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    alert_timestamp = Column(DateTime, nullable=False, index=True)
+    
+    # Trader info
+    trader_address = Column(String(42), nullable=False, index=True)
+    subaccount_number = Column(Integer, nullable=False)
+    trader_rank = Column(Integer, nullable=True)
+    
+    # Fill info
+    fill_id = Column(String(255), nullable=True)
+    ticker = Column(String(20), nullable=True, index=True)
+    side = Column(String(10), nullable=True)  # BUY, SELL
+    price = Column(Numeric(20, 8), nullable=True)
+    size = Column(Numeric(20, 8), nullable=True)
+    volume_usd = Column(Numeric(20, 2), nullable=True)
+    
+    # Alert type
+    alert_type = Column(String(50), nullable=False, index=True)  # LARGE_TRADE, POSITION_CHANGE, VOLUME_SPIKE, ANOMALY
+    alert_severity = Column(String(20), nullable=False, default='medium', index=True)  # low, medium, high, critical
+    alert_message = Column(Text, nullable=True)
+    
+    # Metrics
+    threshold_value = Column(Numeric(20, 2), nullable=True)
+    actual_value = Column(Numeric(20, 2), nullable=True)
+    net_position_before = Column(Numeric(20, 8), nullable=True)
+    net_position_after = Column(Numeric(20, 8), nullable=True)
+    
+    # Context
+    window_hours = Column(Integer, nullable=True)
+    lookback_hours = Column(Integer, nullable=True)
+    
+    # Status
+    is_read = Column(Boolean, default=False, index=True)
+    is_processed = Column(Boolean, default=False)
+    processed_at = Column(DateTime, nullable=True)
+    
+    # Metadata
+    alert_metadata = Column(Text, nullable=True)  # JSONB jako Text (SQLAlchemy compatibility) - zmienione z 'metadata' (zarezerwowane)
+    created_at = Column(DateTime, default=utcnow)
+    
+    __table_args__ = (
+        Index('ix_dydx_top_trader_alerts_trader', 'trader_address', 'subaccount_number', 'alert_timestamp'),
+        Index('ix_dydx_top_trader_alerts_type', 'alert_type', 'alert_severity', 'alert_timestamp'),
+        Index('ix_dydx_top_trader_alerts_unread', 'is_read', 'alert_timestamp'),
+    )
+    
+    def __repr__(self):
+        return f"<TopTraderAlert {self.alert_type} [{self.alert_severity}] @ {self.alert_timestamp}>"
+
+
+class OrderFlowImbalance(Base):
+    """
+    Metryki Order Flow Imbalance z dYdX.
+    
+    Order Flow Imbalance (OFI) to jedna z najbardziej predykcyjnych zmiennych
+    w handlu wysokofrequencyjnym. Bazuje na obserwacji, że nierównowaga między
+    wolumenem BUY i SELL jest wyprzedzającym wskaźnikiem ruchu ceny.
+    
+    Metryki obliczane co godzinę dla każdego tickera.
+    """
+    __tablename__ = 'dydx_order_flow_imbalance'
+    
+    timestamp = Column(DateTime(timezone=True), primary_key=True)
+    ticker = Column(String(20), primary_key=True)
+    
+    # Wolumeny
+    buy_volume = Column(Numeric(30, 8), nullable=False, default=0)
+    sell_volume = Column(Numeric(30, 8), nullable=False, default=0)
+    total_volume = Column(Numeric(30, 8), nullable=False, default=0)
+    
+    # Order Flow Imbalance
+    order_flow_imbalance = Column(Numeric(10, 6), nullable=False)  # (buy_volume - sell_volume) / total_volume
+    buy_sell_ratio = Column(Numeric(10, 4), nullable=True)
+    
+    # Liczby transakcji
+    buy_count = Column(Integer, nullable=False, default=0)
+    sell_count = Column(Integer, nullable=False, default=0)
+    total_trades = Column(Integer, nullable=False, default=0)
+    
+    # Duże transakcje
+    large_trade_threshold = Column(Numeric(30, 8), nullable=True)
+    large_trade_volume = Column(Numeric(30, 8), default=0)
+    large_trade_count = Column(Integer, default=0)
+    large_trade_ratio = Column(Numeric(10, 6), nullable=True)
+    
+    # Whale transakcje
+    whale_threshold = Column(Numeric(30, 8), nullable=True)
+    whale_volume = Column(Numeric(30, 8), default=0)
+    whale_count = Column(Integer, default=0)
+    whale_ratio = Column(Numeric(10, 6), nullable=True)
+    
+    # Ceny
+    vwap = Column(Numeric(30, 8), nullable=True)
+    avg_price = Column(Numeric(30, 8), nullable=True)
+    min_price = Column(Numeric(30, 8), nullable=True)
+    max_price = Column(Numeric(30, 8), nullable=True)
+    price_range = Column(Numeric(30, 8), nullable=True)
+    price_range_pct = Column(Numeric(10, 6), nullable=True)
+    
+    # Intensywność
+    trades_per_minute = Column(Numeric(10, 4), nullable=True)
+    volume_per_minute = Column(Numeric(30, 8), nullable=True)
+    
+    # Momentum
+    imbalance_change_1h = Column(Numeric(10, 6), nullable=True)
+    volume_change_1h = Column(Numeric(10, 6), nullable=True)
+    price_change_1h = Column(Numeric(10, 6), nullable=True)
+    
+    # Korelacja z OHLCV
+    ohlcv_close_price = Column(Numeric(30, 8), nullable=True)
+    vwap_deviation_pct = Column(Numeric(10, 6), nullable=True)
+    
+    # Metadane
+    calculation_window_minutes = Column(Integer, default=60)
+    created_at = Column(DateTime(timezone=True), default=utcnow)
+    
+    __table_args__ = (
+        Index('ix_dydx_order_flow_imbalance_timestamp', 'timestamp'),
+        Index('ix_dydx_order_flow_imbalance_ticker', 'ticker', 'timestamp'),
+        Index('ix_dydx_order_flow_imbalance_imbalance', 'order_flow_imbalance', 'timestamp'),
+    )
+    
+    def __repr__(self):
+        return f"<OrderFlowImbalance {self.ticker} @ {self.timestamp} (OFI: {self.order_flow_imbalance:.4f})>"
 

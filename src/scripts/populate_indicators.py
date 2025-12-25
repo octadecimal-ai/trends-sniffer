@@ -475,11 +475,11 @@ def load_imf_btc_data(conn):
                         num_value = float(value.strip())
                         
                         if is_premium:
-                            # Zapisz do btc_premium_data jako premium_percent
+                            # Zapisz do imf_btc_premium_data jako premium_percent
                             if not CONFIG_DRY_RUN:
                                 with conn.cursor() as cur:
                                     cur.execute("""
-                                        INSERT INTO btc_premium_data 
+                                        INSERT INTO imf_btc_premium_data 
                                         (country_id, period_date, premium_percent, source)
                                         VALUES (%s, %s, %s, 'imf')
                                         ON CONFLICT (country_id, period_date, source)
@@ -492,11 +492,11 @@ def load_imf_btc_data(conn):
                                         stats['inserted'] += 1
                         
                         elif is_rate:
-                            # Zapisz do btc_premium_data jako parallel_rate
+                            # Zapisz do imf_btc_premium_data jako parallel_rate
                             if not CONFIG_DRY_RUN:
                                 with conn.cursor() as cur:
                                     cur.execute("""
-                                        INSERT INTO btc_premium_data 
+                                        INSERT INTO imf_btc_premium_data 
                                         (country_id, period_date, parallel_rate, source)
                                         VALUES (%s, %s, %s, 'imf')
                                         ON CONFLICT (country_id, period_date, source)
@@ -571,9 +571,9 @@ def main():
             hashrate_count = cur.fetchone()[0]
             print(f"Łączna liczba rekordów w hashrate_data: {hashrate_count}")
             
-            cur.execute("SELECT COUNT(*) FROM btc_premium_data;")
+            cur.execute("SELECT COUNT(*) FROM imf_imf_btc_premium_data;")
             btc_premium_count = cur.fetchone()[0]
-            print(f"Łączna liczba rekordów w btc_premium_data: {btc_premium_count}")
+            print(f"Łączna liczba rekordów w imf_btc_premium_data: {btc_premium_count}")
         
         print("\n✓ Zakończono pomyślnie!")
         return 0

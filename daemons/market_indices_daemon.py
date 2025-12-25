@@ -95,7 +95,7 @@ class MarketIndicesDaemon:
             MarketIndex.__table__,
             FearGreedIndex.__table__,
         ])
-        logger.info("✓ Tabele market_indices i fear_greed_index gotowe")
+        logger.info("✓ Tabele market_indices i alternative_me_fear_greed_index gotowe")
     
     def _save_market_index(self, session, data: dict) -> bool:
         """

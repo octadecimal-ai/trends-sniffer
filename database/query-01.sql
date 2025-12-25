@@ -22,8 +22,8 @@ SELECT
 	AVG(ohlcv.open) AS avg_btc_usd,
     SUM(ohlcv.volume) AS total_volume
 FROM 
-    sentiments_sniff ss
-    JOIN sentiment_measurement sm ON ss.measurement_id = sm.id
+    google_trends_sentiments_sniff ss
+    JOIN google_trends_sentiment_measurement sm ON ss.measurement_id = sm.id
     JOIN bitcoin_sentiment_phrases bsp ON bsp.id = sm.phrase_id
     JOIN countries c ON c.id = sm.country_id
     JOIN regions r ON r.id = c.region_id
@@ -112,8 +112,8 @@ FROM
           AND o.timeframe = '1m'
           AND DATE_TRUNC('minute', o.timestamp AT TIME ZONE 'UTC')::TIME = 
               DATE_TRUNC('minute', (ss.occurrence_time AT TIME ZONE 'UTC')::TIME)
-          AND o.timestamp >= (SELECT MIN(occurrence_time) - INTERVAL '1 hour' FROM sentiments_sniff)
-          AND o.timestamp <= (SELECT MAX(occurrence_time) + INTERVAL '1 hour' FROM sentiments_sniff)
+          AND o.timestamp >= (SELECT MIN(occurrence_time) - INTERVAL '1 hour' FROM google_trends_sentiments_sniff)
+          AND o.timestamp <= (SELECT MAX(occurrence_time) + INTERVAL '1 hour' FROM google_trends_sentiments_sniff)
         ORDER BY o.timestamp DESC
         LIMIT 1
     ) ohlcv ON TRUE

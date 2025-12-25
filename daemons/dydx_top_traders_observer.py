@@ -15,7 +15,7 @@ import time
 import signal
 from datetime import datetime, timezone, timedelta
 from pathlib import Path
-from typing import Optional, List
+from typing import Optional, List, Dict
 from loguru import logger
 
 # Dodaj ścieżkę projektu
@@ -25,7 +25,12 @@ sys.path.insert(0, str(project_root))
 from dotenv import load_dotenv
 from src.services.dydx_top_traders_service import (
     DydxTopTradersService,
-    FillEvent
+    FillEvent,
+    TopTrader
+)
+from src.services.top_trader_alerting_service import (
+    TopTraderAlertingService,
+    AlertConfig
 )
 from src.database.manager import DatabaseManager
 
@@ -84,6 +89,20 @@ class DydxTopTradersObserver:
             address=address
         )
         
+        # Inicjalizacja alertingu
+        self.alerting_service = TopTraderAlertingService(
+            database_url=database_url,
+            config=AlertConfig(
+                large_trade_threshold_usd=10000.0,
+                very_large_trade_threshold_usd=50000.0,
+                critical_trade_threshold_usd=100000.0,
+                volume_spike_multiplier=3.0,
+            )
+        )
+        
+        # Cache top traderów dla alertingu
+        self._top_traders_cache: Dict[tuple, TopTrader] = {}
+        
         # Stan
         self.running = False
         self.last_update = None
@@ -109,11 +128,7 @@ class DydxTopTradersObserver:
         """
         Callback dla fill eventów.
         
-        Tutaj można:
-        - Publikować do message queue (RabbitMQ, Redis, etc.)
-        - Wysyłać webhook
-        - Zapisować do bazy danych
-        - Wysyłać notyfikacje
+        Sprawdza event pod kątem alertów i zapisuje je do bazy.
         """
         logger.info(
             f"Fill event: {event.ticker} {event.side} @ {event.price} "
@@ -121,11 +136,31 @@ class DydxTopTradersObserver:
             f"from {event.address}:{event.subaccount_number}"
         )
         
-        # TODO: Implementacja publikacji eventu
-        # Przykład:
-        # - publish_to_queue(event)
-        # - send_webhook(event)
-        # - save_to_db(event)
+        # Pobierz informacje o traderze z cache
+        trader_key = (event.address, event.subaccount_number)
+        trader = self._top_traders_cache.get(trader_key)
+        
+        # Sprawdź czy event wymaga alertu
+        alert = self.alerting_service.check_fill_event(event, trader)
+        
+        if alert:
+            logger.warning(
+                f"🚨 ALERT [{alert.alert_severity.value.upper()}]: "
+                f"{alert.alert_type.value} - {alert.alert_message}"
+            )
+            
+            # Zapisz alert do bazy
+            self.alerting_service.save_alert(alert)
+        
+        # Aktualizuj metryki tradera (dla volume spike detection)
+        volume_usd = event.size * event.price if event.size and event.price else None
+        if volume_usd:
+            self.alerting_service.update_trader_metrics(
+                event.address,
+                event.subaccount_number,
+                volume_usd,
+                window_hours=1
+            )
     
     def update_ranking(self) -> bool:
         """
@@ -157,6 +192,12 @@ class DydxTopTradersObserver:
                 f"Ranking zaktualizowany: {len(top_traders)} top traderów "
                 f"(okno: {self.window_hours}h)"
             )
+            
+            # Aktualizuj cache top traderów dla alertingu
+            self._top_traders_cache.clear()
+            for trader in top_traders:
+                key = (trader.address, trader.subaccount_number)
+                self._top_traders_cache[key] = trader
             
             # Log szczegółów
             if top_traders:
