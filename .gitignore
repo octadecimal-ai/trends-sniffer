@@ -72,3 +72,10 @@ Thumbs.db
 *.bak
 *.cache
 
+
+# Wrażliwe pliki - 2025-12-30
+master.sh
+daemons/table_monitor_daemon.py
+docs/table_monitor_daemon.md
+src/scripts/trends_sniffer.py
+src/services/trends_sniffer_service.py
